@@ -92,13 +92,16 @@ class Register_Activity : AppCompatActivity() {
 
                     // Xử lý phản hồi từ server
                     val jsonObject = JSONObject(response)
-                    if (jsonObject.getBoolean("success")) {
-                        val displayName = jsonObject.getString("displayName")
-                        Toast.makeText(this@Register_Activity, "User $displayName has registered successfully", Toast.LENGTH_SHORT).show()
+                    if (jsonObject.getBoolean("isSuccess")) {
 
-                        // Chuyển sang Login Activity
-                        val intent = Intent(this@Register_Activity, Login_Activity::class.java)
-                        startActivity(intent)
+                        Toast.makeText(this@Register_Activity, "User $fullname has registered successfully", Toast.LENGTH_SHORT).show()
+
+
+                        // Chuyển sang màn OTP Activity
+                        val intent = Intent(this@Register_Activity, OTP_Activity::class.java)
+                        intent.putExtra("email", email)  // Truyền email qua Intent
+                        intent.putExtra("username", username)  // Truyền username qua Intent
+                        startActivity(intent)  // Mở màn hình OTP
                     } else {
                         val errorMessage = jsonObject.getString("message")
                         Toast.makeText(this@Register_Activity, errorMessage, Toast.LENGTH_SHORT).show()
