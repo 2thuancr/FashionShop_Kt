@@ -95,7 +95,7 @@ class Register_Activity : AppCompatActivity() {
                     if (jsonObject.getBoolean("isSuccess")) {
 
                         Toast.makeText(this@Register_Activity, "User $fullname has registered successfully", Toast.LENGTH_SHORT).show()
-
+                        
 
                         // Chuyển sang màn OTP Activity
                         val intent = Intent(this@Register_Activity, OTP_Activity::class.java)

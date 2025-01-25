@@ -15,7 +15,7 @@
         android:theme="@style/Theme.FashionShop"
         tools:targetApi="31">
         <activity
-            android:name=".Otp_Activity"
+            android:name=".OTP_Activity"
             android:exported="false" />
         <activity
             android:name=".Register_Activity"

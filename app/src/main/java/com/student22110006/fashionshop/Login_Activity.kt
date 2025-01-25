@@ -77,9 +77,26 @@ class Login_Activity : AppCompatActivity() {
 
                     // Thông báo user displayName đã đăng nhập thành công
                     val jsonObject = JSONObject(response)
-                    val displayName = jsonObject.getString("displayName")
-                    Toast.makeText(this@Login_Activity, "User $displayName has logged in successfully", Toast.LENGTH_SHORT).show()
+                    
+                    val isSuccess = jsonObject.getBoolean("isSuccess")
+                    // Nếu login thành công (isSuccess = true), hiển thị thông báo
+                    if (!isSuccess) {
+                        val message = jsonObject.getString("message")
+                        Toast.makeText(this@Login_Activity, message, Toast.LENGTH_SHORT).show()
+                        return@withContext
+                    }
+                    else {
+                        // // Lưu token vào SharedPreferences
+                        // val token = jsonObject.getString("token")
+                        // val sharedPreferences = getSharedPreferences("FashionShop", MODE_PRIVATE)
+                        // val editor = sharedPreferences.edit()
+                        // editor.putString("token", token)
+                        // editor.apply()
 
+                        val data = jsonObject.getJSONObject("data")
+                        val displayName = data.getString("displayName")
+                        Toast.makeText(this@Login_Activity, "User $displayName has logged in successfully", Toast.LENGTH_SHORT).show()
+                    }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
