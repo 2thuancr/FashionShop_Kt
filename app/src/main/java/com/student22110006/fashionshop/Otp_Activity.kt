@@ -21,6 +21,10 @@ class OTP_Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otp)
 
+        // Lấy dữ liệu từ Intent
+        // val email = intent.getStringExtra("email") // Lấy email
+        val username = intent.getStringExtra("username") // Lấy username
+
         // Lắng nghe sự kiện quay lại trang đăng nhập
         val tvBackToLogin = findViewById<TextView>(R.id.tvBackToLogin)
         tvBackToLogin.setOnClickListener {
@@ -36,16 +40,22 @@ class OTP_Activity : AppCompatActivity() {
             if (otp.isEmpty()) {
                 Toast.makeText(this, "Vui lòng nhập mã OTP", Toast.LENGTH_SHORT).show()
             } else {
-                verifyOtp(otp)
+                if (username != null) {
+                    verifyOtp(username, otp)
+                }
+                else {
+                    Toast.makeText(this, "Lỗi: Username không hợp lệ", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
-    private fun verifyOtp(otp: String) {
-        val apiUrl = "https://your-api-endpoint.com/api/VerifyOtp"
+    private fun verifyOtp(username: String, otp: String) {
+        val apiUrl = "https://fashionshop-f0hthbhrevbwdtcj.southeastasia-01.azurewebsites.net/api/Account/VerifyOtp"
 
         val jsonBody = """
             {
+                "userName": "$username",
                 "otp": "$otp"
             }
         """.trimIndent()
@@ -56,7 +66,7 @@ class OTP_Activity : AppCompatActivity() {
                 val response = sendPostRequest(apiUrl, jsonBody)
                 withContext(Dispatchers.Main) {
                     val jsonObject = JSONObject(response)
-                    if (jsonObject.getBoolean("success")) {
+                    if (jsonObject.getBoolean("isSuccess")) {
                         Toast.makeText(this@OTP_Activity, "Xác minh thành công", Toast.LENGTH_SHORT).show()
 
                         // Chuyển sang màn hình tiếp theo (Đăng nhập hoặc thay đổi mật khẩu)
