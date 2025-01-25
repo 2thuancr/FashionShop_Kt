@@ -1,4 +1,4 @@
-package com.student22110006.fashionshop
+package com.student22110006.fashionshop.ui.account
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,15 +11,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.google.gson.Gson
+import com.student22110006.fashionshop.R
+import com.student22110006.fashionshop.data.model.account.AccountRegisterRequest
+import com.student22110006.fashionshop.data.repository.AccountRepository
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
-import java.net.HttpURLConnection
-import java.net.URL
 
-class Register_Activity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
+
+    private val accountRepository = AccountRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +37,7 @@ class Register_Activity : AppCompatActivity() {
         // Chuyển sang màn hình đăng nhập
         val tvLoginPrompt = findViewById<TextView>(R.id.tvLoginPrompt)
         tvLoginPrompt.setOnClickListener {
-            val intent = Intent(this, Login_Activity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
@@ -53,11 +56,13 @@ class Register_Activity : AppCompatActivity() {
             val fullName = findViewById<EditText>(R.id.etFullName).text.toString().trim()
             val username = findViewById<EditText>(R.id.etUsername).text.toString().trim()
             val password = findViewById<EditText>(R.id.etPassword).text.toString().trim()
+
             // Kiểm tra các trường dữ liệu
             if (email.isEmpty() || phoneNumber.isEmpty() || fullName.isEmpty() || username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show()
             } else if (password.length < 6) {
-                Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT)
+                    .show()
             } else {
                 register(email, phoneNumber, fullName, username, password)
             }
@@ -67,78 +72,59 @@ class Register_Activity : AppCompatActivity() {
     private fun register(
         email: String,
         phoneNumber: String,
-        fullname: String,
+        fullName: String,
         username: String,
         password: String
     ) {
-        val apiUrl = "https://fashionshop-f0hthbhrevbwdtcj.southeastasia-01.azurewebsites.net/api/Account/Register"
 
-        val jsonBody = """
-        {
-            "email": "$email",
-            "phoneNumber": "$phoneNumber",
-            "fullName": "$fullname",
-            "userName": "$username",
-            "password": "$password"  
-        }
-    """.trimIndent()
-
-        // Gọi API trong coroutine
-        GlobalScope.launch(Dispatchers.IO) {
+        CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = sendPostRequest(apiUrl, jsonBody)
+                val request = AccountRegisterRequest(
+                    fullName,
+                    phoneNumber,
+                    email,
+                    null, // firebaseId
+                    null, // DoB
+                    null, // address
+                    username,
+                    password
+                )
+                val response = accountRepository.register(request)
+
                 withContext(Dispatchers.Main) {
-                    Log.d("RegisterResponse", response)
 
-                    // Xử lý phản hồi từ server
-                    val jsonObject = JSONObject(response)
-                    if (jsonObject.getBoolean("isSuccess")) {
+                    val jsonResponse = Gson().toJson(response)
+                    Log.d("RegisterResponse", jsonResponse)
 
-                        Toast.makeText(this@Register_Activity, "User $fullname has registered successfully", Toast.LENGTH_SHORT).show()
-                        
+                    // Nếu đăng ký thành công (isSuccess = true), hiển thị thông báo
+                    if (response.isSuccess) {
+
+                        Toast.makeText(
+                            this@RegisterActivity,
+                            "User $fullName has registered successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                         // Chuyển sang màn OTP Activity
-                        val intent = Intent(this@Register_Activity, OTP_Activity::class.java)
+                        val intent = Intent(this@RegisterActivity, OtpActivity::class.java)
                         intent.putExtra("email", email)  // Truyền email qua Intent
                         intent.putExtra("username", username)  // Truyền username qua Intent
                         startActivity(intent)  // Mở màn hình OTP
                     } else {
-                        val errorMessage = jsonObject.getString("message")
-                        Toast.makeText(this@Register_Activity, errorMessage, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@RegisterActivity, response.message, Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Log.e("RegisterError", e.message ?: "Unknown error")
-                    Toast.makeText(this@Register_Activity, "Registration failed: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@RegisterActivity,
+                        "Registration failed: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
-        }
-    }
-
-    private fun sendPostRequest(apiUrl: String, jsonBody: String): String {
-        val url = URL(apiUrl)
-        val connection = url.openConnection() as HttpURLConnection
-        connection.requestMethod = "POST"
-        connection.setRequestProperty("accept", "*/*")
-        connection.setRequestProperty("Content-Type", "application/json")
-        connection.doOutput = true
-        connection.connectTimeout = 10000 // 10 giây timeout
-        connection.readTimeout = 10000
-
-        // Ghi dữ liệu JSON vào output stream
-        connection.outputStream.use { outputStream ->
-            outputStream.write(jsonBody.toByteArray())
-            outputStream.flush()
-        }
-
-        // Đọc kết quả trả về từ server
-        val responseCode = connection.responseCode
-        if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
-            return connection.inputStream.bufferedReader().use { it.readText() }
-        } else {
-            val error = connection.errorStream?.bufferedReader()?.use { it.readText() }
-            throw Exception("HTTP error $responseCode: $error")
         }
     }
 }
