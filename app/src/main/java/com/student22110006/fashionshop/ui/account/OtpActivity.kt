@@ -28,6 +28,7 @@ class OtpActivity : AppCompatActivity() {
         // Lấy dữ liệu từ Intent
         // val email = intent.getStringExtra("email") // Lấy email
         val username = intent.getStringExtra("username") // Lấy username
+        val activity = intent.getStringExtra("activity") // Lấy thông tin Activity
 
         // Lắng nghe sự kiện quay lại trang đăng nhập
         val tvBackToLogin = findViewById<TextView>(R.id.tvBackToLogin)
@@ -45,7 +46,7 @@ class OtpActivity : AppCompatActivity() {
                 Toast.makeText(this, "Vui lòng nhập mã OTP", Toast.LENGTH_SHORT).show()
             } else {
                 if (username != null) {
-                    verifyOtp(username, otp)
+                    verifyOtp(username, otp, activity ?: "")
                 } else {
                     Toast.makeText(this, "Lỗi: Username không hợp lệ", Toast.LENGTH_SHORT).show()
                 }
@@ -53,7 +54,7 @@ class OtpActivity : AppCompatActivity() {
         }
     }
 
-    private fun verifyOtp(username: String, otp: String) {
+    private fun verifyOtp(username: String, otp: String, activity: String = "") {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -66,14 +67,21 @@ class OtpActivity : AppCompatActivity() {
 
                     if (response.isSuccess) {
                         Toast.makeText(this@OtpActivity, "Xác minh thành công", Toast.LENGTH_SHORT)
-                            .show()
+                                .show()
 
-                        // Chuyển sang màn hình tiếp theo (Đăng nhập hoặc thay đổi mật khẩu)
-                        val intent = Intent(this@OtpActivity, LoginActivity::class.java)
-                        startActivity(intent)
+                        if (activity == "forgotPassword") {
+                            // Chuyển sang sang màn hình new password
+                            val intent = Intent(this@OtpActivity, NewPasswordActivity::class.java)
+                            intent.putExtra("username", username) // Truyền username qua Intent
+                            startActivity(intent)
+                        } else {
+                            // Chuyển sang màn hình tiếp theo (Đăng nhập hoặc thay đổi mật khẩu)
+                            val intent = Intent(this@OtpActivity, LoginActivity::class.java)
+                            startActivity(intent)
+                        }
                     } else {
                         Toast.makeText(this@OtpActivity, response.message, Toast.LENGTH_SHORT)
-                            .show()
+                                .show()
                     }
                 }
             } catch (e: Exception) {

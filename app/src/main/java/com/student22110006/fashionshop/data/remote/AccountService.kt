@@ -1,6 +1,8 @@
 package com.student22110006.fashionshop.data.remote
 
 import com.student22110006.fashionshop.data.model.ApiResponse
+import com.student22110006.fashionshop.data.model.account.AccountChangePasswordData
+import com.student22110006.fashionshop.data.model.account.AccountChangePasswordRequest
 import com.student22110006.fashionshop.data.model.account.AccountGenerateOtpData
 import com.student22110006.fashionshop.data.model.account.AccountGenerateOtpRequest
 import com.student22110006.fashionshop.data.model.account.AccountLoginData
@@ -26,4 +28,6 @@ interface AccountService {
     @POST("Account/VerifyOtp")
     suspend fun verifyOtp(@Body verifyOtpRequest: AccountVerifyOtpRequest): ApiResponse<AccountVerifyOtpData>
 
+    @POST("Account/ChangePassword")
+    suspend fun changePassword(@Body changePasswordRequest: AccountChangePasswordRequest): ApiResponse<AccountChangePasswordData>
 }

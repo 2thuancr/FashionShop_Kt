@@ -1,5 +1,6 @@
 package com.student22110006.fashionshop.data.repository
 
+import com.student22110006.fashionshop.data.model.account.AccountChangePasswordRequest
 import com.student22110006.fashionshop.data.model.account.AccountGenerateOtpRequest
 import com.student22110006.fashionshop.data.model.account.AccountLoginRequest
 import com.student22110006.fashionshop.data.model.account.AccountRegisterRequest
@@ -17,4 +18,6 @@ class AccountRepository {
     suspend fun generateOtp(generateOtpRequest: AccountGenerateOtpRequest) = api.generateOtp(generateOtpRequest)
 
     suspend fun verifyOtp(verifyOtpRequest: AccountVerifyOtpRequest) = api.verifyOtp(verifyOtpRequest)
+
+    suspend fun changePassword(changePasswordRequest: AccountChangePasswordRequest) = api.changePassword(changePasswordRequest)
 }

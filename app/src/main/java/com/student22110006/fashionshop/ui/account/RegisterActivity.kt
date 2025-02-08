@@ -109,6 +109,8 @@ class RegisterActivity : AppCompatActivity() {
                         val intent = Intent(this@RegisterActivity, OtpActivity::class.java)
                         intent.putExtra("email", email)  // Truyền email qua Intent
                         intent.putExtra("username", username)  // Truyền username qua Intent
+                        // Truyền thông tin Activity hiện tại qua Intent
+                        intent.putExtra("activity", "register")
                         startActivity(intent)  // Mở màn hình OTP
                     } else {
                         Toast.makeText(this@RegisterActivity, response.message, Toast.LENGTH_SHORT)
