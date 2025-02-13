@@ -12,7 +12,7 @@ object ApiClient {
      * Base URL for the API (notice the trailing slash).
      */
     private const val BASE_URL =
-        "https://localhost:5016/api/"
+        "https://fashion-shop-e3huftgufbb3btcm.southeastasia-01.azurewebsites.net/api/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY // Log toàn bộ request và response
