@@ -57,6 +57,8 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
         }
+        // Lắng nghe sự kiện để chuyển màn hình sang Home
+
 
         // Xử lý insets cho màn hình nếu cần
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
