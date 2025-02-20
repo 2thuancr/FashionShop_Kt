@@ -1,4 +1,4 @@
-package com.student22110006.fashionshop.ui.home
+package com.student22110006.fashionshop.ui.account
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -7,7 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.student22110006.fashionshop.R
 
-class HomeActivity : AppCompatActivity() {
+class LinearLayoutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -17,6 +17,5 @@ class HomeActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        setContentView(R.layout.activity_linear_layout)
     }
 }

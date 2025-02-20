@@ -1,0 +1,11 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Định nghĩa màu nền cho ImageView -->
+    <solid android:color="@color/orange" />
+
+    <!-- Bo góc cho 2 góc dưới -->
+    <corners
+        android:bottomLeftRadius="80dp"
+        android:bottomRightRadius="80dp" />
+</shape>
