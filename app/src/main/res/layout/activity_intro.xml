@@ -14,8 +14,8 @@
 
     <ImageView
         android:id="@+id/imageViewBg"
-        android:layout_width="408dp"
-        android:layout_height="670dp"
+        android:layout_width="416dp"
+        android:layout_height="697dp"
         android:background="@drawable/background_intro"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,7 +23,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.058" />
 
     <ImageView
         android:id="@+id/imageViewLogo"
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Food.Dr"
-        android:textColor="#3d3a38"
+        android:textColor="#6200EE"
         android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/imageViewLogo"
@@ -60,13 +60,14 @@
         android:layout_height="wrap_content"
         android:text="Thức ăn nhanh"
         android:textStyle="bold"
-        android:textColor="#3d3a38"
+        android:textColor="#6200EE"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/imageViewBg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageViewLogo"/>
 
+    <!-- Nút Start -->
     <!-- Nút Start -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/startBtn"
@@ -82,6 +83,21 @@
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageViewBg"
-        app:layout_constraintVertical_bias="0.483" />
+        app:layout_constraintVertical_bias="0.483">
+
+        <!-- Văn bản "Bắt đầu" -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bắt đầu"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
