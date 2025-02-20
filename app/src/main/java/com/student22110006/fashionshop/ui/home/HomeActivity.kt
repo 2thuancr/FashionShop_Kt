@@ -1,4 +1,4 @@
-package com.student22110006.fashionshop.ui.account
+package com.student22110006.fashionshop.ui.home
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -17,6 +17,6 @@ class HomeActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        setContentView(R.layout.activity_home)
     }
 }

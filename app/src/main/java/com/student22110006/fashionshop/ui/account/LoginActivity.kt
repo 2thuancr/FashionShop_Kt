@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,11 +21,22 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.appcompat.widget.SwitchCompat
+import kotlin.random.Random
+
 
 class LoginActivity : AppCompatActivity() {
 
     private val accountRepository = AccountRepository()
+    private lateinit var backgroundImageView: ImageView
+    private lateinit var switchBackground: SwitchCompat
+    private var currentBackgroundIndex = 0
 
+    private val backgroundImages = listOf(
+        R.drawable.top_background1, // Thay bằng tên ảnh thực tế
+        R.drawable.top_background2,
+        //R.drawable.top_background3
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,8 +44,29 @@ class LoginActivity : AppCompatActivity() {
         val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
         windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
         windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars())
-
         setContentView(R.layout.activity_login)
+
+
+        backgroundImageView = findViewById(R.id.imageView)
+        switchBackground = findViewById(R.id.switchBackground)
+
+        // Chọn hình nền ngẫu nhiên khi load app
+        currentBackgroundIndex = Random.nextInt(backgroundImages.size)
+        backgroundImageView.setImageResource(backgroundImages[currentBackgroundIndex])
+
+        // Lắng nghe sự kiện khi Switch thay đổi
+        // Xử lý khi bấm Switch
+        switchBackground.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                var newIndex: Int
+                do {
+                    newIndex = Random.nextInt(backgroundImages.size)
+                } while (newIndex == currentBackgroundIndex)
+
+                currentBackgroundIndex = newIndex
+                backgroundImageView.setImageResource(backgroundImages[currentBackgroundIndex])
+            }
+        }
 
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         btnLogin.setOnClickListener {
@@ -57,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
         }
-        // Lắng nghe sự kiện để chuyển màn hình sang Home
+        // nếu hiện thị thông báo đăng nhập thành công thì chuyển sang màn hình Home
 
 
         // Xử lý insets cho màn hình nếu cần
@@ -82,11 +116,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("LoginResponse", jsonResponse)
 
                     // Nếu login không thành công (isSuccess = false), hiển thị thông báo
-                    if (!response.isSuccess) {
-                        Toast.makeText(this@LoginActivity, response.message, Toast.LENGTH_SHORT)
-                            .show()
-                        return@withContext
-                    } else {
+                    if (response.isSuccess) {
                         // Lưu thông tin user vào SharedPreferences
                         val user = Gson().toJson(response.data)
                         val sharedPreferences = getSharedPreferences("FashionShop", MODE_PRIVATE)
@@ -100,6 +130,8 @@ class LoginActivity : AppCompatActivity() {
                             "User ${response.data?.displayName} has logged in successfully",
                             Toast.LENGTH_SHORT
                         ).show()
+                        // 👉 Chuyển sang màn hình HomeActivity
+
                     }
                 }
             } catch (e: Exception) {
