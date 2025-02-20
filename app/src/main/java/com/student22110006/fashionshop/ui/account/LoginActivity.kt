@@ -32,26 +32,28 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var switchBackground: SwitchCompat
     private var currentBackgroundIndex = 0
 
+    // Các hình nền của giao diện
     private val backgroundImages = listOf(
-        R.drawable.top_background1, // Thay bằng tên ảnh thực tế
+        R.drawable.top_background1,
         R.drawable.top_background2,
         //R.drawable.top_background3
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Sử dụng WindowInsetsControllerCompat để thiết lập chế độ full screen
-        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
-        windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
-        windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars())
         setContentView(R.layout.activity_login)
 
-
+        window.decorView.post {
+            // Sử dụng WindowInsetsControllerCompat để thiết lập chế độ full screen
+            val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+            windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
+            windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars())
+        }
+        // Gắn hình nền
         backgroundImageView = findViewById(R.id.imageView)
         switchBackground = findViewById(R.id.switchBackground)
 
         // Chọn hình nền ngẫu nhiên khi load app
-        currentBackgroundIndex = Random.nextInt(backgroundImages.size)
+        currentBackgroundIndex = Random.nextInt(backgroundImages.size) // Random ảnh nền
         backgroundImageView.setImageResource(backgroundImages[currentBackgroundIndex])
 
         // Lắng nghe sự kiện khi Switch thay đổi
@@ -67,6 +69,8 @@ class LoginActivity : AppCompatActivity() {
                 backgroundImageView.setImageResource(backgroundImages[currentBackgroundIndex])
             }
         }
+
+
 
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         btnLogin.setOnClickListener {
