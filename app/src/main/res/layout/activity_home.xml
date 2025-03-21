@@ -2,95 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeActivity">
 
-
-
-    <!-- Thanh trên cùng màu hồng đậm -->
-    <LinearLayout
-        android:id="@+id/topBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/avatar_meo" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Sản phẩm"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Danh mục"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:queryHint="Tìm kiếm sản phẩm"
-            app:layout_constraintWidth_percent="0.4" />
-
-        <ImageView
-            android:id="@+id/menuIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/categories" />
-    </LinearLayout>
-
-    <!-- Danh sách thương hiệu hàng ngang -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/brandRecyclerView"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:scrollbars="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar"
-        tools:listitem="" />
-
-    <!-- Banner quảng cáo -->
-    <ImageView
-        android:id="@+id/bannerImage"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/banner2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/brandRecyclerView" />
-
-    <!-- Danh sách sản phẩm hiển thị theo lưới -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/productRecyclerView"
+        android:id="@+id/rv_list_product"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bannerImage"
-        app:spanCount="2"
-        tools:listitem="" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

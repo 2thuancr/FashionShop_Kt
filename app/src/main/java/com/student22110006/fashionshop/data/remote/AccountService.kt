@@ -16,7 +16,7 @@ import retrofit2.http.POST
 
 interface AccountService {
 
-    @POST("Account/Login")
+    @POST("Auth/Login")
     suspend fun login(@Body loginRequest: AccountLoginRequest): ApiResponse<AccountLoginData>
 
     @POST("Account/Register")
