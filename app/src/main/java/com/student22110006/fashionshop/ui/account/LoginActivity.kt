@@ -38,6 +38,30 @@ class LoginActivity : AppCompatActivity() {
         R.drawable.top_background2,
         //R.drawable.top_background3
     )
+
+    override fun onStart() {
+        super.onStart()
+
+        val sharedPreferences = getSharedPreferences("FashionShop", MODE_PRIVATE)
+        val userEmail = sharedPreferences.getString("userEmail", null)
+        val userPassword = sharedPreferences.getString("userPassword", null)
+
+        if (userEmail != null && userPassword != null) {
+            // Kiểm tra xem người dùng đã đăng nhập chưa
+            val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+            // Nếu người dùng đã đăng nhập, chuyển sang màn hình chính
+            if (isLoggedIn) {
+                // Người dùng đã đăng nhập, tự động chuyển sang màn hình chính
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+            else {
+                // Người dùng chưa đăng nhập, thực hiện đăng nhập thông qua email và mật khẩu
+                login(userEmail, userPassword)
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -69,8 +93,6 @@ class LoginActivity : AppCompatActivity() {
                 backgroundImageView.setImageResource(backgroundImages[currentBackgroundIndex])
             }
         }
-
-
 
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         btnLogin.setOnClickListener {
@@ -123,9 +145,15 @@ class LoginActivity : AppCompatActivity() {
                     if (response.isSuccess) {
                         // Lưu thông tin user vào SharedPreferences
                         val user = Gson().toJson(response.data)
+
+                        // Sau khi đăng nhập thành công
                         val sharedPreferences = getSharedPreferences("FashionShop", MODE_PRIVATE)
                         val editor = sharedPreferences.edit()
-                        editor.putString("user", user)
+
+                        // Lưu email và password (hãy lưu mật khẩu an toàn nếu cần)
+                        editor.putString("userEmail", userName)
+                        editor.putString("userPassword", password)
+                        editor.putBoolean("isLoggedIn", true)
                         editor.apply()
 
                         // Hiển thị thông báo đăng nhập thành công

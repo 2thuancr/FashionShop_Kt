@@ -1,4 +1,4 @@
-package com.student22110006.fashionshop.ui.notifications.notifications;
+package com.student22110006.fashionshop.ui.notifications;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
