@@ -22,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.appcompat.widget.SwitchCompat
+import com.student22110006.fashionshop.ui.MainActivity
 import com.student22110006.fashionshop.ui.home.HomeActivity
 import kotlin.random.Random
 
@@ -137,7 +138,7 @@ class LoginActivity : AppCompatActivity() {
                         ).show()
 
                         // Chuyển sang màn hình HomeActivity
-                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
                     }
                 }

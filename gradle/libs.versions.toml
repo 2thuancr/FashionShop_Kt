@@ -18,6 +18,8 @@ kotlinxCoroutinesAndroidVersion = "1.10.1"
 lifecycleViewmodelKtx = "2.4.0"
 lifecycleLivedataKtx = "2.4.0"
 materialVersion = "1.11.0"
+navigationFragment = "2.8.9"
+navigationUi = "2.8.9"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -37,6 +39,8 @@ jetbrains-kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name =
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
+androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
