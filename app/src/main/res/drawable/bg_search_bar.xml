@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bg_search_bar xmlns:android="http://schemas.android.com/apk/res/android">
-  
-</bg_search_bar>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="16dp"/>
+    <solid android:color="@android:color/white"/>
+    <padding android:left="8dp" android:right="8dp"/>
+</shape>
