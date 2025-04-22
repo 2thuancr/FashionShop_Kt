@@ -44,12 +44,12 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
         Product product = productList.get(position);
 
         // Set giá trị cho các thành phần giao diện
-        holder.tv_product_name.setText(product.getName());
-        holder.tv_product_price.setText(product.getPrice() + "đ");
+        holder.textProductName.setText(product.getName());
+        holder.textProductPrice.setText(product.getPrice() + "đ");
 
         Glide.with(holder.itemView.getContext())
                 .load(product.getImageUrl())
-                .into(holder.img_product);
+                .into(holder.imageProduct);
 
 
         // TODO thêm sự kiện button Click
@@ -62,17 +62,17 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
     }
 
     class ProductViewHolder extends RecyclerView.ViewHolder{
-        private ImageView img_product;
-        private TextView tv_product_name;
-        private TextView tv_product_price;
-        private Button btn_add_to_cart;
+        private ImageView imageProduct;
+        private TextView textProductName;
+        private TextView textProductPrice;
+        private Button buttonAddToCart;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
-            img_product = (ImageView) itemView.findViewById(R.id.img_product);
-            tv_product_name = (TextView) itemView.findViewById(R.id.tv_product_name);
-            tv_product_price = (TextView) itemView.findViewById(R.id.tv_product_price);
-            btn_add_to_cart = (Button) itemView.findViewById(R.id.btn_add_to_cart);
+            imageProduct = (ImageView) itemView.findViewById(R.id.imageProduct);
+            textProductName = (TextView) itemView.findViewById(R.id.textProductName);
+            textProductPrice = (TextView) itemView.findViewById(R.id.textProductPrice);
+            buttonAddToCart = (Button) itemView.findViewById(R.id.buttonAddToCart);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

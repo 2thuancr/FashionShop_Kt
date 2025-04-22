@@ -1,4 +1,4 @@
-package com.student22110006.fashionshop.ui.ui.home;
+package com.student22110006.fashionshop.ui.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

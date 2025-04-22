@@ -18,7 +18,7 @@ import android.widget.LinearLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.student22110006.fashionshop.adapter.BannerAdapter
 import com.student22110006.fashionshop.adapter.CategoryAdapter
-import com.student22110006.fashionshop.data.model.product.Category
+import com.student22110006.fashionshop.data.model.category.Category
 import com.student22110006.fashionshop.ui.shared.SpaceItemDecoration
 
 class HomeActivity : AppCompatActivity() {
@@ -71,11 +71,36 @@ class HomeActivity : AppCompatActivity() {
         fabCart = findViewById(R.id.fab)
 
         // Tạo danh sách danh mục mẫu
-        categoryList.add(Category("Áo khoác", "https://product.hstatic.net/200000671183/product/khong_fpt_50be7875479d4710ba4622b8c3702c83_1024x1024.jpg"));
-        categoryList.add(Category("Áo Thun", "https://product.hstatic.net/1000360022/product/ao-thun-nam-hoa-tiet-in-xop-noi-luminous-form-regular_202fda29d081498c93fac416891d6633_1024x1024.jpg"));
-        categoryList.add(Category("Áo trẻ em", "https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/473659Eud/rabity-kids-fashion-715939.jpg"));
-        categoryList.add(Category("Áo nữ", "https://file.hstatic.net/1000284478/file/gigi__1_.jpg"));
-        categoryList.add(Category("Áo nam", "https://file.hstatic.net/1000284478/file/artboard_2_f9527c5a59aa4a04b3025612c17b842a.jpg"));
+        categoryList.add(
+            Category(
+                "Áo khoác",
+                "https://product.hstatic.net/200000671183/product/khong_fpt_50be7875479d4710ba4622b8c3702c83_1024x1024.jpg"
+            )
+        );
+        categoryList.add(
+            Category(
+                "Áo Thun",
+                "https://product.hstatic.net/1000360022/product/ao-thun-nam-hoa-tiet-in-xop-noi-luminous-form-regular_202fda29d081498c93fac416891d6633_1024x1024.jpg"
+            )
+        );
+        categoryList.add(
+            Category(
+                "Áo trẻ em",
+                "https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/473659Eud/rabity-kids-fashion-715939.jpg"
+            )
+        );
+        categoryList.add(
+            Category(
+                "Áo nữ",
+                "https://file.hstatic.net/1000284478/file/gigi__1_.jpg"
+            )
+        );
+        categoryList.add(
+            Category(
+                "Áo nam",
+                "https://file.hstatic.net/1000284478/file/artboard_2_f9527c5a59aa4a04b3025612c17b842a.jpg"
+            )
+        );
         // Khởi tạo danh sách sản phẩm
         // Thêm sản phẩm vào danh sách
         listProducts.add(Product(1, "Áo", 120000.0, "Áo đẹp", "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"));

@@ -11,5 +11,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimary">#6200EE</color>
     <color name="orange">#FFA500</color>
-
+    <color name="product_background_color">#F6F6F6</color>
 </resources>

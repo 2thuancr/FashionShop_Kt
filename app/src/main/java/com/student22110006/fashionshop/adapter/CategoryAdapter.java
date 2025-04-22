@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.student22110006.fashionshop.R;
-import com.student22110006.fashionshop.data.model.product.Category;
+import com.student22110006.fashionshop.data.model.category.Category;
 
 import java.util.List;
 

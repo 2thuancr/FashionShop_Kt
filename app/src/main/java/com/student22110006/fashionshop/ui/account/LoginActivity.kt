@@ -6,7 +6,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +22,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.appcompat.widget.SwitchCompat
 import com.student22110006.fashionshop.ui.MainActivity
-import com.student22110006.fashionshop.ui.home.HomeActivity
 import kotlin.random.Random
 
 
