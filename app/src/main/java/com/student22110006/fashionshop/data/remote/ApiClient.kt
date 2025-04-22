@@ -11,7 +11,7 @@ object ApiClient {
     /**
      * Base URL for the API (notice the trailing slash).
      */
-    private const val BASE_URL = "https://a4f2-115-74-132-168.ngrok-free.app/api/"
+    private const val BASE_URL = "https://22110006-fashion-shop.loca.lt/api/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY // Log toàn bộ request và response

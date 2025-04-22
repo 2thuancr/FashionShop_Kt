@@ -12,8 +12,6 @@ import com.student22110006.fashionshop.R
 import com.student22110006.fashionshop.adapter.ListProductAdapter
 import com.student22110006.fashionshop.data.model.product.Product
 import androidx.viewpager2.widget.ViewPager2;
-import java.util.Arrays;
-import java.util.List;
 import android.os.Handler;
 import android.os.Looper
 import android.widget.LinearLayout
@@ -21,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.student22110006.fashionshop.adapter.BannerAdapter
 import com.student22110006.fashionshop.adapter.CategoryAdapter
 import com.student22110006.fashionshop.data.model.product.Category
+import com.student22110006.fashionshop.ui.shared.SpaceItemDecoration
 
 class HomeActivity : AppCompatActivity() {
 
@@ -106,7 +105,11 @@ class HomeActivity : AppCompatActivity() {
         categoryAdapter = CategoryAdapter(this, categoryList)
         rvCategories.adapter = categoryAdapter
 
-        rv_list_product.addItemDecoration(SpaceItemDecoration(200)) // Khoảng cách giữa các item
+        rv_list_product.addItemDecoration(
+            SpaceItemDecoration(
+                200
+            )
+        ) // Khoảng cách giữa các item
 
     }
     private val autoScrollRunnable = object : Runnable {

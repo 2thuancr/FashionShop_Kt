@@ -1,4 +1,4 @@
-package com.student22110006.fashionshop.ui.account
+package com.student22110006.fashionshop.ui
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.student22110006.fashionshop.R
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.content.Intent
+import com.student22110006.fashionshop.ui.account.LoginActivity
 
 
 class IntroActivity : AppCompatActivity() {

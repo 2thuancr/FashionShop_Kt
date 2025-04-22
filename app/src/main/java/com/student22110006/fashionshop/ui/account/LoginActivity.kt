@@ -22,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.appcompat.widget.SwitchCompat
+import com.student22110006.fashionshop.ui.home.HomeActivity
 import kotlin.random.Random
 
 
@@ -134,8 +135,10 @@ class LoginActivity : AppCompatActivity() {
                             "User ${response.data?.displayName} has logged in successfully",
                             Toast.LENGTH_SHORT
                         ).show()
-                        // 👉 Chuyển sang màn hình HomeActivity
 
+                        // Chuyển sang màn hình HomeActivity
+                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        startActivity(intent)
                     }
                 }
             } catch (e: Exception) {
