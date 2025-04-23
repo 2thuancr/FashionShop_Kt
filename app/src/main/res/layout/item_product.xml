@@ -1,54 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="180dp"
-    android:layout_height="220dp"
     android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:padding="8dp"
-    android:background="@android:color/white"
-    android:elevation="4dp"
-    android:layout_margin="8dp">
-
+    android:layout_margin="8dp"
+    android:background="@color/product_background_color">
+    
     <!-- Ảnh sản phẩm -->
     <ImageView
-        android:id="@+id/img_product"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:id="@+id/imageProduct"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:scaleType="fitCenter"
         android:src="@drawable/avatar_meo" />
 
     <!-- Tên sản phẩm -->
     <TextView
-        android:id="@+id/tv_product_name"
+        android:id="@+id/textProductName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sản phầm"
-        android:textSize="12sp"
-        android:textColor="@android:color/black"
-        android:maxLines="2"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
-        android:paddingTop="4dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/colorPrimary"
+        android:text="Tên sản phẩm"
         android:textStyle="bold" />
 
     <!-- Giá sản phẩm -->
     <TextView
-        android:id="@+id/tv_product_price"
-        android:layout_width="wrap_content"
+        android:id="@+id/textProductPrice"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="885.000đ"
-        android:textSize="14sp"
-        android:textColor="@android:color/holo_red_dark"
-        android:textStyle="bold"
-        android:paddingTop="4dp" />
+        android:textColor="@android:color/holo_red_dark" />
 
     <!-- Nút Thêm vào giỏ hàng -->
     <Button
-        android:id="@+id/btn_add_to_cart"
+        android:id="@+id/buttonAddToCart"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:text="Thêm vào giỏ"
+        android:layout_height="44dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@android:color/holo_red_light"
+        android:text="Mua"
         android:textColor="@android:color/white"
-        android:textSize="12sp"
-        android:layout_marginTop="8dp" />
+        android:textSize="12sp" />
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.student22110006.fashionshop.ui.home;
+package com.student22110006.fashionshop.ui.shared;
 
 import android.graphics.Rect;
 import android.view.View;
