@@ -28,9 +28,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.account.LinearLayoutActivity"
-            android:exported="true"></activity>
-        <activity
             android:name=".ui.home.HomeActivity"
             android:exported="true"></activity>
         <activity

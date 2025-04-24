@@ -63,7 +63,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.glide)
     implementation(libs.material.v190)
-
+    
     // Import the Firebase BoM
     implementation(platform(libs.firebase.bom))
     // TODO: Add the dependencies for Firebase products you want to use
