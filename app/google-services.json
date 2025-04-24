@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "894808575444",
+    "project_id": "fashion-shop-kt",
+    "storage_bucket": "fashion-shop-kt.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894808575444:android:23301aa75b33c39a45da41",
+        "android_client_info": {
+          "package_name": "com.example.firebaseapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1u-1aSgyVQoYCM3O5FfPg0-8SJE5g0NY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894808575444:android:679917e0ddc7c60945da41",
+        "android_client_info": {
+          "package_name": "com.student22110006.fashionshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1u-1aSgyVQoYCM3O5FfPg0-8SJE5g0NY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
