@@ -2,7 +2,7 @@
     android:shape="rectangle">
 
     <!-- Định nghĩa màu nền cho ImageView -->
-    <solid android:color="@color/orange" />
+    <solid android:color="@color/color_primary" />
 
     <!-- Bo góc cho 2 góc dưới -->
     <corners

@@ -23,7 +23,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:singleLine="true"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/color_primary"
         android:text="Tên sản phẩm"
         android:textStyle="bold" />
 

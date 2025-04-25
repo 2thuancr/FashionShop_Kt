@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -28,11 +27,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Đăng nhập"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/color_primary_dark"
             android:textSize="28sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <!-- Avatar hình tròn -->
         <de.hdodenhof.circleimageview.CircleImageView
@@ -50,11 +49,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/color_accent"
             android:hint="Nhập email"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:textColor="@color/black"
+            android:textColor="@color/color_black"
             android:textColorHint="@android:color/darker_gray"
             android:drawableStart="@drawable/mail"
             android:drawablePadding="12dp" />
@@ -65,11 +64,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/color_accent"
             android:hint="Nhập mật khẩu"
             android:inputType="textPassword"
             android:minHeight="48dp"
-            android:textColor="@color/black"
+            android:textColor="@color/color_black"
             android:textColorHint="@android:color/darker_gray"
             android:drawableStart="@drawable/password"
             android:drawablePadding="12dp" />
@@ -81,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="24dp"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/color_primary"
             android:minHeight="48dp"
             android:text="Đăng nhập"
             android:textColor="@android:color/white"
@@ -105,7 +104,7 @@
                 android:drawableLeft="@drawable/facebook"
                 android:padding="8dp"
                 android:text="Facebook"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/color_accent"
                 android:textSize="14sp" />
 
             <!-- Khoảng cách giữa hai nút -->
@@ -123,7 +122,7 @@
                 android:drawableLeft="@drawable/google"
                 android:padding="8dp"
                 android:text="Google"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/color_accent"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -162,7 +161,7 @@
             android:id="@+id/switchBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thay đổi nền"/>
+            android:text="Thay đổi nền" />
     </LinearLayout>
 
 </FrameLayout>
