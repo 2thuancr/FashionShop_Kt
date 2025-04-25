@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="product_background_color">#F6F6F6</color>
+    <color name="sale_badge_color">#FF3B30</color>
 
     <!-- Primary Color: Orange tone -->
     <color name="color_primary">#FF6F00</color> <!-- Đậm, nổi bật -->
