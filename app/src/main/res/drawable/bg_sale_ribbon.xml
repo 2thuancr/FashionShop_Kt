@@ -1,0 +1,13 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <gradient
+        android:startColor="@color/color_primary"
+        android:centerColor="@color/sale_badge_color"
+        android:endColor="@color/color_primary_dark"
+        android:angle="45" />
+
+    <corners
+        android:topLeftRadius="8dp"
+        android:bottomRightRadius="8dp" />
+</shape>

@@ -14,16 +14,18 @@ public class Product {
     private int categoryId;
     private String category;
 
-    public Product(int id, String name, double price, String description, String imageUrl) {
+    public Product(int id, String name, double price, double discount, int quantity, String description, String imageUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.discount = discount;
+        this.quantity = quantity;
         this.imageUrl = imageUrl;
     }
 
-    public Product(int id, String name,  double price, String description,
-                   String imageUrl, String brand, double discount, int quantity,
+    public Product(int id, String name, double price, double discount, int quantity,
+                   String description, String imageUrl, String brand,
                    String size, String status, int categoryId, String category) {
         this.id = id;
         this.name = name;

@@ -1,0 +1,30 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Glow nền mờ -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="40dp"
+                android:centerX="50%"
+                android:centerY="50%"
+                android:startColor="#55FF4081"
+                android:endColor="@android:color/transparent" />
+        </shape>
+    </item>
+
+    <!-- Hình dạng chính -->
+    <item
+        android:left="4dp"
+        android:top="4dp"
+        android:right="4dp"
+        android:bottom="4dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/sale_badge_color" />
+            <corners
+                android:topLeftRadius="8dp"
+                android:bottomRightRadius="8dp" />
+        </shape>
+    </item>
+
+</layer-list>

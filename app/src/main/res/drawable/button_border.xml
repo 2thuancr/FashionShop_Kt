@@ -5,7 +5,7 @@
     <!-- Viền màu hồng -->
     <stroke
         android:width="2dp"
-        android:color="@color/colorAccent" />
+        android:color="@color/color_accent" />
 
     <!-- Nền trong suốt -->
     <solid android:color="@android:color/transparent" />

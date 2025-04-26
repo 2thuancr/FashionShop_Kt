@@ -1,49 +1,114 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="200dp"
     android:layout_height="wrap_content"
-    android:padding="8dp"
+    app:cardBackgroundColor="@color/color_surface"
     android:layout_margin="8dp"
-    android:background="@color/product_background_color">
-    
-    <!-- Ảnh sản phẩm -->
-    <ImageView
-        android:id="@+id/imageProduct"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/avatar_meo" />
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
 
-    <!-- Tên sản phẩm -->
-    <TextView
-        android:id="@+id/textProductName"
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:textColor="@color/colorPrimary"
-        android:text="Tên sản phẩm"
-        android:textStyle="bold" />
-
-    <!-- Giá sản phẩm -->
-    <TextView
-        android:id="@+id/textProductPrice"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="885.000đ"
-        android:textColor="@android:color/holo_red_dark" />
+        android:orientation="vertical">
 
-    <!-- Nút Thêm vào giỏ hàng -->
-    <Button
-        android:id="@+id/buttonAddToCart"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@android:color/holo_red_light"
-        android:text="Mua"
-        android:textColor="@android:color/white"
-        android:textSize="12sp" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/imageProduct"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:contentDescription="ProductImage"
+                android:scaleType="centerCrop"
+                android:background="@color/color_gray_100"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/textSaleBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_sale_badge_glow"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="-50%"
+                android:layout_gravity="top|end"
+                android:rotation="0"
+                android:elevation="6dp"
+                android:translationZ="6dp"
+                android:drawableStart="@drawable/ic_discount"
+                android:drawablePadding="4dp"
+                android:visibility="visible" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/textProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ProductName"
+                android:textColor="@color/color_text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textProductDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ProductDescription"
+                android:textColor="@color/color_text_primary"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:id="@+id/textProductPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="599 999 đ"
+                android:textColor="@color/color_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical">
+
+                <!-- Button Add to Cart -->
+                <Button
+                    android:id="@+id/buttonAddToCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:height="32dp"
+                    android:backgroundTint="@color/color_primary"
+                    android:drawableLeft="@drawable/ic_cart"
+                    android:drawablePadding="8dp"
+                    android:ellipsize="end"
+                    android:padding="12dp"
+                    android:text="Add to Cart"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_white"
+                    android:textSize="10sp"
+                    app:icon="@drawable/ic_cart" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

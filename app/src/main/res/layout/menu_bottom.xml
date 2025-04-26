@@ -9,7 +9,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white" />
+        android:background="@color/color_white" />
 
     <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,14 +19,14 @@
         app:layout_anchor="@id/bottomAppBar"
         app:layout_anchorGravity="center"
         android:src="@drawable/avatar_meo"
-        android:backgroundTint="@color/colorPrimary" />
+        android:backgroundTint="@color/color_primary" />
 
     <!-- BottomAppBar -->
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/color_white"
         app:fabCradleMargin="8dp"
         app:fabCradleRoundedCornerRadius="50dp"
         app:fabCradleVerticalOffset="6dp">
@@ -49,11 +49,11 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     app:srcCompat="@drawable/ic_home"
-                    app:tint="@color/colorPrimary" />
+                    app:tint="@color/color_primary" />
 
                 <TextView
                     android:text="Home"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_black"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:textSize="12sp" />
@@ -71,11 +71,11 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     app:srcCompat="@drawable/ic_profile"
-                    app:tint="@color/colorPrimary" />
+                    app:tint="@color/color_primary" />
 
                 <TextView
                     android:text="Profile"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_black"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:textSize="12sp" />
@@ -93,11 +93,11 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     app:srcCompat="@drawable/avatar_meo"
-                    app:tint="@color/colorPrimary" />
+                    app:tint="@color/color_primary" />
 
                 <TextView
                     android:text="Support"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_black"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:textSize="12sp" />
@@ -115,11 +115,11 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     app:srcCompat="@drawable/avatar_meo"
-                    app:tint="@color/colorPrimary" />
+                    app:tint="@color/color_primary" />
 
                 <TextView
                     android:text="Settings"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_black"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:textSize="12sp" />

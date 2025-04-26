@@ -6,6 +6,7 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.student22110006.fashionshop.R
 import com.student22110006.fashionshop.ui.account.LoginActivity
 import kotlinx.coroutines.*
@@ -25,7 +26,7 @@ class IntroActivity : AppCompatActivity() {
         }
 
         // Dùng Coroutine để trì hoãn 3 giây
-        GlobalScope.launch {
+        lifecycleScope.launch {
             delay(3000) // Trì hoãn 3 giây
             val intent = Intent(this@IntroActivity, LoginActivity::class.java)
             startActivity(intent)

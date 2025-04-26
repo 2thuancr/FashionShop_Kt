@@ -23,9 +23,10 @@ import com.student22110006.fashionshop.ui.shared.SpaceItemDecoration
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var rv_list_product : RecyclerView;
-    private var listProducts : ArrayList<Product> = ArrayList<Product>();
-    private lateinit var adapter : ListProductAdapter;
+    private lateinit var rv_list_product: RecyclerView;
+    private var listProducts: ArrayList<Product> = ArrayList<Product>();
+    private lateinit var adapter: ListProductAdapter;
+
     // Khai báo các thành phần giao diện Banner
     private lateinit var viewPager: ViewPager2
     private val imageList = listOf(
@@ -33,6 +34,7 @@ class HomeActivity : AppCompatActivity() {
     )
     private val handler = Handler(Looper.getMainLooper())
     private var currentPage = 0
+
     // Khai báo các thành phần giao diện Category
     private lateinit var rvCategories: RecyclerView
     private lateinit var categoryAdapter: CategoryAdapter
@@ -103,16 +105,116 @@ class HomeActivity : AppCompatActivity() {
         );
         // Khởi tạo danh sách sản phẩm
         // Thêm sản phẩm vào danh sách
-        listProducts.add(Product(1, "Áo", 120000.0, "Áo đẹp", "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"));
-        listProducts.add(Product(2, "Quần", 5000000.0, "Áo đẹp", "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"));
-        listProducts.add(Product(1, "Quần", 5000000.0, "Áo đẹp", "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"));
-        listProducts.add(Product(2, "Quần", 5000000.0, "Áo đẹp", "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"));
-        listProducts.add(Product(2, "Quần", 5000000.0, "Áo đẹp", "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"));
-        listProducts.add(Product(2, "Quần", 5000000.0, "Áo đẹp", "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"));
-        listProducts.add(Product(2, "Quần", 5000000.0, "Áo đẹp", "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"));
-        listProducts.add(Product(2, "Quần", 5000000.0, "Áo đẹp", "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"));
-        listProducts.add(Product(2, "Quần", 5000000.0, "Áo đẹp", "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"));
-        listProducts.add(Product(2, "Quần", 5000000.0, "Áo đẹp", "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"));
+        listProducts.add(
+            Product(
+                1,
+                "Áo",
+                120000.0,
+                12.0,
+                56,
+                "Áo đẹp",
+                "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"
+            )
+        );
+        listProducts.add(
+            Product(
+                2,
+                "Quần",
+                5000000.0,
+                0.0,
+                57,
+                "Áo đẹp",
+                "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"
+            )
+        );
+        listProducts.add(
+            Product(
+                1,
+                "Quần",
+                5000000.0,
+                30.0,
+                67,
+                "Áo đẹp",
+                "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"
+            )
+        );
+        listProducts.add(
+            Product(
+                2,
+                "Quần",
+                5000000.0,
+                70.0,
+                9,
+                "Áo đẹp",
+                "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"
+            )
+        );
+        listProducts.add(
+            Product(
+                2,
+                "Quần",
+                5000000.0,
+                0.0,
+                7,
+                "Áo đẹp",
+                "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"
+            )
+        );
+        listProducts.add(
+            Product(
+                2,
+                "Quần",
+                5000000.0,
+                12.0,
+                5,
+                "Áo đẹp",
+                "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"
+            )
+        );
+        listProducts.add(
+            Product(
+                2,
+                "Quần",
+                5000000.0,
+                0.0,
+                6,
+                "Áo đẹp",
+                "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"
+            )
+        );
+        listProducts.add(
+            Product(
+                2,
+                "Quần",
+                5000000.0,
+                30.0,
+                5,
+                "Áo đẹp",
+                "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"
+            )
+        );
+        listProducts.add(
+            Product(
+                2,
+                "Quần",
+                5000000.0,
+                10.0,
+                6,
+                "Áo đẹp",
+                "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"
+            )
+        );
+        listProducts.add(
+            Product(
+                2,
+                "Quần",
+                5000000.0,
+                0.0,
+                7,
+                "Áo đẹp",
+                "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg"
+            )
+        );
 
 
         // Khởi tạo adapter
@@ -121,7 +223,7 @@ class HomeActivity : AppCompatActivity() {
         rv_list_product.setAdapter(adapter);
         var numberOfColumns = 2;
         var gridLayoutManager = GridLayoutManager(this, numberOfColumns);
-       // var linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        // var linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rv_list_product.setLayoutManager(gridLayoutManager);
 
         // Cấu hình RecyclerView
@@ -137,6 +239,7 @@ class HomeActivity : AppCompatActivity() {
         ) // Khoảng cách giữa các item
 
     }
+
     private val autoScrollRunnable = object : Runnable {
         override fun run() {
             if (currentPage == imageList.size) {
@@ -146,6 +249,7 @@ class HomeActivity : AppCompatActivity() {
             handler.postDelayed(this, 2000) // Chạy lại sau 2 giây
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(autoScrollRunnable) // Xóa handler khi thoát Activity
