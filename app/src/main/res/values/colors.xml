@@ -9,9 +9,9 @@
     <color name="color_primary_light">#FFE0B2</color> <!-- Background nhẹ -->
 
     <!-- Secondary Color: Coral / Red-Orange -->
-    <color name="color_secondary">#FF5722</color> <!-- Cho CTA, nút nổi bật -->
-    <color name="color_secondary_dark">#D84315</color>
-    <color name="color_secondary_light">#FFCCBC</color>
+    <color name="color_secondary">#455A64</color> <!-- Cho CTA, nút nổi bật -->
+    <color name="color_secondary_dark">#1B3A4B</color>
+    <color name="color_secondary_light">#B0BEC5</color>
 
     <!-- Accent / Highlight -->
     <color name="color_accent">#FF9800</color> <!-- Dùng để nhấn mạnh thông tin -->
