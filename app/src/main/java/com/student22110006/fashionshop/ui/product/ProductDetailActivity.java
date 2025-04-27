@@ -2,6 +2,7 @@ package com.student22110006.fashionshop.ui.product;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.chip.Chip;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.adapter.ImageSliderAdapter;
 import com.student22110006.fashionshop.adapter.ListProductAdapter;
@@ -28,6 +30,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private int productId;
     private Product product;
     private ActivityProductDetailBinding binding;
+    private boolean isDescriptionExpanded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         setupViewPager();
         setupSizeChips(sizes);
+        setupSeeMore();
 
         List<Product> similarProducts = getSimilarProducts(productId);
         setupSimilarProducts(similarProducts);
@@ -92,6 +96,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         ImageSliderAdapter adapter = new ImageSliderAdapter(imageUrls);
         binding.viewPagerImages.setAdapter(adapter);
+        binding.viewPagerImagesIndicator.setViewPager2(binding.viewPagerImages);
     }
 
     private void setupSizeChips(String[] sizes) {
@@ -117,12 +122,31 @@ public class ProductDetailActivity extends AppCompatActivity {
         // binding.btnBack.setOnClickListener(v -> finish());
         // Về Home Page
         binding.btnBack.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(ProductDetailActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
+            finish();
         });
 
         binding.btnCart.setOnClickListener(v -> Toast.makeText(this, "Cart clicked", Toast.LENGTH_SHORT).show());
         binding.btnGoToCart.setOnClickListener(v -> Toast.makeText(this, "Go to Cart", Toast.LENGTH_SHORT).show());
         binding.btnBuyNow.setOnClickListener(v -> Toast.makeText(this, "Buy Now clicked", Toast.LENGTH_SHORT).show());
+    }
+
+    private void setupSeeMore() {
+        binding.btnSeeMore.setOnClickListener(v -> {
+            if (isDescriptionExpanded) {
+                // Collapse
+                binding.txtDescription.setMaxLines(3);
+                binding.txtDescription.setEllipsize(TextUtils.TruncateAt.END);
+                binding.btnSeeMore.setText("See More");
+            } else {
+                // Expand
+                binding.txtDescription.setMaxLines(Integer.MAX_VALUE);
+                binding.txtDescription.setEllipsize(null);
+                binding.btnSeeMore.setText("See Less");
+            }
+            isDescriptionExpanded = !isDescriptionExpanded;
+        });
     }
 }
