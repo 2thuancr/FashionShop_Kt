@@ -36,12 +36,12 @@ public class SearchViewModel extends ViewModel {
         return productList;
     }
 
-    public void filterByPrice(double minPrice, double maxPrice) {
+    public void filterProducts(String type, String size) {
+        // Lọc danh sách sản phẩm và postValue lại cho LiveData
         List<Product> filteredList = new ArrayList<>();
+
         for (Product product : productList.getValue()) {
-            if (product.getPrice() >= minPrice && product.getPrice() <= maxPrice) {
-                filteredList.add(product);
-            }
+            filteredList.add(product);
         }
         productList.setValue(filteredList);
     }

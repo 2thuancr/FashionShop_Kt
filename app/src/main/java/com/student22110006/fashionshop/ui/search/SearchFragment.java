@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,42 +80,12 @@ public class SearchFragment extends Fragment {
 
     private void showFilterDialog() {
         // Tạo dialog hoặc bottom sheet để lọc theo các tiêu chí như giá, kích thước, màu sắc, v.v.
-        String[] filterOptions = {"Lọc theo giá", "Lọc theo kích thước", "Lọc theo màu sắc"};
-
-        new AlertDialog.Builder(requireContext())
-                .setTitle("Lọc theo")
-                .setItems(filterOptions, (dialog, which) -> {
-                    switch (which) {
-                        case 0: // Lọc theo giá
-                            showPriceFilterDialog();
-                            break;
-                        case 1: // Lọc theo kích thước
-                            showSizeFilterDialog();
-                            break;
-                        case 2: // Lọc theo màu sắc
-                            showColorFilterDialog();
-                            break;
-                        default:
-                            break;
-                    }
-                })
-                .show();
+        FilterBottomSheetFragment bottomSheet = new FilterBottomSheetFragment();
+        bottomSheet.setOnFilterApplyListener((type, size) -> {
+            // TODO: Gọi ViewModel hoặc cập nhật UI theo bộ lọc
+            searchViewModel.filterProducts(type, size);
+            Toast.makeText(requireContext(), "Loại: " + type + ", Kích thước: " + size, Toast.LENGTH_SHORT).show();
+        });
+        bottomSheet.show(getParentFragmentManager(), "FilterBottomSheet");
     }
-
-    private void showPriceFilterDialog() {
-        // Thực hiện logic lọc theo giá (chọn từ giá thấp đến giá cao hoặc ngược lại);
-        searchViewModel.filterByPrice(200000.0, 7000000.0);
-        Toast.makeText(requireContext(), "Lọc theo giá thành công", Toast.LENGTH_SHORT).show();
-    }
-
-    private void showSizeFilterDialog() {
-        // Thực hiện logic lọc theo kích thước (tạo danh sách các kích thước có sẵn)
-        Toast.makeText(requireContext(), "Lọc theo kích thước (đang phát triển)", Toast.LENGTH_SHORT).show();
-    }
-
-    private void showColorFilterDialog() {
-        // Thực hiện logic lọc theo màu sắc
-        Toast.makeText(requireContext(), "Lọc theo màu sắc (đang phát triển)", Toast.LENGTH_SHORT).show();
-    }
-
 }
