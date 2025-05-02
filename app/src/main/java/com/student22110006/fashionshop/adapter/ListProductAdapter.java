@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -75,7 +76,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
         // private TextView textProductDescription;
         private TextView textProductPrice;
         private TextView textSaleBadge;
-        private Button buttonAddToCart;
+        private ImageButton buttonAddToCart;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
@@ -84,7 +85,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
             // textProductDescription = (TextView) itemView.findViewById(R.id.textProductDescription);
             textProductPrice = (TextView) itemView.findViewById(R.id.textProductPrice);
             textSaleBadge = (TextView) itemView.findViewById(R.id.textSaleBadge);
-            buttonAddToCart = (Button) itemView.findViewById(R.id.buttonAddToCart);
+            buttonAddToCart = (ImageButton) itemView.findViewById(R.id.buttonAddToCart);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

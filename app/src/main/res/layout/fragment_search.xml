@@ -56,16 +56,18 @@
 
             <ImageButton
                 android:id="@+id/btnSort"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="2dp"
                 android:src="@drawable/ic_sort"
                 android:contentDescription="Sort"
                 android:background="?attr/selectableItemBackgroundBorderless" />
 
             <ImageButton
                 android:id="@+id/btnFilter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="2dp"
                 android:src="@drawable/ic_outline_filter"
                 android:contentDescription="Filter"
                 android:background="?attr/selectableItemBackgroundBorderless" />

@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:text="ProductName"
                 android:textColor="@color/color_text_primary"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="599 999 đ"
                 android:textColor="@color/color_primary"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp" />
 
@@ -77,26 +77,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
                 android:gravity="center_vertical">
 
                 <!-- Button Add to Cart -->
-                <Button
+                <ImageButton
                     android:id="@+id/buttonAddToCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:height="32dp"
-                    android:backgroundTint="@color/color_primary"
-                    android:drawableLeft="@drawable/ic_cart"
-                    android:drawablePadding="8dp"
-                    android:ellipsize="end"
-                    android:padding="12dp"
-                    android:text="Add to Cart"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="10sp"
-                    app:icon="@drawable/ic_cart" />
+                    android:layout_marginVertical="8dp"
+                    android:height="36dp"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="32dp"
+                    app:tint="@color/color_primary_light"
+                    android:src="@drawable/ic_cart"
+                    android:contentDescription="Add to Cart"
+                    android:background="@drawable/button_primary_radius" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
