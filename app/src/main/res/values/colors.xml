@@ -26,7 +26,13 @@
     <color name="color_text_primary">#212121</color>
     <color name="color_text_secondary">#757575</color>
     <color name="color_text_inverse">#FFFFFF</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="button_color">#6200EE</color> <!-- tím Material Design -->
+    <!-- Primary text color: đậm, rõ nét -->
+    <color name="text_primary">#212121</color> <!-- Gần với màu đen nhưng nhẹ hơn -->
 
+    <!-- Secondary text color: nhẹ nhàng hơn để không lấn át nội dung chính -->
+    <color name="text_secondary">#757575</color> <!-- Màu xám trung tính -->
     <!-- 🎯 State Colors -->
     <color name="color_pressed">#FFB74D</color>        <!-- Touch feedback -->
     <color name="color_info">#29B6F6</color>
