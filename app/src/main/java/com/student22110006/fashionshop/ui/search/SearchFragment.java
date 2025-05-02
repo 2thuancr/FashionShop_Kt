@@ -1,36 +1,61 @@
 package com.student22110006.fashionshop.ui.search;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.student22110006.fashionshop.R;
+import com.student22110006.fashionshop.adapter.ListProductAdapter;
 import com.student22110006.fashionshop.databinding.FragmentSearchBinding;
-import com.student22110006.fashionshop.ui.notifications.NotificationsViewModel;
+import com.student22110006.fashionshop.data.model.product.Product;
+
+import java.util.List;
 
 public class SearchFragment extends Fragment {
 
     private FragmentSearchBinding binding;
+    private ListProductAdapter adapter;
+    private SearchViewModel searchViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        SearchViewModel searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+        searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
 
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSearch;
-        searchViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        // Thiết lập EditText
+        binding.searchEditText.requestFocus();
+
+        binding.btnSort.setOnClickListener(v -> {
+            // TODO: Mở hộp thoại sắp xếp hoặc thay đổi cách sắp xếp danh sách
+            showSortDialog();
+        });
+
+        binding.btnFilter.setOnClickListener(v -> {
+            // TODO: Mở hộp thoại lọc hoặc chuyển sang màn hình lọc
+            showFilterDialog();
+        });
+
+        // Thiết lập RecyclerView
+        binding.recyclerViewProducts.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+
+        // Lắng nghe LiveData sản phẩm từ ViewModel
+        searchViewModel.getProductList().observe(getViewLifecycleOwner(), products -> {
+            adapter = new ListProductAdapter(requireContext(), products);
+            binding.recyclerViewProducts.setAdapter(adapter);
+        });
+
         return root;
     }
 
@@ -39,4 +64,57 @@ public class SearchFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    private void showSortDialog() {
+        String[] sortOptions = {"Giá tăng dần", "Giá giảm dần", "Khuyến mãi tăng dần", "Khuyến mãi giảm dần", "Tên A-Z", "Tên Z-A",};
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Sắp xếp theo")
+                .setItems(sortOptions, (dialog, which) -> {
+                    // Gọi hàm sortProducts() của ViewModel để thực hiện sắp xếp
+                    searchViewModel.sortProducts(which);
+                })
+                .show();
+    }
+
+    private void showFilterDialog() {
+        // Tạo dialog hoặc bottom sheet để lọc theo các tiêu chí như giá, kích thước, màu sắc, v.v.
+        String[] filterOptions = {"Lọc theo giá", "Lọc theo kích thước", "Lọc theo màu sắc"};
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Lọc theo")
+                .setItems(filterOptions, (dialog, which) -> {
+                    switch (which) {
+                        case 0: // Lọc theo giá
+                            showPriceFilterDialog();
+                            break;
+                        case 1: // Lọc theo kích thước
+                            showSizeFilterDialog();
+                            break;
+                        case 2: // Lọc theo màu sắc
+                            showColorFilterDialog();
+                            break;
+                        default:
+                            break;
+                    }
+                })
+                .show();
+    }
+
+    private void showPriceFilterDialog() {
+        // Thực hiện logic lọc theo giá (chọn từ giá thấp đến giá cao hoặc ngược lại);
+        searchViewModel.filterByPrice(200000.0, 7000000.0);
+        Toast.makeText(requireContext(), "Lọc theo giá thành công", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showSizeFilterDialog() {
+        // Thực hiện logic lọc theo kích thước (tạo danh sách các kích thước có sẵn)
+        Toast.makeText(requireContext(), "Lọc theo kích thước (đang phát triển)", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showColorFilterDialog() {
+        // Thực hiện logic lọc theo màu sắc
+        Toast.makeText(requireContext(), "Lọc theo màu sắc (đang phát triển)", Toast.LENGTH_SHORT).show();
+    }
+
 }
