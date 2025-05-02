@@ -7,7 +7,7 @@
     android:paddingBottom="@dimen/bottom_navigation_height"
     android:background="#F5F5F5"
     tools:context=".ui.MainActivity">
-    
+
     <TextView
         android:id="@+id/textProfile"
         android:layout_width="match_parent"
@@ -249,9 +249,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:text="Password:"
                                 android:textColor="#182693"
-                                android:textSize="18sp"
-                                android:text="Password:" />
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textView7"
@@ -261,7 +261,7 @@
                                 android:text="Change"
                                 android:textAlignment="viewEnd"
                                 android:textColor="#000000"
-                                android:textSize="18sp" />
+                                android:textSize="15sp" />
                         </LinearLayout>
 
                         <View
@@ -287,7 +287,7 @@
                                 android:layout_weight="1"
                                 android:text="Phone:"
                                 android:textColor="#182693"
-                                android:textSize="18sp" />
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textView10"
@@ -297,7 +297,7 @@
                                 android:text="0364886745"
                                 android:textAlignment="viewEnd"
                                 android:textColor="#000000"
-                                android:textSize="18sp" />
+                                android:textSize="15sp" />
 
                         </LinearLayout>
 
@@ -324,7 +324,7 @@
                                 android:layout_weight="1"
                                 android:text="Address:"
                                 android:textColor="#182693"
-                                android:textSize="18sp" />
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textView11"
@@ -334,7 +334,7 @@
                                 android:text="Bom Bo - Bù Đăng - Bình Phước"
                                 android:textAlignment="viewEnd"
                                 android:textColor="#000000"
-                                android:textSize="18sp" />
+                                android:textSize="15sp" />
 
                         </LinearLayout>
 
