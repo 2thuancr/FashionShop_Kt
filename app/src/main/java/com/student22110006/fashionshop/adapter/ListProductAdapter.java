@@ -1,6 +1,7 @@
 package com.student22110006.fashionshop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.data.model.product.Product;
+import com.student22110006.fashionshop.ui.product.ProductDetailActivity;
 
 import java.util.List;
 
@@ -89,8 +91,11 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
                 public void onClick(View view) {
                     // Lấy ra item product tại vị trí position
                     Product product = productList.get(getAdapterPosition());
-                    // Hiển thị thông báo sản phẩm được chọn
-                    Toast.makeText(context, product.getName(), Toast.LENGTH_SHORT).show();
+
+                    // Chuyển sang màn hình Product Detail
+                    Intent intent = new Intent(context, ProductDetailActivity.class);
+                    intent.putExtra("productId", product.getId());
+                    context.startActivity(intent);
                 }
             });
 

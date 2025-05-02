@@ -2,6 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="60dp"
     android:fitsSystemWindows="true">
 
@@ -9,46 +10,100 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="@dimen/layout_padding">
 
         <!-- Banner -->
-        <ImageView
-            android:id="@+id/bannerImage"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerImages"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/background_01" />
+            android:layout_height="120dp"
+            android:layout_marginTop="@dimen/default_margin_top"
+            app:layout_constraintTop_toBottomOf="@id/top_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+            android:id="@+id/viewPagerImagesIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/default_margin_top"
+            app:layout_constraintTop_toBottomOf="@id/viewPagerImages"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Danh mục -->
-        <TextView
-            android:text="Danh mục"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            android:layout_height="32dp"
-            android:layout_width="match_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/layout_padding"
+            android:background="@drawable/bg_section_header"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/default_margin_top">
+
+            <TextView
+                android:id="@+id/tvCategoriesTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Danh mục"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_primary" />
+
+            <TextView
+                android:id="@+id/tvViewAllCategories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xem tất cả"
+                android:textSize="14sp"
+                android:textColor="@color/color_secondary"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <!-- RecyclerView danh mục -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categoryRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="@dimen/default_margin_top" />
 
         <!-- Sản phẩm nổi bật -->
-        <TextView
-            android:text="Sản phẩm nổi bật"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="24dp"
-            android:layout_height="32dp"
-            android:layout_width="match_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/layout_padding"
+            android:background="@drawable/bg_section_header"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/default_margin_top">
+
+            <TextView
+                android:id="@+id/tvFeaturedProductsTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sản phẩm nổi bật"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_primary" />
+
+            <TextView
+                android:id="@+id/tvViewAllProducts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xem tất cả"
+                android:textSize="14sp"
+                android:textColor="@color/color_secondary"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/featuredProductsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="@dimen/default_margin_top" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

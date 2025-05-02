@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,12 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.student22110006.fashionshop.adapter.CategoryAdapter;
+import com.student22110006.fashionshop.adapter.ImageSliderAdapter;
 import com.student22110006.fashionshop.adapter.ListProductAdapter;
 import com.student22110006.fashionshop.data.model.category.Category;
 import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
     private ArrayList<Category> listCategories = new ArrayList<Category>();
@@ -32,19 +36,10 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // categoryRecyclerView
-        final RecyclerView categoriesRecyclerView = binding.categoryRecyclerView;
-        categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
-        LoadCategoryData();
-        CategoryAdapter categoriesAdapter = new CategoryAdapter(this.getContext(), this.listCategories);
-        categoriesRecyclerView.setAdapter(categoriesAdapter);
+        setupViewPager();
+        setupCategories();
+        setupFeaturedProducts();
 
-        // featuredProductsRecyclerView
-        final RecyclerView featuredProductsRecyclerView = binding.featuredProductsRecyclerView;
-        featuredProductsRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
-        LoadFeaturedProductData();
-        ListProductAdapter featuredProductsAdapter = new ListProductAdapter(this.getContext(), this.listProducts);
-        featuredProductsRecyclerView.setAdapter(featuredProductsAdapter);
         return root;
     }
 
@@ -70,5 +65,49 @@ public class HomeFragment extends Fragment {
         listProducts.add(new Product(3, "MLB - Áo thun unisex cổ tròn tay ngắn Basic Coopers", 5000000.0, 0.0, 4, "MLB - Áo thun unisex cổ tròn tay ngắn Basic Coopers", "https://product.hstatic.net/200000642007/product/50ivs_3atsb1153_2_178394b32f8e4b52aa7871a37561a90c_a98589dd19e048cdacc3eedf2921e188_grande.jpg"));
         listProducts.add(new Product(4, "MLB - Áo sweatshirt unisex Basic Gorpcore Woven Piste", 5000000.0, 12.0, 6, "MLB - Áo sweatshirt unisex Basic Gorpcore Woven Piste", "https://product.hstatic.net/200000642007/product/50bks_3amtb0851_2_ca3f7d7fa01b48a5948ccd8b2b5198c6_1634db3329414fe3b01b7ff5b96212c9_grande.jpg"));
         listProducts.add(new Product(5, "MLB - Áo sweatshirt unisex cổ tròn tay dài College T Varsity", 5000000.0, 0.0, 15, "MLB - Áo sweatshirt unisex cổ tròn tay dài College T Varsity", "https://product.hstatic.net/200000642007/product/50crs_3amtv0651_2_e7e58bfad69a4b14a8f5c959513e31d3_d0ab112619dd4e2cb0520ffc1b2794df_grande.jpg"));
+    }
+
+    private void setupViewPager() {
+        List<String> imageUrls = new ArrayList<>();
+        imageUrls.add("https://file.hstatic.net/1000284478/file/25_1920x700_96fa105db37a40a29f055cd5d09869dd.jpg");
+        imageUrls.add("https://file.hstatic.net/200000642007/file/1920x640_vn_723159492c914c908dabd24c00da338c.jpg");
+        imageUrls.add("https://file.hstatic.net/1000284478/file/owen_1920x700_240be40b27fe41efa37472acf3259c19.jpg");
+        imageUrls.add("https://file.hstatic.net/1000284478/file/1920x700_3.jpg");
+
+        ImageSliderAdapter adapter = new ImageSliderAdapter(imageUrls);
+        binding.viewPagerImages.setAdapter(adapter);
+        binding.viewPagerImagesIndicator.setViewPager2(binding.viewPagerImages);
+    }
+
+    private void setupCategories() {
+        final RecyclerView categoriesRecyclerView = binding.categoryRecyclerView;
+        categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+        LoadCategoryData();
+        CategoryAdapter categoriesAdapter = new CategoryAdapter(this.getContext(), this.listCategories);
+        categoriesRecyclerView.setAdapter(categoriesAdapter);
+
+        final TextView tvViewAllCategories = binding.tvViewAllCategories;
+        tvViewAllCategories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Xem tất cả danh mục", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setupFeaturedProducts() {
+        final RecyclerView featuredProductsRecyclerView = binding.featuredProductsRecyclerView;
+        featuredProductsRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+        LoadFeaturedProductData();
+        ListProductAdapter featuredProductsAdapter = new ListProductAdapter(this.getContext(), this.listProducts);
+        featuredProductsRecyclerView.setAdapter(featuredProductsAdapter);
+
+        final TextView tvViewAllProducts = binding.tvViewAllProducts;
+        tvViewAllProducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Xem tất cả sản phẩm", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
