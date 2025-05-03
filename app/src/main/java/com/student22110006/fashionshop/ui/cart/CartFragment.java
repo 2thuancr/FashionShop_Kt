@@ -15,16 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.adapter.CartProductAdapter;
+import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.FragmentCartBinding;
-import com.student22110006.fashionshop.databinding.FragmentSettingsBinding;
-import com.student22110006.fashionshop.ui.notifications.NotificationsViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CartFragment extends Fragment {
 
@@ -38,10 +36,8 @@ public class CartFragment extends Fragment {
             "123 Oxford Rd, Birmingham B1 1AA, UK\nContact: +44-70011AA"
     };
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCartBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -53,39 +49,14 @@ public class CartFragment extends Fragment {
         cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
         cartViewModel.loadProductData();
 
-        adapter = new CartProductAdapter(requireContext(), new ArrayList<>());
-        binding.rvCartProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.rvCartProducts.setAdapter(adapter);
-
-        binding.ivChangeAddress.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            builder.setTitle("Select Delivery Address");
-
-            builder.setItems(addresses, (dialog, which) -> {
-                String address = addresses[which];
-                saveAddressToPrefs(address);
-                binding.tvAddress.setText(address);
-                Toast.makeText(requireContext(), "Address selected", Toast.LENGTH_SHORT).show();
-            });
-
-            builder.setNegativeButton("Cancel", null);
-            builder.show();
-        });
-
-        binding.btnPlaceOrder.setOnClickListener(v -> {
-            double total = cartViewModel.getTotalPrice();
-            // TODO: Thực hiện logic đặt hàng
-            Toast.makeText(requireContext(), "Order placed! Total: $" + total, Toast.LENGTH_LONG).show();
-        });
-
+        setupRecyclerView();
+        setupSelectAllCheckbox();
+        setupChangeAddress();
+        setupPlaceOrderButton();
 
         cartViewModel.getCartProducts().observe(getViewLifecycleOwner(), products -> {
-            adapter = new CartProductAdapter(requireContext(), products);
-            binding.rvCartProducts.setAdapter(adapter);
-
-            // Optional: update total price
-            double total = cartViewModel.getTotalPrice();
-            binding.tvTotalPrice.setText(String.format("$%.2f", total));
+            adapter.updateList(products);
+            updateTotalPrice(products);
         });
 
         String saved = getSavedAddress();
@@ -94,10 +65,69 @@ public class CartFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    private void setupRecyclerView() {
+        adapter = new CartProductAdapter(requireContext(), new ArrayList<>());
+        binding.rvCartProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.rvCartProducts.setAdapter(adapter);
+
+        adapter.setOnSelectionChangeListener(allSelected -> {
+            binding.checkboxSelectAll.setOnCheckedChangeListener(null);
+            binding.checkboxSelectAll.setChecked(allSelected);
+            setupSelectAllCheckbox(); // Gán lại listener sau khi cập nhật state
+        });
+    }
+
+    private void setupSelectAllCheckbox() {
+        binding.checkboxSelectAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            adapter.selectAllItems(isChecked);
+        });
+    }
+
+    private void setupChangeAddress() {
+        binding.ivChangeAddress.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Select Delivery Address");
+            builder.setItems(addresses, (dialog, which) -> {
+                String address = addresses[which];
+                saveAddressToPrefs(address);
+                binding.tvAddress.setText(address);
+                Toast.makeText(requireContext(), "Address selected", Toast.LENGTH_SHORT).show();
+            });
+            builder.setNegativeButton("Cancel", null);
+            builder.show();
+        });
+    }
+
+    private void setupPlaceOrderButton() {
+        binding.btnPlaceOrder.setOnClickListener(v -> {
+            List<Product> selectedProducts = adapter.getSelectedProducts();
+            if (selectedProducts == null || selectedProducts.isEmpty()) {
+                Toast.makeText(requireContext(), "Your cart is empty!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String address = binding.tvAddress.getText().toString();
+            if (address == null || address.trim().isEmpty()) {
+                Toast.makeText(requireContext(), "Please select a delivery address", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("Order Placed")
+                    .setMessage("Your order has been placed successfully!")
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        cartViewModel.setCartProducts(new ArrayList<>());
+                    })
+                    .show();
+        });
+    }
+
+    private void updateTotalPrice(List<Product> products) {
+        double total = 0;
+        for (Product p : products) {
+            total += p.getPrice();
+        }
+        binding.tvTotalPrice.setText(String.format("$%.2f", total));
     }
 
     private void saveAddressToPrefs(String address) {
@@ -110,4 +140,9 @@ public class CartFragment extends Fragment {
         return prefs.getString("delivery_address", null);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

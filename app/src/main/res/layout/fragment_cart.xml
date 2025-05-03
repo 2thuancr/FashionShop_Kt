@@ -74,6 +74,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <!-- Select All Checkbox -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="end">
+
+            <CheckBox
+                android:id="@+id/checkbox_select_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select All"
+                android:textSize="14sp"
+                android:textColor="@color/color_text_primary" />
+        </LinearLayout>
+
         <!-- Product List -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCartProducts"
