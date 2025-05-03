@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/navigation_notification"
-        android:name="com.student22110006.fashionshop.ui.wishlist.WishlistFragment"
+        android:name="com.student22110006.fashionshop.ui.notifications.NotificationsFragment"
         android:label="@string/title_notification"
         tools:layout="@layout/fragment_notifications" />
 
