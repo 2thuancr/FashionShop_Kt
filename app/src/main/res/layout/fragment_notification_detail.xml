@@ -5,6 +5,7 @@
     android:id="@+id/notification_detail_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/bottom_navigation_height"
     tools:context=".ui.notifications.NotificationDetailFragment">
 
     <!-- Nội dung chính với AppBar + Scroll -->
@@ -32,9 +33,7 @@
         <!-- Scroll nội dung thông báo -->
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="72dp"
-            android:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"

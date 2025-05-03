@@ -15,15 +15,20 @@ import java.util.List;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> {
     private List<Notification> notificationList;
+    private final OnNotificationClickListener listener;
 
-    public NotificationAdapter(List<Notification> notificationList) {
+    public interface OnNotificationClickListener {
+        void onNotificationClick(Notification notification);
+    }
+
+    public NotificationAdapter(List<Notification> notificationList, OnNotificationClickListener listener) {
         this.notificationList = notificationList;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public NotificationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Sử dụng ItemNotificationBinding thay vì NotificationItemBinding
         ItemNotificationBinding binding = ItemNotificationBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new NotificationViewHolder(binding);
     }
@@ -43,6 +48,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         } else {
             holder.binding.dot.setVisibility(View.GONE);
         }
+
+        holder.itemView.setOnClickListener(v -> listener.onNotificationClick(notification));
     }
 
     @Override

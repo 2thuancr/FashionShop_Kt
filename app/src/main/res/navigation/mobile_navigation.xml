@@ -30,6 +30,12 @@
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
+        android:id="@+id/navigation_notification_detail"
+        android:name="com.student22110006.fashionshop.ui.notifications.NotificationDetailFragment"
+        android:label="@string/title_notification_detail"
+        tools:layout="@layout/fragment_notification_detail" />
+
+    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.student22110006.fashionshop.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
