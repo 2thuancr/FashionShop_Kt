@@ -1,4 +1,4 @@
-package com.student22110006.fashionshop.ui.notifications;
+package com.student22110006.fashionshop.adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,14 +8,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.student22110006.fashionshop.data.model.notification.Notification;
 import com.student22110006.fashionshop.databinding.ItemNotificationBinding;
 
 import java.util.List;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> {
-    private List<MyNotification> notificationList;
+    private List<Notification> notificationList;
 
-    public NotificationAdapter(List<MyNotification> notificationList) {
+    public NotificationAdapter(List<Notification> notificationList) {
         this.notificationList = notificationList;
     }
 
@@ -29,7 +30,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
-        MyNotification notification = notificationList.get(position);
+        Notification notification = notificationList.get(position);
         Log.d("NotificationAdapter", "Binding: " + notification.getTitle() + " at position " + position);
         holder.binding.title.setText(notification.getTitle());
         holder.binding.message.setText(notification.getMessage());

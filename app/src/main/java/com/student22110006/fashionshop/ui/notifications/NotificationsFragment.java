@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.student22110006.fashionshop.R;
+import com.student22110006.fashionshop.adapter.NotificationAdapter;
+import com.student22110006.fashionshop.data.model.notification.Notification;
 import com.student22110006.fashionshop.databinding.FragmentNotificationsBinding;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import java.util.List;
 public class NotificationsFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
-    private List<MyNotification> notificationList;  // Sử dụng lớp MyNotification thay vì Notification
+    private List<Notification> notificationList;  // Sử dụng lớp MyNotification thay vì Notification
     private NotificationAdapter adapter;
     private NotificationsViewModel notificationsViewModel;
 
@@ -51,8 +53,8 @@ public class NotificationsFragment extends Fragment {
     }
 
     private void loadDummyData() {
-        notificationList.add(new MyNotification("Mừng tháng sinh nhật 🎁", "💥 Nhận voucher giảm 20%", "1 ngày trước", R.drawable.ic_gift, true));
-        notificationList.add(new MyNotification("ƯU ĐÃI TỪ PHILIPS", "✨ Dành riêng cho Maisonista", "25/04/2025", R.drawable.ic_speaker, false));
+        notificationList.add(new Notification("Mừng tháng sinh nhật 🎁", "💥 Nhận voucher giảm 20%", "1 ngày trước", R.drawable.ic_gift, true));
+        notificationList.add(new Notification("ƯU ĐÃI TỪ PHILIPS", "✨ Dành riêng cho Maisonista", "25/04/2025", R.drawable.ic_speaker, false));
         Log.d("NotificationsFragment", "Dummy data loaded: " + notificationList.size());
         adapter.notifyDataSetChanged();
     }
