@@ -24,10 +24,10 @@
         tools:layout="@layout/fragment_cart" />
 
     <fragment
-        android:id="@+id/navigation_wishlist"
+        android:id="@+id/navigation_notification"
         android:name="com.student22110006.fashionshop.ui.wishlist.WishlistFragment"
-        android:label="@string/title_wishlist"
-        tools:layout="@layout/fragment_wishlist" />
+        android:label="@string/title_notification"
+        tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_profile"
