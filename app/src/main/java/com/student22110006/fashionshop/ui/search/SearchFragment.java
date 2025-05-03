@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,7 +50,7 @@ public class SearchFragment extends Fragment {
         });
 
         // Thiết lập RecyclerView
-        binding.recyclerViewProducts.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        binding.recyclerViewProducts.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
         // Lắng nghe LiveData sản phẩm từ ViewModel
         searchViewModel.getProductList().observe(getViewLifecycleOwner(), products -> {

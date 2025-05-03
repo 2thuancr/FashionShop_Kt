@@ -11,8 +11,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="@color/background_color_primary">
+        android:background="@color/color_primary_light">
 
+        <!-- Tiêu đề bộ lọc -->
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
@@ -24,6 +25,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="12dp" />
 
+        <!-- Loại sản phẩm -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,11 +40,12 @@
             android:textColor="@color/color_text_primary"
             android:layout_marginBottom="12dp" />
 
+        <!-- Kích thước sản phẩm -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_primary"
             android:text="Kích thước"
+            android:textColor="@color/color_primary"
             android:layout_marginTop="8dp" />
 
         <Spinner
@@ -52,19 +55,25 @@
             android:textColor="@color/color_text_primary"
             android:layout_marginBottom="12dp" />
 
+        <!-- Bộ lọc giá -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_primary"
             android:text="Giá"
+            android:textColor="@color/color_primary"
             android:layout_marginTop="8dp" />
 
         <SeekBar
-            android:id="@+id/seekBarPrice"
+            android:id="@+id/seekBarMinPrice"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:progressBackgroundTint="@color/color_primary_light"
+            android:progressTint="@color/color_primary_dark"
+            android:progressBackgroundTintMode="add"
             android:max="1000000"
-            android:progress="500000" />
+            android:progress="0"
+            android:stepSize="100000"
+            android:thumb="@drawable/seekbar_thumb" />
 
         <TextView
             android:id="@+id/tvMinPrice"
@@ -74,6 +83,19 @@
             android:textColor="@color/color_text_primary"
             android:textSize="14sp" />
 
+        <SeekBar
+            android:id="@+id/seekBarMaxPrice"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:progressBackgroundTint="@color/color_primary_light"
+            android:progressTint="@color/color_primary_dark"
+            android:progressBackgroundTintMode="add"
+            android:max="1000000"
+            android:progress="500000"
+            android:stepSize="100000"
+            android:min="500000"
+            android:thumb="@drawable/seekbar_thumb" />
+
         <TextView
             android:id="@+id/tvMaxPrice"
             android:layout_width="wrap_content"
@@ -82,13 +104,16 @@
             android:textColor="@color/color_text_primary"
             android:textSize="14sp" />
 
+
+        <!-- Nút áp dụng bộ lọc -->
         <Button
             android:id="@+id/btnApply"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Áp dụng"
             android:backgroundTint="?attr/colorPrimary"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp" />
 
     </LinearLayout>
 

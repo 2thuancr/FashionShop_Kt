@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -48,7 +49,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
 
         // Set giá trị cho các thành phần giao diện
         holder.textProductName.setText(product.getName());
-        holder.textProductDescription.setText(product.getDescription());
+        // holder.textProductDescription.setText(product.getDescription());
         holder.textProductPrice.setText(product.getPrice() + "đ");
 
         Glide.with(holder.itemView.getContext())
@@ -72,19 +73,19 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
     class ProductViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageProduct;
         private TextView textProductName;
-        private TextView textProductDescription;
+        // private TextView textProductDescription;
         private TextView textProductPrice;
         private TextView textSaleBadge;
-        private Button buttonAddToCart;
+        private ImageButton buttonAddToCart;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
             imageProduct = (ImageView) itemView.findViewById(R.id.imageProduct);
             textProductName = (TextView) itemView.findViewById(R.id.textProductName);
-            textProductDescription = (TextView) itemView.findViewById(R.id.textProductDescription);
+            // textProductDescription = (TextView) itemView.findViewById(R.id.textProductDescription);
             textProductPrice = (TextView) itemView.findViewById(R.id.textProductPrice);
             textSaleBadge = (TextView) itemView.findViewById(R.id.textSaleBadge);
-            buttonAddToCart = (Button) itemView.findViewById(R.id.buttonAddToCart);
+            buttonAddToCart = (ImageButton) itemView.findViewById(R.id.buttonAddToCart);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

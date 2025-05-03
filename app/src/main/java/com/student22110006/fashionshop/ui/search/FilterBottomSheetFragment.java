@@ -59,7 +59,23 @@ public class FilterBottomSheetFragment extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         setupSpinners();
 
-        binding.seekBarPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        binding.seekBarMinPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // Cập nhật giá trị max khi người dùng kéo seekbar
+                binding.tvMinPrice.setText("Min Price: " + progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        binding.seekBarMaxPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // Cập nhật giá trị max khi người dùng kéo seekbar
@@ -78,8 +94,8 @@ public class FilterBottomSheetFragment extends BottomSheetDialogFragment {
         binding.btnApply.setOnClickListener(v -> {
             String type = binding.spinnerType.getSelectedItem().toString();
             String size = binding.spinnerSize.getSelectedItem().toString();
-            int minPrice = 0;
-            int maxPrice = binding.seekBarPrice.getProgress();
+            int minPrice = binding.seekBarMinPrice.getProgress();
+            int maxPrice = binding.seekBarMaxPrice.getProgress();
 
             // Gọi ViewModel
             viewModel.applyFilter(type, size, minPrice, maxPrice);

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="150dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/color_surface"
-    android:layout_margin="8dp"
+    android:layout_margin="4dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/color_surface">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,16 +15,17 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageProduct"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 android:contentDescription="ProductImage"
-                android:scaleType="centerCrop"
                 android:background="@color/grey_100"
-                android:src="@drawable/logo" />
+                android:src="@drawable/avatar_meo" />
 
             <TextView
                 android:id="@+id/textSaleBadge"
@@ -35,13 +36,13 @@
                 android:textStyle="bold"
                 android:textSize="12sp"
                 android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
+                android:paddingVertical="8dp"
                 android:text="-50%"
                 android:layout_gravity="top|end"
                 android:rotation="0"
                 android:elevation="6dp"
                 android:translationZ="6dp"
-                android:drawableStart="@drawable/ic_discount"
+                android:drawableEnd="@drawable/ic_discount"
                 android:drawablePadding="4dp"
                 android:visibility="visible" />
         </FrameLayout>
@@ -55,22 +56,11 @@
             <TextView
                 android:id="@+id/textProductName"
                 android:layout_width="wrap_content"
-                android:layout_height="20sp"
+                android:layout_height="wrap_content"
                 android:text="ProductName"
                 android:textColor="@color/color_text_primary"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textProductDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="20sp"
-                android:text="ProductDescription"
-                android:textColor="@color/color_text_primary"
-                android:textSize="14sp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:layout_marginTop="2dp" />
 
             <TextView
                 android:id="@+id/textProductPrice"
@@ -78,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="599 999 đ"
                 android:textColor="@color/color_primary"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp" />
 
@@ -87,26 +77,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
                 android:gravity="center_vertical">
 
                 <!-- Button Add to Cart -->
-                <Button
+                <ImageButton
                     android:id="@+id/buttonAddToCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:height="32dp"
-                    android:backgroundTint="@color/color_primary"
-                    android:drawableLeft="@drawable/ic_cart"
-                    android:drawablePadding="8dp"
-                    android:ellipsize="end"
-                    android:padding="12dp"
-                    android:text="Add to Cart"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="10sp"
-                    app:icon="@drawable/ic_cart" />
+                    android:layout_marginVertical="8dp"
+                    android:height="36dp"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="32dp"
+                    app:tint="@color/color_primary_light"
+                    android:src="@drawable/ic_cart"
+                    android:contentDescription="Add to Cart"
+                    android:background="@drawable/button_primary_radius" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
