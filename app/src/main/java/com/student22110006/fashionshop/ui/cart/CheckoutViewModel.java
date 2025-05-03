@@ -1,12 +1,8 @@
-package com.student22110006.fashionshop.ui.checkout;
+package com.student22110006.fashionshop.ui.cart;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.student22110006.fashionshop.data.model.product.Product;
-
-import java.util.List;
 
 public class CheckoutViewModel extends ViewModel {
     private final MutableLiveData<String> deliveryAddress = new MutableLiveData<>();
