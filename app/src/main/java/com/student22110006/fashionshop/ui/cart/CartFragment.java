@@ -56,7 +56,11 @@ public class CartFragment extends Fragment {
 
         cartViewModel.getCartProducts().observe(getViewLifecycleOwner(), products -> {
             adapter.updateList(products);
-            updateTotalPrice(products);
+            updateTotalPrice();
+        });
+
+        adapter.setOnQuantityChangeListener(() -> {
+            updateTotalPrice();
         });
 
         String saved = getSavedAddress();
@@ -75,11 +79,16 @@ public class CartFragment extends Fragment {
             binding.checkboxSelectAll.setChecked(allSelected);
             setupSelectAllCheckbox(); // Gán lại listener sau khi cập nhật state
         });
+
+        adapter.setOnQuantityChangeListener(() -> {
+            updateTotalPrice();
+        });
     }
 
     private void setupSelectAllCheckbox() {
         binding.checkboxSelectAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
             adapter.selectAllItems(isChecked);
+            updateTotalPrice();
         });
     }
 
@@ -122,10 +131,11 @@ public class CartFragment extends Fragment {
         });
     }
 
-    private void updateTotalPrice(List<Product> products) {
-        double total = 0;
-        for (Product p : products) {
-            total += p.getPrice();
+    private void updateTotalPrice() {
+        List<Product> selected = adapter.getSelectedProducts();
+        double total = 0.0;
+        for (Product p : selected) {
+            total += p.getQuantity() * p.getPrice();
         }
         binding.tvTotalPrice.setText(String.format("$%.2f", total));
     }

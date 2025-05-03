@@ -23,7 +23,7 @@ import java.util.Set;
 
 public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.CartViewHolder> {
 
-    private List<Product> productList;
+    private List<Product> productList = new ArrayList<>();
     private Context context;
     private final Set<Integer> selectedProductIds = new HashSet<>();
 
@@ -35,6 +35,16 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
 
     public void setOnSelectionChangeListener(OnSelectionChangeListener listener) {
         this.selectionChangeListener = listener;
+    }
+
+    public interface OnQuantityChangeListener {
+        void onQuantityChanged();
+    }
+
+    private OnQuantityChangeListener quantityChangeListener;
+
+    public void setOnQuantityChangeListener(OnQuantityChangeListener listener) {
+        this.quantityChangeListener = listener;
     }
 
     public CartProductAdapter(Context context, List<Product> productList) {
@@ -58,6 +68,38 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         // Cập nhật checkbox theo trạng thái chọn
         boolean isChecked = selectedProductIds.contains(product.getId());
         holder.binding.checkboxSelect.setChecked(isChecked);
+
+        // Cập nhật quantity
+        holder.binding.tvQuantity.setText(String.valueOf(product.getQuantity()));
+
+        holder.binding.btnIncrease.setOnClickListener(v -> {
+            int qty = product.getQuantity(); // Giả sử model có getQuantity()
+            product.setQuantity(qty + 1);
+            notifyItemChanged(position);
+
+            if (selectionChangeListener != null)
+                selectionChangeListener.onSelectionChanged(checkAllSelected());
+
+            if (quantityChangeListener != null) quantityChangeListener.onQuantityChanged();
+        });
+
+        holder.binding.btnDecrease.setOnClickListener(v -> {
+            int qty = product.getQuantity();
+            if (qty > 1) {
+                product.setQuantity(qty - 1);
+                notifyItemChanged(position);
+
+                if (selectionChangeListener != null)
+                    selectionChangeListener.onSelectionChanged(checkAllSelected());
+
+                if (quantityChangeListener != null) quantityChangeListener.onQuantityChanged();
+            }
+        });
+
+    }
+
+    private boolean checkAllSelected() {
+        return selectedProductIds.size() == productList.size() && !productList.isEmpty();
     }
 
     @Override
@@ -126,8 +168,11 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
                 }
 
                 if (selectionChangeListener != null) {
-                    boolean allSelected = selectedProductIds.size() == productList.size();
-                    selectionChangeListener.onSelectionChanged(allSelected);
+                    selectionChangeListener.onSelectionChanged(checkAllSelected());
+                }
+
+                if (quantityChangeListener != null) {
+                    quantityChangeListener.onQuantityChanged();
                 }
             });
         }
