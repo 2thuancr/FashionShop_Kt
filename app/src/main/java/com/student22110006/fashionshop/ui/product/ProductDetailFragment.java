@@ -1,65 +1,83 @@
 package com.student22110006.fashionshop.ui.product;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.google.android.material.chip.Chip;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.adapter.ImageSliderAdapter;
 import com.student22110006.fashionshop.adapter.ListProductAdapter;
 import com.student22110006.fashionshop.data.model.product.Product;
-import com.student22110006.fashionshop.databinding.ActivityProductDetailBinding;
+import com.student22110006.fashionshop.databinding.FragmentProductDetailBinding;
 import com.student22110006.fashionshop.ui.MainActivity;
+import com.student22110006.fashionshop.ui.notifications.NotificationDetailViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDetailActivity extends AppCompatActivity {
+public class ProductDetailFragment extends Fragment {
 
+    private ProductDetailViewModel mViewModel;
     private int productId;
     private Product product;
-    private ActivityProductDetailBinding binding;
+    private FragmentProductDetailBinding binding;
     private boolean isDescriptionExpanded = false;
 
+    public static ProductDetailFragment newInstance() {
+        return new ProductDetailFragment();
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
-        // Khởi tạo binding thay vì dùng setContentView thông thường
-        binding = ActivityProductDetailBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        // Khởi tạo binding thay vì dùng setContentView
+        binding = FragmentProductDetailBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-        EdgeToEdge.enable(this);
-        // setContentView(R.layout.activity_product_detail);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-        Intent intent = getIntent();
-        productId = intent.getIntExtra("productId", 0); // 0 là giá trị mặc định
-
+        // Cài đặt giao diện bên trong Fragment
         loadData();
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mViewModel = new ViewModelProvider(this).get(ProductDetailViewModel.class);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(v -> {
+            NavController navController = NavHostFragment.findNavController(this);
+            navController.popBackStack();
+        });
     }
 
     private void loadData() {
         // Call Service lấy thông tin sản phẩm dựa vào productId
 
         binding.txtProductName.setText("Nike Sneakers");
-        binding.txtNewPrice.setText("₹1,500");
-        binding.txtOldPrice.setText("₹2,999");
+        binding.txtNewPrice.setText("1,500");
+        binding.txtOldPrice.setText("2,999");
         binding.txtDiscount.setText("50% Off");
         binding.ratingBar.setRating(4.5f);
         binding.txtDescription.setText("Perhaps the most iconic sneaker of all-time...");
@@ -99,10 +117,16 @@ public class ProductDetailActivity extends AppCompatActivity {
         binding.viewPagerImagesIndicator.setViewPager2(binding.viewPagerImages);
     }
 
-    private void setupSizeChips(String[] sizes) {
+    private Resources.Theme getTheme() {
+        if (getContext() == null) {
+            return null;
+        }
+        return getContext().getTheme();
+    }
 
+    private void setupSizeChips(String[] sizes) {
         for (String size : sizes) {
-            Chip chip = new Chip(this);
+            Chip chip = new Chip(getContext());
             chip.setText(size);
             chip.setCheckable(true);
             chip.setClickable(true);
@@ -113,24 +137,14 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void setupSimilarProducts(List<Product> similarProducts) {
-        ListProductAdapter adapter = new ListProductAdapter(this, similarProducts);
-        binding.recyclerViewSimilar.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        ListProductAdapter adapter = new ListProductAdapter(getContext(), similarProducts, this::showProductDetails);
+        binding.recyclerViewSimilar.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.recyclerViewSimilar.setAdapter(adapter);
     }
 
     private void setupListeners() {
-        // binding.btnBack.setOnClickListener(v -> finish());
-        // Về Home Page
-        binding.btnBack.setOnClickListener(v -> {
-            Intent intent = new Intent(ProductDetailActivity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-            finish();
-        });
-
-        binding.btnCart.setOnClickListener(v -> Toast.makeText(this, "Cart clicked", Toast.LENGTH_SHORT).show());
-        binding.btnGoToCart.setOnClickListener(v -> Toast.makeText(this, "Go to Cart", Toast.LENGTH_SHORT).show());
-        binding.btnBuyNow.setOnClickListener(v -> Toast.makeText(this, "Buy Now clicked", Toast.LENGTH_SHORT).show());
+        binding.btnAddToCart.setOnClickListener(v -> Toast.makeText(getContext(), "Add to Cart clicked", Toast.LENGTH_SHORT).show());
+        binding.btnBuyNow.setOnClickListener(v -> Toast.makeText(getContext(), "Buy Now clicked", Toast.LENGTH_SHORT).show());
     }
 
     private void setupSeeMore() {
@@ -148,5 +162,13 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
             isDescriptionExpanded = !isDescriptionExpanded;
         });
+    }
+
+    private void showProductDetails(Product product) {
+        // Lấy NavController từ NavHostFragment
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+
+        // Điều hướng sang navigation_product_detail fragment
+        navController.navigate(R.id.navigation_product_detail);
     }
 }
