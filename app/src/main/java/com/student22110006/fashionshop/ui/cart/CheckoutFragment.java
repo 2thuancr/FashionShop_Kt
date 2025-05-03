@@ -1,6 +1,7 @@
 package com.student22110006.fashionshop.ui.cart;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.adapter.CartProductAdapter;
 import com.student22110006.fashionshop.adapter.CheckoutProductAdapter;
 import com.student22110006.fashionshop.databinding.FragmentCheckoutBinding;
@@ -95,6 +99,12 @@ public class CheckoutFragment extends Fragment {
         if (savedAddress != null) {
             binding.tvAddress.setText(savedAddress);
         }
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(v -> {
+            NavController navController = NavHostFragment.findNavController(this);
+            navController.popBackStack();
+        });
     }
 
     @Override

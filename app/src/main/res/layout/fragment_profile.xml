@@ -21,6 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -50,6 +51,12 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/circles" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -66,8 +73,8 @@
 
                     <TextView
                         android:id="@+id/textview1"
-                        android:layout_width="138dp"
-                        android:layout_height="29dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="Vi Quốc Thuận"
                         android:textColor="#ffffff"
@@ -87,17 +94,6 @@
                         app:layout_constraintEnd_toEndOf="@+id/textview1"
                         app:layout_constraintStart_toStartOf="@+id/textview1"
                         app:layout_constraintTop_toBottomOf="@+id/textview1" />
-
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/circles" />
 
                     <LinearLayout
                         android:id="@+id/linearLayout"
@@ -250,8 +246,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Password:"
-                                android:textColor="#182693"
-                                android:textSize="16sp" />
+                                android:textColor="@color/color_primary"
+                                android:textSize="@dimen/text_body" />
 
                             <TextView
                                 android:id="@+id/textView7"
@@ -260,8 +256,8 @@
                                 android:layout_weight="1"
                                 android:text="Change"
                                 android:textAlignment="viewEnd"
-                                android:textColor="#000000"
-                                android:textSize="15sp" />
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_body" />
                         </LinearLayout>
 
                         <View
@@ -286,8 +282,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Phone:"
-                                android:textColor="#182693"
-                                android:textSize="16sp" />
+                                android:textColor="@color/color_primary"
+                                android:textSize="@dimen/text_body" />
 
                             <TextView
                                 android:id="@+id/textView10"
@@ -296,8 +292,8 @@
                                 android:layout_weight="1"
                                 android:text="0364886745"
                                 android:textAlignment="viewEnd"
-                                android:textColor="#000000"
-                                android:textSize="15sp" />
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_body" />
 
                         </LinearLayout>
 
@@ -323,8 +319,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Address:"
-                                android:textColor="#182693"
-                                android:textSize="16sp" />
+                                android:textColor="@color/color_primary"
+                                android:textSize="@dimen/text_body" />
 
                             <TextView
                                 android:id="@+id/textView11"
@@ -333,8 +329,8 @@
                                 android:layout_weight="1"
                                 android:text="Bom Bo - Bù Đăng - Bình Phước"
                                 android:textAlignment="viewEnd"
-                                android:textColor="#000000"
-                                android:textSize="15sp" />
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_body" />
 
                         </LinearLayout>
 
@@ -360,8 +356,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="DoB:"
-                                android:textColor="#182693"
-                                android:textSize="16sp" />
+                                android:textColor="@color/color_primary"
+                                android:textSize="@dimen/text_body" />
 
                             <TextView
                                 android:id="@+id/textChooseDoB"
@@ -370,8 +366,8 @@
                                 android:layout_weight="1"
                                 android:text="16-07-2003"
                                 android:textAlignment="viewEnd"
-                                android:textColor="#000000"
-                                android:textSize="15sp" />
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_body" />
 
                         </LinearLayout>
 
@@ -397,8 +393,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Language:"
-                                android:textColor="#182693"
-                                android:textSize="16sp" />
+                                android:textColor="@color/color_primary"
+                                android:textSize="@dimen/text_body" />
 
                             <TextView
                                 android:id="@+id/textChooseLanguage"
@@ -407,8 +403,8 @@
                                 android:layout_weight="1"
                                 android:text="VietNamese"
                                 android:textAlignment="viewEnd"
-                                android:textColor="#000000"
-                                android:textSize="15sp" />
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_body" />
 
                         </LinearLayout>
                     </LinearLayout>

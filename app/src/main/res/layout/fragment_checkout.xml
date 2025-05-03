@@ -7,141 +7,166 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.cart.CheckoutFragment">
 
-    <LinearLayout
+    <!-- Nội dung chính với AppBar + Scroll -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        tools:context=".ui.cart.CheckoutFragment">
+        android:layout_height="match_parent">
 
-        <!-- Section: Delivery Address -->
-        <TextView
-            android:id="@+id/tvAddressLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delivery Address"
-            android:textColor="@color/color_primary"
-            android:textStyle="bold"
-            android:textSize="16sp" />
-
-        <!-- Address Card -->
-        <androidx.cardview.widget.CardView
+        <!-- AppBar cố định với Toolbar -->
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="8dp">
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
 
-            <LinearLayout
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/background_color_light"
+                android:textAlignment="textStart"
+                app:navigationIcon="@drawable/ic_reply"
+                app:title="CHECKOUT"
+                app:titleTextColor="@color/color_primary" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="?attr/actionBarSize"
+            tools:context=".ui.cart.CheckoutFragment">
+
+            <!-- Section: Delivery Address -->
+            <TextView
+                android:id="@+id/tvAddressLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delivery Address"
+                android:textColor="@color/color_primary"
+                android:textStyle="bold"
+                android:paddingVertical="8dp"
+                android:textSize="16sp" />
+
+            <!-- Address Card -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/background_color"
-                android:padding="16dp"
-                android:gravity="center_vertical">
+
+                app:cardElevation="4dp"
+                app:cardCornerRadius="8dp">
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:background="@color/background_color"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
 
-                    <TextView
-                        android:text="Address :"
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:textColor="@color/color_text_primary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/tv_address"
-                        android:text="216 St Paul’s Rd, London N1 2LL, UK\nContact: +44-78423XZ"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:textColor="@color/color_text_secondary"
-                        android:layout_marginTop="4dp" />
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:text="Address :"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:textColor="@color/color_text_primary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/tv_address"
+                            android:text="216 St Paul’s Rd, London N1 2LL, UK\nContact: +44-78423XZ"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="@color/color_text_secondary"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivChangeAddress"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_change"
+                        android:contentDescription="Add Address" />
                 </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/ivChangeAddress"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_change"
-                    android:contentDescription="Add Address" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
 
-        <!-- Section: Selected Products -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Products"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@color/color_primary"
-            android:paddingVertical="4dp" />
+            <!-- Section: Selected Products -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Products"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/color_primary"
+                android:paddingVertical="4dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvCheckoutProducts"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            tools:listitem="@layout/item_cart_product" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCheckoutProducts"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                tools:listitem="@layout/item_cart_product" />
 
-        <!-- Section: Total Price -->
-        <TextView
-            android:id="@+id/tvTotalPriceLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total:"
-            android:textColor="@color/color_primary"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginTop="12dp" />
+            <!-- Section: Total Price -->
+            <TextView
+                android:id="@+id/tvTotalPriceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total:"
+                android:textColor="@color/color_primary"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp" />
 
-        <TextView
-            android:id="@+id/tvTotalPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="$0.00"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/color_primary_dark"
-            android:gravity="end" />
+            <TextView
+                android:id="@+id/tvTotalPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="$0.00"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_primary_dark"
+                android:gravity="end" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Delivery Method: "
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/color_primary_dark" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delivery Method: "
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_primary_dark" />
 
-        <TextView
-            android:id="@+id/tvDeliveryMethod"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Thanh toán khi nhận hàng"
-            android:textSize="12sp"
-            android:textColor="@color/text_primary"
-            android:layout_marginVertical="8dp" />
+            <TextView
+                android:id="@+id/tvDeliveryMethod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thanh toán khi nhận hàng"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary"
+                android:layout_marginVertical="8dp" />
 
-        <!-- Button: Confirm Order -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnConfirmOrder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Confirm Order"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            app:cornerRadius="8dp"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            app:backgroundTint="@color/teal_700" />
+            <!-- Button: Confirm Order -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnConfirmOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confirm Order"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:cornerRadius="8dp"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:backgroundTint="@color/color_primary" />
 
-    </LinearLayout>
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </FrameLayout>

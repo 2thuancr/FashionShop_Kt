@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="12dp">
+    android:layout_height="wrap_content">
 
     <!-- Vòng tròn icon -->
     <FrameLayout
@@ -14,7 +12,8 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/bg_icon_circle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
             android:id="@+id/icon"
@@ -39,10 +38,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:padding="@dimen/padding_small"
         app:layout_constraintStart_toEndOf="@id/icon_container"
         app:layout_constraintEnd_toStartOf="@id/arrow"
-        app:layout_constraintTop_toTopOf="@id/icon_container"
-        app:layout_constraintBottom_toBottomOf="@id/icon_container">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/title"
@@ -50,24 +50,24 @@
             android:layout_height="wrap_content"
             android:text="Mừng tháng sinh nhật 🎁"
             android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@android:color/black" />
+            android:textSize="@dimen/text_body"
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="💥 Nhận voucher giảm 20% (*) 💥..."
-            android:textColor="#666666"
-            android:textSize="14sp" />
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_body" />
 
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="một ngày trước"
-            android:textSize="12sp"
-            android:textColor="#999999" />
+            android:textSize="@dimen/text_body_subtitle"
+            android:textColor="@color/text_secondary" />
     </LinearLayout>
 
     <!-- Mũi tên -->
