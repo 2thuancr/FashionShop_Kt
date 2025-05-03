@@ -17,9 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.adapter.CartProductAdapter;
 import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.FragmentCartBinding;
+import com.student22110006.fashionshop.ui.checkout.CheckoutFragment;
+import com.student22110006.fashionshop.ui.checkout.CheckoutViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,15 +124,21 @@ public class CartFragment extends Fragment {
                 return;
             }
 
-            new AlertDialog.Builder(requireContext())
-                    .setTitle("Order Placed")
-                    .setMessage("Your order has been placed successfully!")
-                    .setPositiveButton("OK", (dialog, which) -> {
-                        cartViewModel.setCartProducts(new ArrayList<>());
-                    })
-                    .show();
+            // Gửi dữ liệu vào CheckoutViewModel
+            CheckoutViewModel checkoutViewModel = new ViewModelProvider(requireActivity()).get(CheckoutViewModel.class);
+            checkoutViewModel.setSelectedProducts(selectedProducts);
+            checkoutViewModel.setDeliveryAddress(address);
+
+            // Điều hướng sang CheckoutFragment
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new CheckoutFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
     }
+
 
     private void updateTotalPrice() {
         List<Product> selected = adapter.getSelectedProducts();
