@@ -14,14 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.data.model.product.Product;
-import com.student22110006.fashionshop.databinding.ItemCartProductBinding;
+import com.student22110006.fashionshop.databinding.ItemCheckoutProductBinding;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.CartViewHolder> {
+public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProductAdapter.CheckoutProductViewHolder> {
 
     private List<Product> productList = new ArrayList<>();
     private Context context;
@@ -47,55 +47,26 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         this.quantityChangeListener = listener;
     }
 
-    public CartProductAdapter(Context context, List<Product> productList) {
+    public CheckoutProductAdapter(Context context, List<Product> productList) {
         this.context = context;
         this.productList = productList;
     }
 
     @NonNull
     @Override
-    public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CheckoutProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        ItemCartProductBinding binding = ItemCartProductBinding.inflate(inflater, parent, false);
-        return new CartViewHolder(binding);
+        ItemCheckoutProductBinding binding = ItemCheckoutProductBinding.inflate(inflater, parent, false);
+        return new CheckoutProductViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CheckoutProductViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.bind(product);
 
-        // Cập nhật checkbox theo trạng thái chọn
-        boolean isChecked = selectedProductIds.contains(product.getId());
-        holder.binding.checkboxSelect.setChecked(isChecked);
-
         // Cập nhật quantity
         holder.binding.tvQuantity.setText(String.valueOf(product.getQuantity()));
-
-        holder.binding.btnIncrease.setOnClickListener(v -> {
-            int qty = product.getQuantity(); // Giả sử model có getQuantity()
-            product.setQuantity(qty + 1);
-            notifyItemChanged(position);
-
-            if (selectionChangeListener != null)
-                selectionChangeListener.onSelectionChanged(checkAllSelected());
-
-            if (quantityChangeListener != null) quantityChangeListener.onQuantityChanged();
-        });
-
-        holder.binding.btnDecrease.setOnClickListener(v -> {
-            int qty = product.getQuantity();
-            if (qty > 1) {
-                product.setQuantity(qty - 1);
-                notifyItemChanged(position);
-
-                if (selectionChangeListener != null)
-                    selectionChangeListener.onSelectionChanged(checkAllSelected());
-
-                if (quantityChangeListener != null) quantityChangeListener.onQuantityChanged();
-            }
-        });
-
     }
 
     private boolean checkAllSelected() {
@@ -137,10 +108,10 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         notifyDataSetChanged();
     }
 
-    public class CartViewHolder extends RecyclerView.ViewHolder {
-        private final ItemCartProductBinding binding;
+    public class CheckoutProductViewHolder extends RecyclerView.ViewHolder {
+        private final ItemCheckoutProductBinding binding;
 
-        public CartViewHolder(ItemCartProductBinding binding) {
+        public CheckoutProductViewHolder(ItemCheckoutProductBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -159,22 +130,6 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
             Glide.with(context)
                     .load(product.getImageUrl())
                     .into(binding.imgProduct);
-
-            binding.checkboxSelect.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked) {
-                    selectedProductIds.add(product.getId());
-                } else {
-                    selectedProductIds.remove(product.getId());
-                }
-
-                if (selectionChangeListener != null) {
-                    selectionChangeListener.onSelectionChanged(checkAllSelected());
-                }
-
-                if (quantityChangeListener != null) {
-                    quantityChangeListener.onQuantityChanged();
-                }
-            });
         }
     }
 }

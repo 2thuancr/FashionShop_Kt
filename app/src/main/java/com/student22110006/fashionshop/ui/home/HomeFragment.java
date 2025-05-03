@@ -10,13 +10,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.adapter.CategoryAdapter;
 import com.student22110006.fashionshop.adapter.ImageSliderAdapter;
 import com.student22110006.fashionshop.adapter.ListProductAdapter;
 import com.student22110006.fashionshop.data.model.category.Category;
+import com.student22110006.fashionshop.data.model.notification.Notification;
 import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.FragmentHomeBinding;
 
@@ -99,7 +103,7 @@ public class HomeFragment extends Fragment {
         final RecyclerView featuredProductsRecyclerView = binding.featuredProductsRecyclerView;
         featuredProductsRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         LoadFeaturedProductData();
-        ListProductAdapter featuredProductsAdapter = new ListProductAdapter(this.getContext(), this.listProducts);
+        ListProductAdapter featuredProductsAdapter = new ListProductAdapter(this.getContext(), this.listProducts, this::showProductDetails);
         featuredProductsRecyclerView.setAdapter(featuredProductsAdapter);
 
         final TextView tvViewAllProducts = binding.tvViewAllProducts;
@@ -109,5 +113,13 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(), "Xem tất cả sản phẩm", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void showProductDetails(Product product) {
+        // Lấy NavController từ NavHostFragment
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+
+        // Điều hướng sang navigation_product_detail fragment
+        navController.navigate(R.id.navigation_product_detail);
     }
 }

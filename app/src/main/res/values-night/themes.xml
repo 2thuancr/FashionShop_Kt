@@ -1,6 +1,9 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.FashionShop" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Font mặc định toàn app -->
+        <item name="android:fontFamily">@font/nunito_font</item>
+        <item name="fontFamily">@font/nunito_font</item> <!-- Cho Material Components -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryVariant">@color/color_primary_dark</item>

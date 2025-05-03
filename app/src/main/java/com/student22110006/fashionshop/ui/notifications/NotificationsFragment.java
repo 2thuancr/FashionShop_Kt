@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,11 +47,19 @@ public class NotificationsFragment extends Fragment {
 
     private void initRecyclerView() {
         notificationList = new ArrayList<>();
-        adapter = new NotificationAdapter(notificationList);
+        adapter = new NotificationAdapter(notificationList, this::showNotificationDetails);
         RecyclerView recyclerView = binding.recyclerViewNotifications;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         Log.d("NotificationsFragment", "Adapter set to RecyclerView.");
+    }
+
+    private void showNotificationDetails(Notification notification) {
+        // Lấy NavController từ NavHostFragment
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+
+        // Điều hướng sang notification_detail fragment
+        navController.navigate(R.id.navigation_notification_detail);
     }
 
     private void loadDummyData() {

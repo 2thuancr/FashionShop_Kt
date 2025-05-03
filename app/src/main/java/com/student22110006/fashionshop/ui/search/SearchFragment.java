@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.adapter.ListProductAdapter;
 import com.student22110006.fashionshop.databinding.FragmentSearchBinding;
 import com.student22110006.fashionshop.data.model.product.Product;
@@ -54,7 +57,7 @@ public class SearchFragment extends Fragment {
 
         // Lắng nghe LiveData sản phẩm từ ViewModel
         searchViewModel.getProductList().observe(getViewLifecycleOwner(), products -> {
-            adapter = new ListProductAdapter(requireContext(), products);
+            adapter = new ListProductAdapter(requireContext(), products, this::showProductDetails);
             binding.recyclerViewProducts.setAdapter(adapter);
         });
 
@@ -88,5 +91,13 @@ public class SearchFragment extends Fragment {
             Toast.makeText(requireContext(), "Loại: " + type + ", Kích thước: " + size, Toast.LENGTH_SHORT).show();
         });
         bottomSheet.show(getParentFragmentManager(), "FilterBottomSheet");
+    }
+
+    private void showProductDetails(Product product) {
+        // Lấy NavController từ NavHostFragment
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+
+        // Điều hướng sang navigation_product_detail fragment
+        navController.navigate(R.id.navigation_product_detail);
     }
 }
