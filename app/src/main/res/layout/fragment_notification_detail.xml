@@ -1,13 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/notification_detail_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationDetailFragment">
 
-    <TextView
+    <!-- Nội dung chính với AppBar + Scroll -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="match_parent">
+
+        <!-- AppBar cố định với Toolbar -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/white"
+                android:textAlignment="textStart"
+                app:navigationIcon="@drawable/ic_reply"
+                app:title="THÔNG BÁO"
+                app:titleTextColor="@android:color/black" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Scroll nội dung thông báo -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="72dp"
+            android:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Hình ảnh (ẩn nếu không có) -->
+                <ImageView
+                    android:id="@+id/notification_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="40dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/sale"
+                    android:visibility="visible" />
+
+                <!-- Nội dung thông báo -->
+                <TextView
+                    android:id="@+id/notification_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="🎉 GIẢM GIÁ CỰC SỐC – CHỈ HÔM NAY! 🔥\n\n🛍️ Mừng đại lễ, nhận ngay ưu đãi lên đến 70% cho tất cả các mặt hàng tại 2ThuanCr!\n\n📦 Chỉ áp dụng trong hôm nay (03/05) và dành riêng cho khách hàng thành viên.\n\n🎁 Nhập mã HOT70 để được giảm thêm 70K cho đơn từ 500K!\n\n🕒 Nhanh tay kẻo lỡ! Số lượng có hạn.\n📞 Gọi ngay 1900 252 538 nếu cần hỗ trợ."
+                    android:textSize="16sp"
+                    android:lineSpacingExtra="6dp"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+        </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!-- Nút cố định bên dưới -->
 
 </FrameLayout>
