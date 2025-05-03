@@ -53,8 +53,8 @@ public class NotificationsFragment extends Fragment {
     }
 
     private void loadDummyData() {
-        notificationList.add(new Notification("Mừng tháng sinh nhật 🎁", "💥 Nhận voucher giảm 20%", "1 ngày trước", R.drawable.ic_gift, true));
-        notificationList.add(new Notification("ƯU ĐÃI TỪ PHILIPS", "✨ Dành riêng cho Maisonista", "25/04/2025", R.drawable.ic_speaker, false));
+        notificationList.add(new Notification("Mừng tháng sinh nhật 🎁", "💥 Nhận voucher giảm 20%", "1 ngày trước", R.drawable.card_giftcard, true));
+        notificationList.add(new Notification("ƯU ĐÃI TỪ PHILIPS", "✨ Dành riêng cho Maisonista", "25/04/2025", R.drawable.loyalty, false));
         Log.d("NotificationsFragment", "Dummy data loaded: " + notificationList.size());
         adapter.notifyDataSetChanged();
     }
