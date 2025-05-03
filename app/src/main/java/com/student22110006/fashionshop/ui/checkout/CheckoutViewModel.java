@@ -9,16 +9,8 @@ import com.student22110006.fashionshop.data.model.product.Product;
 import java.util.List;
 
 public class CheckoutViewModel extends ViewModel {
-    private final MutableLiveData<List<Product>> selectedProducts = new MutableLiveData<>();
     private final MutableLiveData<String> deliveryAddress = new MutableLiveData<>();
-
-    public void setSelectedProducts(List<Product> products) {
-        selectedProducts.setValue(products);
-    }
-
-    public LiveData<List<Product>> getSelectedProducts() {
-        return selectedProducts;
-    }
+    private final MutableLiveData<String> deliveryMethod = new MutableLiveData<>();
 
     public void setDeliveryAddress(String address) {
         deliveryAddress.setValue(address);
@@ -26,5 +18,14 @@ public class CheckoutViewModel extends ViewModel {
 
     public LiveData<String> getDeliveryAddress() {
         return deliveryAddress;
+    }
+
+    // Getter và Setter cho phương thức giao hàng
+    public LiveData<String> getDeliveryMethod() {
+        return deliveryMethod;
+    }
+
+    public void setDeliveryMethod(String method) {
+        deliveryMethod.setValue(method);
     }
 }

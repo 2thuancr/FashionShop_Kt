@@ -35,4 +35,10 @@
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 
+    <fragment
+        android:id="@+id/navigation_checkout"
+        android:name="com.student22110006.fashionshop.ui.checkout.CheckoutFragment"
+        android:label="@string/title_checkout"
+        tools:layout="@layout/fragment_checkout" />
+
 </navigation>

@@ -107,8 +107,8 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         return productList.size();
     }
 
-    public List<Product> getSelectedProducts() {
-        List<Product> selected = new ArrayList<>();
+    public ArrayList<Product> getSelectedProducts() {
+        ArrayList<Product> selected = new ArrayList<>();
         for (Product p : productList) {
             if (selectedProductIds.contains(p.getId())) {
                 selected.add(p);

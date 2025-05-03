@@ -10,6 +10,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -112,7 +114,7 @@ public class CartFragment extends Fragment {
 
     private void setupPlaceOrderButton() {
         binding.btnPlaceOrder.setOnClickListener(v -> {
-            List<Product> selectedProducts = adapter.getSelectedProducts();
+            ArrayList<Product> selectedProducts = adapter.getSelectedProducts();
             if (selectedProducts == null || selectedProducts.isEmpty()) {
                 Toast.makeText(requireContext(), "Your cart is empty!", Toast.LENGTH_SHORT).show();
                 return;
@@ -124,18 +126,10 @@ public class CartFragment extends Fragment {
                 return;
             }
 
-            // Gửi dữ liệu vào CheckoutViewModel
-            CheckoutViewModel checkoutViewModel = new ViewModelProvider(requireActivity()).get(CheckoutViewModel.class);
-            checkoutViewModel.setSelectedProducts(selectedProducts);
-            checkoutViewModel.setDeliveryAddress(address);
-
-            // Điều hướng sang CheckoutFragment
-            requireActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, new CheckoutFragment())
-                    .addToBackStack(null)
-                    .commit();
+            // Lấy NavController từ NavHostFragment
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+            // Điều hướng tới CheckoutFragment bằng hành động được định nghĩa trong navigation graph
+            navController.navigate(R.id.navigation_checkout);
         });
     }
 
