@@ -65,6 +65,9 @@
                             android:id="@+id/imageView3"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
                             android:scaleType="centerCrop"
                             app:srcCompat="@drawable/circles" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -90,11 +93,11 @@
                         android:background="@drawable/circle_background"
                         android:contentDescription="Edit Avatar"
                         android:src="@drawable/ic_edit_pro"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView2" />
+                        app:layout_constraintBottom_toBottomOf="@+id/avatar"
+                        app:layout_constraintEnd_toEndOf="@+id/avatar" />
 
                     <TextView
-                        android:id="@+id/textview1"
+                        android:id="@+id/profile_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -102,9 +105,9 @@
                         android:textColor="#ffffff"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                        app:layout_constraintStart_toStartOf="@+id/imageView2"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                        app:layout_constraintEnd_toEndOf="@+id/avatar"
+                        app:layout_constraintStart_toStartOf="@+id/avatar"
+                        app:layout_constraintTop_toBottomOf="@+id/avatar" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -113,9 +116,9 @@
                         android:text="2thuancr03@gmail.com"
                         android:textColor="#ffffff"
                         android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="@+id/textview1"
-                        app:layout_constraintStart_toStartOf="@+id/textview1"
-                        app:layout_constraintTop_toBottomOf="@+id/textview1" />
+                        app:layout_constraintEnd_toEndOf="@+id/profile_name"
+                        app:layout_constraintStart_toStartOf="@+id/profile_name"
+                        app:layout_constraintTop_toBottomOf="@+id/profile_name" />
 
                     <LinearLayout
                         android:id="@+id/linearLayout"
