@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+
     <TextView
         android:id="@+id/textProfile"
         android:layout_width="match_parent"
@@ -69,7 +70,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/avatar"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:layout_marginTop="32dp"
@@ -232,14 +233,14 @@
                                     android:background="@drawable/circle_background">
 
                                     <ImageView
-                                        android:id="@+id/imageView7"
+                                        android:id="@+id/orderHistory"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent"
-                                        app:srcCompat="@drawable/notification" />
+                                        app:srcCompat="@drawable/ic_shopping_cart" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <TextView
@@ -247,7 +248,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="8dp"
-                                    android:text="Notification"
+                                    android:text="Order"
                                     android:textAlignment="center"
                                     android:textColor="#000000"
                                     android:textSize="13sp"

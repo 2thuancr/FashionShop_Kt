@@ -64,5 +64,11 @@
         android:name="com.student22110006.fashionshop.ui.profile.ChangePasswordFragment"
         android:label="Change Password"
         tools:layout="@layout/fragment_change_password" />
+    
+    <fragment
+        android:id="@+id/navigation_order_history"
+        android:name="com.student22110006.fashionshop.ui.cart.OrderHistoryFragment"
+        android:label="Order history"
+        tools:layout="@layout/fragment_order_history" />
 
 </navigation>

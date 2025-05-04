@@ -1,8 +1,13 @@
 package com.student22110006.fashionshop.ui.profile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,15 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.provider.MediaStore;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.databinding.FragmentProfileBinding;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
     private static final int PICK_IMAGE = 100;
@@ -47,8 +45,13 @@ public class ProfileFragment extends Fragment {
         });
 
         // Xử lý click vào avatar hoặc icon cây bút
-        binding.imageView2.setOnClickListener(v -> openImagePicker());
+        binding.avatar.setOnClickListener(v -> openImagePicker());
         binding.imgEditAvatar.setOnClickListener(v -> openImagePicker());
+
+        // 👉 Thêm xử lý click vào LinearLayout để chuyển sang fragment đơn hàng
+        binding.orderHistory.setOnClickListener(v -> {
+            navController.navigate(R.id.navigation_order_history);
+        });
 
         return binding.getRoot();
     }
@@ -62,10 +65,13 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE && resultCode == getActivity().RESULT_OK && data != null) {
-            Uri selectedImageUri = data.getData();
-            if (selectedImageUri != null) {
-                binding.imageView2.setImageURI(selectedImageUri);
+        if (requestCode == PICK_IMAGE) {
+            getActivity();
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                Uri selectedImageUri = data.getData();
+                if (selectedImageUri != null) {
+                    binding.avatar.setImageURI(selectedImageUri);
+                }
             }
         }
     }
