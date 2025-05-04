@@ -12,6 +12,10 @@
         <item name="android:layout_marginTop">@dimen/padding_small</item>
     </style>
 
+    <style name="TextInputHintStyle" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/color_primary</item> <!-- màu cam hoặc màu bạn muốn -->
+    </style>
+
     <!-- Style cho giá trị -->
     <style name="ProfileValue">
         <item name="android:textSize">@dimen/text_body</item>
