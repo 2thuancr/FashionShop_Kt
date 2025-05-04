@@ -1,5 +1,7 @@
 package com.student22110006.fashionshop.ui.profile;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +19,10 @@ import android.view.ViewGroup;
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.databinding.FragmentProfileBinding;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ProfileFragment extends Fragment {
+    private static final int PICK_IMAGE = 100;
 
     private FragmentProfileBinding binding;
 
@@ -32,15 +38,36 @@ public class ProfileFragment extends Fragment {
 
         // Xử lý sự kiện bấm nút Edit Profile
         binding.btnEditProfile.setOnClickListener(v -> {
-            // Điều hướng sang EditProfileFragment
             navController.navigate(R.id.navigation_edit_profile);
         });
+
         // Xử lý sự kiện bấm nút Change Password
         binding.btnChangePassword.setOnClickListener(v -> {
-            // Điều hướng sang ChangePasswordFragment
             navController.navigate(R.id.navigation_change_password);
         });
+
+        // Xử lý click vào avatar hoặc icon cây bút
+        binding.imageView2.setOnClickListener(v -> openImagePicker());
+        binding.imgEditAvatar.setOnClickListener(v -> openImagePicker());
+
         return binding.getRoot();
+    }
+
+    private void openImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE && resultCode == getActivity().RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            if (selectedImageUri != null) {
+                binding.imageView2.setImageURI(selectedImageUri);
+            }
+        }
     }
 
     @Override

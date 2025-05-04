@@ -79,6 +79,18 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
+                    <!-- Thêm icon cây bút ở góc dưới phải của avatar -->
+                    <ImageView
+                        android:id="@+id/imgEditAvatar"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/circle_background"
+                        android:contentDescription="Edit Avatar"
+                        android:src="@drawable/ic_edit_pro"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                        app:layout_constraintEnd_toEndOf="@+id/imageView2" />
 
                     <TextView
                         android:id="@+id/textview1"
