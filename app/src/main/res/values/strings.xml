@@ -12,5 +12,15 @@
     <string name="title_notification">Notification</string>
     <string name="title_notification_detail">Notification detail</string>
     <string name="title_checkout">Checkout</string>
-
+    <string-array name="languages">
+        <item>English</item>
+        <item>Vietnamese</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>Chinese</item>
+        <item>French</item>
+        <item>Laos</item>
+        <item>ThaiLand</item>
+        <item>America</item>
+    </string-array>
 </resources>

@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 
 import com.student22110006.fashionshop.R;
@@ -77,5 +78,16 @@ public class EditProfileFragment extends Fragment {
                 datePickerDialog.show();
             }
         });
+        // Gán danh sách ngôn ngữ cho AutoCompleteTextView
+        String[] languages = getResources().getStringArray(R.array.languages);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                requireContext(),
+                R.layout.dropdown_item,  // Layout mới cho mỗi item
+                R.id.text1,               // TextView trong layout
+                languages
+        );
+        binding.autoLanguage.setAdapter(adapter);
+        // Mở dropdown khi click
+        binding.autoLanguage.setOnClickListener(v -> binding.autoLanguage.showDropDown());
     }
 }
