@@ -1,6 +1,7 @@
 package com.student22110006.fashionshop.data.remote;
 
 import com.student22110006.fashionshop.data.model.ApiResponse;
+import com.student22110006.fashionshop.data.model.PagedResult;
 import com.student22110006.fashionshop.data.model.product.Product;
 
 import java.util.List;
@@ -17,20 +18,20 @@ public interface ProductService {
 
     @GET("Product/list")
     Call<ApiResponse<PagedResult<Product>>> getAllProducts(
-        @Query("page") int page,
-        @Query("pageSize") int pageSize
+            @Query("page") int page,
+            @Query("pageSize") int pageSize
     );
 
     @GET("Product/search")
-    Call<ApiResponse<List<Product>>> searchAndFilterProducts(
-        @Query("query") String query,             // Từ khóa tìm kiếm
-        @Query("brand") String brand,             // Lọc theo brand
-        @Query("size") String size,               // Lọc theo size
-        @Query("minPrice") Double minPrice,       // Lọc theo giá
-        @Query("maxPrice") Double maxPrice,
-        @Query("categoryId") Integer categoryId,  // Lọc theo danh mục
-        @Query("page") int page,                  // Phân trang
-        @Query("pageSize") int pageSize
+    Call<ApiResponse<PagedResult<Product>>> searchAndFilterProducts(
+            @Query("query") String query,             // Từ khóa tìm kiếm
+            @Query("brand") String brand,             // Lọc theo brand
+            @Query("size") String size,               // Lọc theo size
+            @Query("minPrice") Double minPrice,       // Lọc theo giá
+            @Query("maxPrice") Double maxPrice,
+            @Query("categoryId") Integer categoryId,  // Lọc theo danh mục
+            @Query("page") int page,                  // Phân trang
+            @Query("pageSize") int pageSize
     );
 
     @GET("Product/by-category/{categoryId}")
