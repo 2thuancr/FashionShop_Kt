@@ -53,4 +53,16 @@
         android:label="@string/title_checkout"
         tools:layout="@layout/fragment_checkout" />
 
+    <fragment
+        android:id="@+id/navigation_edit_profile"
+        android:name="com.student22110006.fashionshop.ui.profile.EditProfileFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile" />
+
+    <fragment
+        android:id="@+id/navigation_change_password"
+        android:name="com.student22110006.fashionshop.ui.profile.ChangePasswordFragment"
+        android:label="Change Password"
+        tools:layout="@layout/fragment_change_password" />
+
 </navigation>

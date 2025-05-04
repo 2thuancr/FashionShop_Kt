@@ -1,22 +1,24 @@
 package com.student22110006.fashionshop.ui.profile;
 
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.student22110006.fashionshop.R;
+import com.student22110006.fashionshop.databinding.FragmentChangePasswordBinding;
 
 public class ChangePasswordFragment extends Fragment {
 
     private ChangePasswordViewModel mViewModel;
+    private FragmentChangePasswordBinding binding;
 
     public static ChangePasswordFragment newInstance() {
         return new ChangePasswordFragment();
@@ -25,7 +27,18 @@ public class ChangePasswordFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_change_password, container, false);
+        binding = FragmentChangePasswordBinding.inflate(inflater, container, false);
+
+        // Xử lý sự kiện bấm nút Back
+        binding.imgBack.setOnClickListener(v -> requireActivity().onBackPressed());
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null; // tránh memory leak
     }
 
     @Override
