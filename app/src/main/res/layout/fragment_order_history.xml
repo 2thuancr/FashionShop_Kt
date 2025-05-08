@@ -38,19 +38,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:background="@android:color/white">>
 
                 <!-- Tìm kiếm -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/searchLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_search">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/searchEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Tìm kiếm đơn hàng"
+                        android:background="@color/yellow_100"
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,20 +62,38 @@
                     android:id="@+id/tabLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/blue_50"
                     app:tabMode="scrollable">
 
-                    <com.google.android.material.tabs.TabItem android:text="Tất cả đơn"
-                        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-                    <com.google.android.material.tabs.TabItem android:text="Chờ thanh toán"
-                        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-                    <com.google.android.material.tabs.TabItem android:text="Đang xử lý"
-                        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-                    <com.google.android.material.tabs.TabItem android:text="Đang giao hàng"
-                        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-                    <com.google.android.material.tabs.TabItem android:text="Đã huỷ"
-                        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-                    <com.google.android.material.tabs.TabItem android:text="Đã giao hàng"
-                        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Tất cả đơn"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Chờ thanh toán"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Đang xử lý"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Đang giao hàng"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Đã huỷ"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Đã giao hàng"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
                 </com.google.android.material.tabs.TabLayout>
 
                 <!-- Danh sách sản phẩm -->
