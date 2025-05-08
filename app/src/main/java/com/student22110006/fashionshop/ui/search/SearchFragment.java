@@ -35,6 +35,7 @@ public class SearchFragment extends Fragment {
     private boolean isLoading = false;
     private int currentPage = 1;
     private final int pageSize = 10;
+    private int totalItemsCount = 0;
     private boolean isLastPage = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -66,20 +67,30 @@ public class SearchFragment extends Fragment {
                 StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
                 if (layoutManager == null) return;
 
-                int totalItemCount = layoutManager.getItemCount();
                 int[] lastVisibleItemPositions = layoutManager.findLastVisibleItemPositions(null);
                 int lastVisibleItemPosition = getLastVisibleItem(lastVisibleItemPositions);
 
                 // Kiểm tra nếu đã cuộn đến gần cuối danh sách
-                if (!isLoading && !isLastPage && lastVisibleItemPosition + 3 >= totalItemCount) {
+                if (!isLoading && !isLastPage && lastVisibleItemPosition + 3 >= totalItemsCount) {
                     isLoading = true;
                     currentPage++;
-                    searchViewModel.search(currentPage, pageSize, null);
+                    var query = binding.searchEditText.getText().toString();
+                    searchViewModel.search(currentPage, pageSize, query);
                 }
             }
         });
 
         searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+
+        searchViewModel.getTotalItemsCount().observe(getViewLifecycleOwner(), totalItemsCount -> {
+            this.totalItemsCount = totalItemsCount;
+            binding.itemsCount.setText("Tổng số sản phẩm: " + totalItemsCount);
+            Toast.makeText(getContext(), "Tìm thấy " + totalItemsCount + " sản phẩm!", Toast.LENGTH_SHORT).show();
+            // Kiểm tra nếu có đủ sản phẩm để tải thêm
+            if (totalItemsCount != null && totalItemsCount <= currentPage * pageSize) {
+                isLastPage = true;
+            }
+        });
 
         // Lắng nghe LiveData sản phẩm từ ViewModel
         searchViewModel.getProductList().observe(getViewLifecycleOwner(), products -> {
@@ -93,7 +104,7 @@ public class SearchFragment extends Fragment {
                 adapter = new ListProductAdapter(requireContext(), products, this::showProductDetails);
                 binding.recyclerViewProducts.setAdapter(adapter);
             } else {
-                adapter.appendProducts(products); // -> bạn cần thêm hàm này trong adapter
+                adapter.updateProducts(products); // -> bạn cần thêm hàm này trong adapter
             }
         });
 
@@ -104,8 +115,19 @@ public class SearchFragment extends Fragment {
             }
             Log.e("SearchFragment", "Error: " + error);
         });
-        // Mặc định lấy 10 sản phẩm
-        // searchViewModel.loadProducts(1, 10);
+
+        // Lắng nghe sự kiện searchEditText khi người dùng nhập từ khóa tìm kiếm
+        // Thiết lập lắng nghe sự kiện khi nhấn vào icon search
+        binding.searchBarLayout.setEndIconOnClickListener(v -> {
+            String query = binding.searchEditText.getText().toString();
+            // Toast.makeText(getContext(), "Tìm kiếm: " + query, Toast.LENGTH_SHORT).show();
+            if (!query.isEmpty()) {
+                // Thực hiện tìm kiếm với query
+                currentPage = 1; // Đặt lại trang hiện tại về 1
+                isLastPage = false; // Đặt lại trạng thái trang cuối
+                searchViewModel.search(currentPage, pageSize, query);
+            }
+        });
 
         return root;
     }

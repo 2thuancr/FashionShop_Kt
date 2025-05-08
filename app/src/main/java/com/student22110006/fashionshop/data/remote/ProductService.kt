@@ -19,12 +19,12 @@ interface ProductService {
     @POST("Product/list")
     suspend fun getAll(
         @Body() request: ProductGetAllRequest
-    ): ApiResponse<List<Product>>
+    ): ApiResponse<PagedResult<Product>>
 
     @POST("Product/search")
     suspend fun searchAndFilterProducts(
         @Body() request: ProductSearchRequest
-    ): ApiResponse<List<Product>>
+    ): ApiResponse<PagedResult<Product>>
 
     @GET("Product/by-category/{categoryId}")
     suspend fun getProductsByCategory(@Path("categoryId") categoryId: Int): ApiResponse<List<Product>>

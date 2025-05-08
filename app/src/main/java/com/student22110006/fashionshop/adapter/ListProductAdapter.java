@@ -80,7 +80,8 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
     }
 
     public void updateProducts(List<Product> newProducts) {
-        this.productList = newProducts;
+        this.productList.clear();
+        this.productList.addAll(newProducts);
         notifyDataSetChanged();
     }
 
@@ -89,7 +90,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
         productList.addAll(newProducts);
         notifyItemRangeInserted(startPosition, newProducts.size());
     }
-    
+
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         private ItemProductBinding binding;
 

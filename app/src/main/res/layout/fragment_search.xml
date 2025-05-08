@@ -22,7 +22,7 @@
             android:id="@+id/searchBarLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:hint="Search any Product..."
             app:endIconDrawable="@drawable/ic_search"
@@ -31,9 +31,11 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/searchEditText"
                 android:textColor="@color/color_text_primary"
+                android:lines="1"
                 android:padding="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="48sp" />
+                android:background="@color/background_color_primary"
+                android:layout_height="36sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Filter + Sort + Count -->
@@ -48,7 +50,7 @@
                 android:id="@+id/itemsCount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="52,082+ Items"
+                android:text="Tổng số sản phẩm: 0"
                 android:textColor="@color/color_text_primary"
                 android:textStyle="bold"
                 android:layout_weight="1"
