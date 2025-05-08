@@ -37,14 +37,14 @@ class SearchViewModel : ViewModel() {
                     repository.search(request)
                 }
                 if (response.data != null) {
-                    _productList.value = response.data
+                    _productList.value = response.data.items
                 } else {
                     _error.value = "Lỗi khi tải dữ liệu"
                 }
             } catch (e: Exception) {
                 _error.value = "Lỗi: ${e.message}"
                 Log.e("SearchViewModel", "Error loading products: ${e.message}")
-                throw e;
+                // throw e;
             }
         }
     }

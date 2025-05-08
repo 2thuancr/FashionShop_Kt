@@ -10,7 +10,7 @@ import com.student22110006.fashionshop.data.remote.ApiClient
 class ProductRepository {
     private val api = ApiClient.productService;
 
-    suspend fun getAll(request: ProductGetAllRequest): ApiResponse<List<Product>> {
+    suspend fun getAll(request: ProductGetAllRequest): ApiResponse<PagedResult<Product>> {
         return api.getAll(request)
     }
 
@@ -18,17 +18,9 @@ class ProductRepository {
         return api.getProductById(id)
     }
 
-//    suspend fun search(
-//        request: ProductSearchRequest
-//    ): ApiResponse<PagedResult<Product>> {
-//        return api.searchAndFilterProducts(
-//            request
-//        )
-//    }
-
     suspend fun search(
         request: ProductSearchRequest
-    ): ApiResponse<List<Product>> {
+    ): ApiResponse<PagedResult<Product>> {
         return api.searchAndFilterProducts(
             request
         )
