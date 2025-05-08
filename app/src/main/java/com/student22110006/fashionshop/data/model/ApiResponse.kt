@@ -4,5 +4,6 @@ data class ApiResponse<T>(
     val isSuccess: Boolean,
     val message: String?,
     val errorCode: String?,
+    val exceptionDetail: String?,
     val data: T?
 )

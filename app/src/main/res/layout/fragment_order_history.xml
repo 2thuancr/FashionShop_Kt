@@ -57,6 +57,7 @@
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+
                 <!-- Tabs scrollable -->
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"

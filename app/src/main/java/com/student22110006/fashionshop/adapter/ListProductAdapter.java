@@ -84,6 +84,12 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
         notifyDataSetChanged();
     }
 
+    public void appendProducts(List<Product> newProducts) {
+        int startPosition = productList.size();
+        productList.addAll(newProducts);
+        notifyItemRangeInserted(startPosition, newProducts.size());
+    }
+    
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         private ItemProductBinding binding;
 
