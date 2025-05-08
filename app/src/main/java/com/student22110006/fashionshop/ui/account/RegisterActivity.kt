@@ -34,6 +34,7 @@ class RegisterActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_register)
 
+
         // Chuyển sang màn hình đăng nhập
         val tvLoginPrompt = findViewById<TextView>(R.id.tvLoginPrompt)
         tvLoginPrompt.setOnClickListener {
