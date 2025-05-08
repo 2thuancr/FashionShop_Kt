@@ -20,6 +20,9 @@ class SearchViewModel : ViewModel() {
     private val _productList = MutableLiveData<List<Product>?>()
     val productList: LiveData<List<Product>?> get() = _productList
 
+    private val _totalItemsCount = MutableLiveData<Int>()
+    val totalItemsCount: LiveData<Int> get() = _totalItemsCount
+
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
@@ -38,8 +41,10 @@ class SearchViewModel : ViewModel() {
                 }
                 if (response.data != null) {
                     _productList.value = response.data.items
+                    _totalItemsCount.value = response.data.totalCount
                 } else {
                     _error.value = "Lỗi khi tải dữ liệu"
+                    Log.e("SearchViewModel", "Error: ${response.message}")
                 }
             } catch (e: Exception) {
                 _error.value = "Lỗi: ${e.message}"
