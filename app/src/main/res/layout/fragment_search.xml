@@ -31,6 +31,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/searchEditText"
                 android:textColor="@color/color_text_primary"
+                android:lines="1"
                 android:padding="2dp"
                 android:layout_width="match_parent"
                 android:background="@color/background_color_primary"
@@ -49,7 +50,7 @@
                 android:id="@+id/itemsCount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="52,082+ Items"
+                android:text="Tổng số sản phẩm: 0"
                 android:textColor="@color/color_text_primary"
                 android:textStyle="bold"
                 android:layout_weight="1"
