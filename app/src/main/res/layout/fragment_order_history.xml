@@ -37,32 +37,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:background="@android:color/white">>
 
                 <!-- Tìm kiếm -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/searchLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    app:startIconDrawable="@drawable/ic_search"
-                    android:background="@color/background_color"
-                    app:startIconTint="@color/color_primary"
-                    android:textColorHint="@color/text_primary"
-                    android:layout_margin="@dimen/activity_vertical_margin"
-                    android:hint="Tìm kiếm đơn hàng"
-                    app:boxBackgroundMode="filled">
+                    android:background="@drawable/bg_search">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/searchEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary"
-                        android:textColorHint="@color/text_secondary"
-                        android:background="@color/background_color"
-                        android:inputType="text"
-                        android:layout_marginStart="8dp" />
-
+                        android:hint="Tìm kiếm đơn hàng"
+                        android:background="@color/yellow_100"
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -71,9 +63,7 @@
                     android:id="@+id/tabLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/background_color"
-                    app:tabTextColor="@color/text_primary"
-                    app:tabSelectedTextColor="@color/color_primary"
+                    android:background="@color/blue_50"
                     app:tabMode="scrollable">
 
                     <com.google.android.material.tabs.TabItem
