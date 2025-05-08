@@ -37,42 +37,74 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:orientation="vertical">
 
                 <!-- Tìm kiếm -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/searchLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:startIconDrawable="@drawable/ic_search"
+                    android:background="@color/background_color"
+                    app:startIconTint="@color/color_primary"
+                    android:textColorHint="@color/text_primary"
+                    android:layout_margin="@dimen/activity_vertical_margin"
+                    android:hint="Tìm kiếm đơn hàng"
+                    app:boxBackgroundMode="filled">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/searchEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Tìm kiếm đơn hàng"
-                        android:inputType="text" />
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_secondary"
+                        android:background="@color/background_color"
+                        android:inputType="text"
+                        android:layout_marginStart="8dp" />
+
                 </com.google.android.material.textfield.TextInputLayout>
+
 
                 <!-- Tabs scrollable -->
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/background_color"
+                    app:tabTextColor="@color/text_primary"
+                    app:tabSelectedTextColor="@color/color_primary"
                     app:tabMode="scrollable">
 
-                    <com.google.android.material.tabs.TabItem android:text="Tất cả đơn"
-                        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-                    <com.google.android.material.tabs.TabItem android:text="Chờ thanh toán"
-                        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-                    <com.google.android.material.tabs.TabItem android:text="Đang xử lý"
-                        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-                    <com.google.android.material.tabs.TabItem android:text="Đang giao hàng"
-                        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-                    <com.google.android.material.tabs.TabItem android:text="Đã huỷ"
-                        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-                    <com.google.android.material.tabs.TabItem android:text="Đã giao hàng"
-                        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Tất cả đơn"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Chờ thanh toán"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Đang xử lý"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Đang giao hàng"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Đã huỷ"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:text="Đã giao hàng"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
                 </com.google.android.material.tabs.TabLayout>
 
                 <!-- Danh sách sản phẩm -->
