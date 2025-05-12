@@ -1,25 +1,23 @@
 package com.student22110006.fashionshop.ui.cart;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.student22110006.fashionshop.R;
 
-public class activityOrderDetailFragment extends Fragment {
+public class ActivityOrderDetailFragment extends Fragment {
 
     private ActivityOrderDetailViewModel mViewModel;
 
-    public static activityOrderDetailFragment newInstance() {
-        return new activityOrderDetailFragment();
+    public static ActivityOrderDetailFragment newInstance() {
+        return new ActivityOrderDetailFragment();
     }
 
     @Override
