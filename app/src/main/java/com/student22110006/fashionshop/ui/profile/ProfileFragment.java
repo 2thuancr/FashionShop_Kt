@@ -2,12 +2,15 @@ package com.student22110006.fashionshop.ui.profile;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,17 +20,20 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.student22110006.fashionshop.R;
+import com.student22110006.fashionshop.data.repository.CustomerRepository;
 import com.student22110006.fashionshop.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
     private static final int PICK_IMAGE = 100;
-
+    private ProfileViewModel profileViewModel;
     private FragmentProfileBinding binding;
+    CustomerRepository repository = new CustomerRepository(); // hoặc inject
+    ProfileViewModelFactory factory = new ProfileViewModelFactory(repository);
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        ProfileViewModel profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        profileViewModel = new ViewModelProvider(this, factory).get(ProfileViewModel.class);
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
@@ -55,6 +61,37 @@ public class ProfileFragment extends Fragment {
 
         return binding.getRoot();
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Gọi API với thông tin người dùng (email, userName hoặc phoneNumber) từ SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("FashionShop", Activity.MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", null);
+        String userName = sharedPreferences.getString("userName", null);
+        String phoneNumber = sharedPreferences.getString("phoneNumber", null);
+
+        profileViewModel.fetchCustomerInfo(email, userName, phoneNumber);
+
+        observeViewModel();
+    }
+
+    private void observeViewModel() {
+        profileViewModel.getCustomerInfo().observe(getViewLifecycleOwner(), newInfo -> {
+            if (newInfo != null) {
+                binding.profileName.setText(newInfo.getCustomerName());
+                binding.tvEmail.setText(newInfo.getEmail());
+                binding.tvPhoneNumber.setText(newInfo.getPhoneNumber());
+                binding.tvAddress.setText(newInfo.getAddress());
+                binding.tvDoB.setText(newInfo.getDob());
+            }
+        });
+
+        profileViewModel.getError().observe(getViewLifecycleOwner(), errorMsg ->
+                Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show());
+    }
+
 
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

@@ -158,8 +158,8 @@ public class HomeFragment extends Fragment {
                 SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("FashionShop", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("isLoggedIn", false); // Đặt lại trạng thái đăng nhập
-                editor.remove("userEmail"); // Xóa email
-                editor.remove("userPassword"); // Xóa mật khẩu
+                editor.remove("email"); // Xóa email
+                editor.remove("password"); // Xóa mật khẩu
                 editor.apply();
 
                 // Chuyển về màn hình đăng nhập
