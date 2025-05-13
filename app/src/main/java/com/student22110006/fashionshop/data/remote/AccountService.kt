@@ -28,6 +28,6 @@ interface AccountService {
     @POST("Account/VerifyOtp")
     suspend fun verifyOtp(@Body verifyOtpRequest: AccountVerifyOtpRequest): ApiResponse<AccountVerifyOtpData>
 
-    @POST("Account/ChangePassword")
-    suspend fun changePassword(@Body changePasswordRequest: AccountChangePasswordRequest): ApiResponse<AccountChangePasswordData>
+    @POST("Account/UpdatePassword")
+    suspend fun updatePassword(@Body changePasswordRequest: AccountChangePasswordRequest): ApiResponse<AccountChangePasswordData>
 }

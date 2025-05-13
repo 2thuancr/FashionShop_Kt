@@ -44,15 +44,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 // Hiển thị thông báo nếu chưa nhập email
                 Toast.makeText(this, "Vui lòng nhập email", Toast.LENGTH_SHORT).show()
             } else {
-                // Gọi hàm xác thực OTP
                 generateOtp(email) // Gọi hàm tạo OTP
-                
-                // Chuyển sang màn OTP Activity
-                val intent = Intent(this@ForgotPasswordActivity, OtpActivity::class.java)
-                intent.putExtra("email", email) // Truyền email qua Intent
-                // Truyền thông tin Activity hiện tại qua Intent
-                intent.putExtra("activity", "forgotPassword")
-                startActivity(intent) // Mở màn hình OTP
             }
         }
 

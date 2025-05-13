@@ -15,9 +15,12 @@ class AccountRepository {
 
     suspend fun register(registerRequest: AccountRegisterRequest) = api.register(registerRequest)
 
-    suspend fun generateOtp(generateOtpRequest: AccountGenerateOtpRequest) = api.generateOtp(generateOtpRequest)
+    suspend fun generateOtp(generateOtpRequest: AccountGenerateOtpRequest) =
+        api.generateOtp(generateOtpRequest)
 
-    suspend fun verifyOtp(verifyOtpRequest: AccountVerifyOtpRequest) = api.verifyOtp(verifyOtpRequest)
+    suspend fun verifyOtp(verifyOtpRequest: AccountVerifyOtpRequest) =
+        api.verifyOtp(verifyOtpRequest)
 
-    suspend fun changePassword(changePasswordRequest: AccountChangePasswordRequest) = api.changePassword(changePasswordRequest)
+    suspend fun changePassword(changePasswordRequest: AccountChangePasswordRequest) =
+        api.updatePassword(changePasswordRequest)
 }

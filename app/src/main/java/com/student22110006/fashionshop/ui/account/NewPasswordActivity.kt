@@ -35,16 +35,15 @@ class NewPasswordActivity : AppCompatActivity() {
 
         // Lấy ra mật khẩu mới từ EditText
         val etNewPassword = findViewById<EditText>(R.id.etNewPassword)
-        val newPassword = etNewPassword.text.toString().trim()
 
         // Lấy ra mật khẩu xác nhận từ EditText
         val etConfirmPassword = findViewById<EditText>(R.id.etConfirmPassword)
-        val confirmPassword = etConfirmPassword.text.toString().trim()
 
         // Sự kiện click button xác nhận mật khẩu mới 
         val btnConfirm = findViewById<Button>(R.id.btnChangePassword)
         btnConfirm.setOnClickListener {
-            // Xử lý logic xác nhận mật khẩu mới
+            val newPassword = etNewPassword.text.toString().trim()
+            val confirmPassword = etConfirmPassword.text.toString().trim()
             confirmPassword(newPassword, confirmPassword)
         }
 
@@ -59,9 +58,14 @@ class NewPasswordActivity : AppCompatActivity() {
     private fun confirmPassword(newPassword: String, confirmPassword: String) {
         // Xử lý logic xác nhận mật khẩu mới
         if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
-            Toast.makeText(this, "Vui lòng nhập mật khẩu mới và xác nhận mật khẩu", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Vui lòng nhập mật khẩu mới và xác nhận mật khẩu",
+                Toast.LENGTH_SHORT
+            ).show()
         } else if (newPassword != confirmPassword) {
-            Toast.makeText(this, "Mật khẩu mới và xác nhận mật khẩu không khớp", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Mật khẩu mới và xác nhận mật khẩu không khớp", Toast.LENGTH_SHORT)
+                .show()
         } else {
             // Lấy email từ Intent
             val email = intent.getStringExtra("email") ?: ""
@@ -83,19 +87,31 @@ class NewPasswordActivity : AppCompatActivity() {
                     Log.d("ChangePasswordResponse", jsonResponse)
 
                     if (response.isSuccess) {
-                        Toast.makeText(this@NewPasswordActivity, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@NewPasswordActivity,
+                            "Đổi mật khẩu thành công",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                         // Chuyển sang man hình đăng nhập
                         val intent = Intent(this@NewPasswordActivity, LoginActivity::class.java)
                         startActivity(intent)
                     } else {
-                        Toast.makeText(this@NewPasswordActivity, response.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@NewPasswordActivity,
+                            response.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@NewPasswordActivity, "Đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@NewPasswordActivity,
+                        "Đổi mật khẩu thất bại",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
