@@ -1,9 +1,13 @@
 package com.student22110006.fashionshop.ui.home;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,17 +24,18 @@ import com.student22110006.fashionshop.adapter.CategoryAdapter;
 import com.student22110006.fashionshop.adapter.ImageSliderAdapter;
 import com.student22110006.fashionshop.adapter.ListProductAdapter;
 import com.student22110006.fashionshop.data.model.category.Category;
-import com.student22110006.fashionshop.data.model.notification.Notification;
 import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.FragmentHomeBinding;
+import com.student22110006.fashionshop.ui.account.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-    private ArrayList<Category> listCategories = new ArrayList<Category>();
-    private ArrayList<Product> listProducts = new ArrayList<Product>();
+    private final ArrayList<Category> listCategories = new ArrayList<Category>();
+    private final ArrayList<Product> listProducts = new ArrayList<Product>();
     private FragmentHomeBinding binding;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,10 +44,17 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+        ImageView imgHome = root.findViewById(R.id.imgMenu);
+        binding.imgMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenu(v);
+            }
+        });
         setupViewPager();
         setupCategories();
         setupFeaturedProducts();
+
 
         return root;
     }
@@ -122,4 +134,47 @@ public class HomeFragment extends Fragment {
         // Điều hướng sang navigation_product_detail fragment
         navController.navigate(R.id.navigation_product_detail);
     }
+
+    private void showPopupMenu(View anchor) {
+        androidx.appcompat.widget.PopupMenu popup = new androidx.appcompat.widget.PopupMenu(requireContext(), anchor);
+        popup.getMenuInflater().inflate(R.menu.home_menu, popup.getMenu());
+
+        popup.setOnMenuItemClickListener(item -> {
+            int id = item.getItemId();
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+            if (id == R.id.menu_profile) {
+                // Điều hướng đến ProfileFragment
+                Toast.makeText(getContext(), "Thông tin cá nhân", Toast.LENGTH_SHORT).show();
+                // Thay thế HomeFragment bằng ProfileFragment mà không đè lên nhau
+                navController.navigate(R.id.navigation_profile);
+                return true;
+            } else if (id == R.id.menu_orders) {
+                Toast.makeText(getContext(), "Đơn hàng của tôi", Toast.LENGTH_SHORT).show();
+                // Chuyển đến OrderHistoryFragment
+                navController.navigate(R.id.navigation_order_history);
+                return true;
+            } else if (id == R.id.menu_logout) {
+                // Xử lý đăng xuất
+                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("FashionShop", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("isLoggedIn", false); // Đặt lại trạng thái đăng nhập
+                editor.remove("userEmail"); // Xóa email
+                editor.remove("userPassword"); // Xóa mật khẩu
+                editor.apply();
+
+                // Chuyển về màn hình đăng nhập
+                Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                startActivity(intent);
+                requireActivity().finish();  // Đảm bảo không quay lại màn hình chính sau khi đăng xuất
+
+                Toast.makeText(getContext(), "Đăng xuất thành công", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            return false;
+        });
+
+        popup.show();
+    }
+
+
 }
