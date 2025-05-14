@@ -40,7 +40,9 @@ object ApiClient {
     val productService: ProductService by lazy {
         retrofit.create(ProductService::class.java)
     }
-
+    val orderService: OrderService by lazy {
+        retrofit.create(OrderService::class.java)
+    }
     val customerService: CustomerService by lazy {
         retrofit.create(CustomerService::class.java)
     }
