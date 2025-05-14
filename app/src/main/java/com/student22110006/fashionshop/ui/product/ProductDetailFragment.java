@@ -23,6 +23,7 @@ import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.adapter.ImageSliderAdapter;
 import com.student22110006.fashionshop.adapter.ListProductAdapter;
 import com.student22110006.fashionshop.data.model.product.Product;
+import com.student22110006.fashionshop.data.repository.ProductRepository;
 import com.student22110006.fashionshop.databinding.FragmentProductDetailBinding;
 
 import java.util.ArrayList;
@@ -48,9 +49,6 @@ public class ProductDetailFragment extends Fragment {
         binding = FragmentProductDetailBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        // Cài đặt giao diện bên trong Fragment
-        loadData();
-
         return view;
     }
 
@@ -58,13 +56,21 @@ public class ProductDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel = new ViewModelProvider(this).get(ProductDetailViewModel.class);
-
+        var repository = new ProductRepository();
+        var factory = new ProductDetailViewModelFactory(repository);
+        mViewModel = new ViewModelProvider(this, factory).get(ProductDetailViewModel.class);
+        
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(v -> {
             NavController navController = NavHostFragment.findNavController(this);
             navController.popBackStack();
         });
+
+        Bundle args = getArguments();
+        if (args != null) {
+            productId = args.getInt("productId");
+            mViewModel.loadProduct(productId);
+        }
     }
 
     private void loadData() {

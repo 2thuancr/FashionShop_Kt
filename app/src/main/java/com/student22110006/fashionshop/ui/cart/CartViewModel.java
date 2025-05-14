@@ -50,7 +50,7 @@ public class CartViewModel extends ViewModel {
         order.setStatus(0); // Pending, chẳng hạn
 
         List<OrderItem> items = cartManager.getCartItems().getValue();
-        order.setItems(items.toArray(new OrderItem[0]));
+        order.setItems(items);
 
         double totalPrice = 0, totalDiscount = 0;
         for (OrderItem item : items) {

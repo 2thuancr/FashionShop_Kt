@@ -128,9 +128,11 @@ public class HomeFragment extends Fragment {
     private void showProductDetails(Product product) {
         // Lấy NavController từ NavHostFragment
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+        Bundle bundle = new Bundle();
+        bundle.putInt("productId", product.getId());
 
         // Điều hướng sang navigation_product_detail fragment
-        navController.navigate(R.id.navigation_product_detail);
+        navController.navigate(R.id.navigation_product_detail, bundle);
     }
 
     private void showPopupMenu(View anchor) {

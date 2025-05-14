@@ -5,6 +5,7 @@ data class AccountLoginData(
     // val refreshToken: String,
     // val user: User
 
+    val customerId: String,
     val userName: String,
     val displayName: String,
     val typeID: Int

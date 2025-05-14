@@ -28,29 +28,13 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
     private Context context;
     private final Set<Integer> selectedProductIds = new HashSet<>();
 
-    public interface OnSelectionChangeListener {
-        void onSelectionChanged(boolean allSelected);
-    }
-
-    private OnSelectionChangeListener selectionChangeListener;
-
-    public void setOnSelectionChangeListener(OnSelectionChangeListener listener) {
-        this.selectionChangeListener = listener;
-    }
-
-    public interface OnQuantityChangeListener {
-        void onQuantityChanged();
-    }
-
-    private OnQuantityChangeListener quantityChangeListener;
-
-    public void setOnQuantityChangeListener(OnQuantityChangeListener listener) {
-        this.quantityChangeListener = listener;
-    }
-
     public CheckoutProductAdapter(Context context, List<OrderItem> orderItemList) {
         this.context = context;
         this.orderItemList = orderItemList;
+    }
+
+    public List<OrderItem> getOrderItemList() {
+        return orderItemList;
     }
 
     @NonNull
@@ -88,19 +72,6 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void selectAllItems(boolean isSelected) {
-        selectedProductIds.clear(); // Xoá trước nếu chọn lại
-
-        if (isSelected) {
-            for (OrderItem p : orderItemList) {
-                selectedProductIds.add(p.getProductId());
-            }
-        }
-
-        notifyDataSetChanged();
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
     public void updateList(List<OrderItem> newList) {
         this.orderItemList = newList;
         // selectedProductIds.clear();
@@ -117,7 +88,7 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
 
         public void bind(Product product) {
             binding.tvProductTitle.setText(product.getName());
-            binding.tvVariation.setText("Variations: " + product.getSize());
+            binding.tvVariation.setText(product.getSize());
 
             double price = product.getPrice();
             double discount = product.getDiscount();
