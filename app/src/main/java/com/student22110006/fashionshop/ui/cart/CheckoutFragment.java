@@ -26,10 +26,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.adapter.CheckoutProductAdapter;
+import com.student22110006.fashionshop.data.model.order.Order;
 import com.student22110006.fashionshop.data.model.order.OrderItem;
 import com.student22110006.fashionshop.databinding.FragmentCheckoutBinding;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CheckoutFragment extends Fragment {
@@ -37,6 +39,7 @@ public class CheckoutFragment extends Fragment {
     private CheckoutProductAdapter checkoutProductAdapter;
     private FragmentCheckoutBinding binding;
     private CheckoutViewModel checkoutViewModel;
+    private double totalPrice = 0;
 
     private final String[] addresses = {
             "70 D1, Phường Hiệp Phú, Tp. Thủ Đức, HCM\nContact: +84-12345AB",
@@ -74,7 +77,7 @@ public class CheckoutFragment extends Fragment {
                     checkoutProductAdapter.updateList(orderItemList);
                 }
 
-                double totalPrice = orderItemList.stream().mapToDouble(item -> item.getAmount() * item.getPrice()).sum();
+                totalPrice = orderItemList.stream().mapToDouble(item -> item.getAmount() * item.getPrice()).sum();
                 binding.tvTotalPrice.setText(String.format("%.0f đ", totalPrice));
             }
         }
@@ -88,22 +91,39 @@ public class CheckoutFragment extends Fragment {
         setupChangeAddress();
 
         // Quan sát phương thức giao hàng
-        checkoutViewModel.getDeliveryMethod().observe(getViewLifecycleOwner(), method -> {
+        checkoutViewModel.getPaymentMethod().observe(getViewLifecycleOwner(), method -> {
             if (method != null) {
-                binding.tvDeliveryMethod.setText(method);
+                binding.tvPaymentMethod.setText(method);
             }
         });
 
         // Xử lý sự kiện xác nhận đơn hàng
         binding.btnConfirmOrder.setOnClickListener(v -> {
-            String address = binding.tvAddress.getText().toString();
+            String address = binding.tvAddress.getText().toString().trim();
             if (address.trim().isEmpty()) {
-                Toast.makeText(requireContext(), "Vui lòng điên địa chỉ nhận hàng!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Vui lòng điền địa chỉ nhận hàng!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // TODO: Gửi thông tin đặt hàng lên server
-            Toast.makeText(requireContext(), "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
+            // Lấy customer ID từ SharedPreferences
+            SharedPreferences prefs = requireContext().getSharedPreferences("FashionShop", Context.MODE_PRIVATE);
+            int customerId = prefs.getInt("customerId", -1);
+            if (customerId == -1) {
+                Toast.makeText(requireContext(), "Vui lòng đăng nhập để đặt hàng!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Order order = new Order();
+            order.setDeliveryAddress(address);
+            order.setPaymentMethod(checkoutViewModel.getPaymentMethod().getValue());
+            order.setItems(checkoutProductAdapter.getOrderItemList());
+            order.setCustomerId(customerId);
+            order.setBusinessTime(new Date());
+            order.setStatus(0); // Trạng thái đơn hàng (0: Đang chờ xử lý)
+            order.setTotalPrice(totalPrice);
+            order.setTotalDiscount(0); // Giả sử không có giảm giá
+
+            checkoutViewModel.checkout(order);
         });
 
         String savedAddress = getSavedAddress();

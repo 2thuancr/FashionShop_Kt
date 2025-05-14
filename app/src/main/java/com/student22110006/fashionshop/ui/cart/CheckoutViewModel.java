@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 public class CheckoutViewModel extends ViewModel {
     private final MutableLiveData<String> deliveryAddress = new MutableLiveData<>();
-    private final MutableLiveData<String> deliveryMethod = new MutableLiveData<>();
+    private final MutableLiveData<String> paymentMethod = new MutableLiveData<>();
 
     public void setDeliveryAddress(String address) {
         deliveryAddress.setValue(address);
@@ -17,11 +17,11 @@ public class CheckoutViewModel extends ViewModel {
     }
 
     // Getter và Setter cho phương thức giao hàng
-    public LiveData<String> getDeliveryMethod() {
-        return deliveryMethod;
+    public LiveData<String> getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setDeliveryMethod(String method) {
-        deliveryMethod.setValue(method);
+    public void setPaymentMethod(String method) {
+        paymentMethod.setValue(method);
     }
 }

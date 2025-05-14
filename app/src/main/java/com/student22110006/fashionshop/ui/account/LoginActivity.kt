@@ -43,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
 
         val sharedPreferences = getSharedPreferences("FashionShop", MODE_PRIVATE)
+        val customerId = sharedPreferences.getString("customerId", null)
         val userEmail = sharedPreferences.getString("email", null)
         val userPassword = sharedPreferences.getString("password", null)
 
@@ -150,6 +151,7 @@ class LoginActivity : AppCompatActivity() {
                         val editor = sharedPreferences.edit()
 
                         // Lưu email và password (hãy lưu mật khẩu an toàn nếu cần)
+                        editor.putString("customerId", response.data?.customerId?.toString())
                         editor.putString("email", userName)
                         editor.putString("password", password)
                         editor.putBoolean("isLoggedIn", true)

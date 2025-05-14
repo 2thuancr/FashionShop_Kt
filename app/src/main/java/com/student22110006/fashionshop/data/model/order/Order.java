@@ -1,6 +1,8 @@
 package com.student22110006.fashionshop.data.model.order;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Order {
     private int id;
@@ -8,21 +10,14 @@ public class Order {
     private int customerId;
     private double totalPrice;
     private double totalDiscount;
+    public String deliveryAddress;
+    private String paymentMethod;
+    // 0: Pending, 1: Processing, 2: Shipped, 3: Delivered, 4: Cancelled
     private int status;
-    private OrderItem[] items;
+    private List<OrderItem> items;
 
     public Order() {
         // Default constructor
-    }
-
-    public Order(int id, Date businessTime, int customerId, double totalPrice, double totalDiscount, int status, OrderItem[] items) {
-        this.id = id;
-        this.businessTime = businessTime;
-        this.customerId = customerId;
-        this.totalPrice = totalPrice;
-        this.totalDiscount = totalDiscount;
-        this.status = status;
-        this.items = items;
     }
 
     public int getId() {
@@ -65,6 +60,22 @@ public class Order {
         this.totalDiscount = totalDiscount;
     }
 
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
     public int getStatus() {
         return status;
     }
@@ -73,11 +84,11 @@ public class Order {
         this.status = status;
     }
 
-    public OrderItem[] getItems() {
+    public List<OrderItem> getItems() {
         return items;
     }
 
-    public void setItems(OrderItem[] items) {
+    public void setItems(List<OrderItem> items) {
         this.items = items;
     }
 }
