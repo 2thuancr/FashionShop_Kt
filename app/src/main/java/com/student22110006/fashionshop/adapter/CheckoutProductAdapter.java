@@ -61,25 +61,26 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
         return new CheckoutProductViewHolder(binding);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull CheckoutProductViewHolder holder, int position) {
         OrderItem orderItem = orderItemList.get(position);
 
         holder.binding.tvProductTitle.setText(orderItem.getName());
-        holder.binding.tvQuantity.setText(String.valueOf(orderItem.getAmount()));
+        holder.binding.tvQuantity.setText(String.format("Qty: %d", orderItem.getAmount()));
 
         double price = orderItem.getPrice();
         double discount = orderItem.getDiscount();
-        double originalPrice = price / (1 - discount);
+        double originalPrice = price / (1 - (discount / 100.0));
 
-        holder.binding.tvPrice.setText(String.format("$%.2f", price));
-        holder.binding.tvDiscount.setText(String.format("$%.2f", originalPrice));
+        holder.binding.tvPrice.setText(String.format("%.0f", price));
+        holder.binding.tvDiscount.setText(String.format("%.0f", originalPrice));
+        holder.binding.tvTotalOrder.setText(String.format("%.0f", price * orderItem.getAmount()));
 
         Glide.with(context)
                 .load(orderItem.getImageUrl())
                 .into(holder.binding.imgProduct);
     }
-
 
     @Override
     public int getItemCount() {
@@ -120,10 +121,10 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
 
             double price = product.getPrice();
             double discount = product.getDiscount();
-            double originalPrice = price / (1 - discount);
+            double originalPrice = price / (1 - (discount / 100.0));
 
-            binding.tvPrice.setText(String.format("$%.2f", price));
-            binding.tvDiscount.setText(String.format("~$%.2f~", originalPrice));
+            binding.tvPrice.setText(String.format("%.0f", price));
+            binding.tvDiscount.setText(String.format("~%.0f~", originalPrice));
 
             Glide.with(context)
                     .load(product.getImageUrl())

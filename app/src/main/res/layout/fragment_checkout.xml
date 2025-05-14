@@ -25,7 +25,7 @@
                 android:background="@color/background_color_light"
                 android:textAlignment="textStart"
                 app:navigationIcon="@drawable/ic_reply"
-                app:title="CHECKOUT"
+                app:title="Đặt hàng"
                 app:titleTextColor="@color/color_primary" />
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -42,7 +42,7 @@
                 android:id="@+id/tvAddressLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Delivery Address"
+                android:text="Địa chỉ nhận hàng"
                 android:textColor="@color/color_primary"
                 android:textStyle="bold"
                 android:paddingVertical="8dp"
@@ -71,7 +71,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:text="Address :"
+                            android:text="Địa chỉ:"
                             android:textStyle="bold"
                             android:textSize="14sp"
                             android:textColor="@color/color_text_primary"
@@ -102,7 +102,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Products"
+                android:text="Danh sách sản phẩm"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/color_primary"
@@ -120,7 +120,7 @@
                 android:id="@+id/tvTotalPriceLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total:"
+                android:text="Tổng tiền:"
                 android:textColor="@color/color_primary"
                 android:textStyle="bold"
                 android:textSize="16sp"
@@ -130,7 +130,7 @@
                 android:id="@+id/tvTotalPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="$0.00"
+                android:text="0 đ"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/color_primary_dark"
@@ -139,7 +139,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Delivery Method: "
+                android:text="Thanh toán: "
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/color_primary_dark" />
@@ -158,7 +158,7 @@
                 android:id="@+id/btnConfirmOrder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Confirm Order"
+                android:text="Xác nhận đơn hàng"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 app:cornerRadius="8dp"

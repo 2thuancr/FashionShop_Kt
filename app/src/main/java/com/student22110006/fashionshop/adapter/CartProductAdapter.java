@@ -187,13 +187,16 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         public void bind(OrderItem item) {
             binding.tvProductTitle.setText(item.getName());
 
-            double price = item.getPrice();
-            double discount = item.getDiscount();
-            double originalPrice = price / (1 - discount);
+            double price = item.getPrice(); // giá sau khi giảm
+            double discount = item.getDiscount(); // phần trăm (VD: 20.0 là 20%)
+            double originalPrice = price / (1 - (discount / 100.0));
 
-            binding.tvPrice.setText(String.format("$%.2f", price));
-            binding.tvDiscount.setText(String.format("~$%.2f~", originalPrice));
+            binding.tvPrice.setText(String.format("%.0f", price));
+            binding.tvDiscount.setText(String.format("%.0f", originalPrice));
             binding.tvQuantity.setText(String.valueOf(item.getAmount()));
+
+            double total = price * item.getAmount();
+            binding.tvTotalOrder.setText(String.format("Tổng: %.2f", total));
 
             Glide.with(context)
                     .load(item.getImageUrl())
@@ -202,10 +205,13 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
             binding.checkboxSelect.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) selectedProductIds.add(item.getProductId());
                 else selectedProductIds.remove(item.getProductId());
+
                 if (selectionChangeListener != null) {
                     selectionChangeListener.onSelectionChanged(checkAllSelected());
                 }
-                if (quantityChangeListener != null) quantityChangeListener.onQuantityChanged();
+                if (quantityChangeListener != null) {
+                    quantityChangeListener.onQuantityChanged();
+                }
             });
         }
     }

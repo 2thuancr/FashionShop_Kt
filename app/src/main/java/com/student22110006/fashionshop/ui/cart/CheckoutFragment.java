@@ -25,7 +25,6 @@ import java.lang.reflect.Type;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.student22110006.fashionshop.R;
-import com.student22110006.fashionshop.adapter.CartProductAdapter;
 import com.student22110006.fashionshop.adapter.CheckoutProductAdapter;
 import com.student22110006.fashionshop.data.model.order.OrderItem;
 import com.student22110006.fashionshop.databinding.FragmentCheckoutBinding;
@@ -35,15 +34,12 @@ import java.util.List;
 
 public class CheckoutFragment extends Fragment {
 
-    private CheckoutProductAdapter productAdapter;
+    private CheckoutProductAdapter checkoutProductAdapter;
     private FragmentCheckoutBinding binding;
-    private CartViewModel cartViewModel;
     private CheckoutViewModel checkoutViewModel;
 
     private final String[] addresses = {
-            "216 St Paul’s Rd, London N1 2LL, UK\nContact: +44-78423XZ",
-            "45 Queen St, Manchester M1 2AB, UK\nContact: +44-77300YX",
-            "123 Oxford Rd, Birmingham B1 1AA, UK\nContact: +44-70011AA"
+            "70 D1, Phường Hiệp Phú, Tp. Thủ Đức, HCM\nContact: +84-12345AB",
     };
 
     @Nullable
@@ -61,11 +57,10 @@ public class CheckoutFragment extends Fragment {
         // Khởi tạo CheckoutViewModel
         checkoutViewModel = new ViewModelProvider(this).get(CheckoutViewModel.class);
 
-        // Khởi tạo CartViewModel và Adapter
-        cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
-        productAdapter = new CheckoutProductAdapter(requireContext(), new ArrayList<>());
+        // Khởi tạo ViewModel và Adapter
+        checkoutProductAdapter = new CheckoutProductAdapter(requireContext(), new ArrayList<>());
         binding.rvCheckoutProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.rvCheckoutProducts.setAdapter(productAdapter);
+        binding.rvCheckoutProducts.setAdapter(checkoutProductAdapter);
 
         Bundle args = getArguments();
         if (args != null) {
@@ -76,8 +71,11 @@ public class CheckoutFragment extends Fragment {
 
                 List<OrderItem> orderItemList = new Gson().fromJson(cartJson, type);
                 if (orderItemList != null) {
-                    productAdapter.updateList(orderItemList);
+                    checkoutProductAdapter.updateList(orderItemList);
                 }
+
+                double totalPrice = orderItemList.stream().mapToDouble(item -> item.getAmount() * item.getPrice()).sum();
+                binding.tvTotalPrice.setText(String.format("%.0f đ", totalPrice));
             }
         }
 

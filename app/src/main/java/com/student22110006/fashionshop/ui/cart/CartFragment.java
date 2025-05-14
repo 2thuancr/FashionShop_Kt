@@ -107,7 +107,7 @@ public class CartFragment extends Fragment {
         for (OrderItem item : selected) {
             total += item.getAmount() * item.getPrice();
         }
-        binding.tvTotalPrice.setText(String.format("$%.2f", total));
+        binding.tvTotalPrice.setText(String.format("%.0f", total));
     }
 
     @Override
