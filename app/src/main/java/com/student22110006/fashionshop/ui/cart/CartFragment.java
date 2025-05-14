@@ -44,7 +44,7 @@ public class CartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
-        cartViewModel.loadProductData();
+        cartViewModel.getCartProducts();
 
         setupRecyclerView();
         setupSelectAllCheckbox();

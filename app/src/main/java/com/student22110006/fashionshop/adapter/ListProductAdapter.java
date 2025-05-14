@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.ItemProductBinding;
+import com.student22110006.fashionshop.utils.CartManager;
 
 import java.util.List;
 
@@ -107,8 +108,12 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
             binding.buttonAddToCart.setOnClickListener(view -> {
                 // Lấy ra item product tại vị trí position
                 Product product = productList.get(getAdapterPosition());
+
+                // Thêm sản phẩm vào giỏ hàng
+                CartManager.getInstance().addProduct(product);
+
                 // Hiển thị thông báo sản phẩm được chọn
-                Toast.makeText(context, product.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, product.getName() + " đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
             });
         }
     }
