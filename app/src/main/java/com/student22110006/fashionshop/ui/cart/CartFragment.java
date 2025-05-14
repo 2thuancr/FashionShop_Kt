@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.adapter.CartProductAdapter;
 import com.student22110006.fashionshop.data.model.order.OrderItem;
@@ -56,11 +57,6 @@ public class CartFragment extends Fragment {
         });
 
         adapter.setOnQuantityChangeListener(this::updateTotalPrice);
-
-//        adapter.setOnDeleteClickListener(product -> {
-//            cartViewModel.removeProduct(product); // Cập nhật ViewModel
-//            updateTotalPrice();
-//        });
     }
 
     private void setupRecyclerView() {
@@ -88,14 +84,20 @@ public class CartFragment extends Fragment {
         binding.btnPlaceOrder.setOnClickListener(v -> {
             List<OrderItem> selectedItems = adapter.getSelectedItems();
             if (selectedItems == null || selectedItems.isEmpty()) {
-                Toast.makeText(requireContext(), "Your cart is empty!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Giỏ hàng đang trống!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Lấy NavController từ NavHostFragment
+            // Convert danh sách sang JSON
+            String cartJson = new Gson().toJson(selectedItems);
+
+            // Tạo Bundle để truyền dữ liệu
+            Bundle bundle = new Bundle();
+            bundle.putString("cart_selected_items_json", cartJson);
+
+            // Điều hướng tới CheckoutFragment kèm dữ liệu
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-            // Điều hướng tới CheckoutFragment bằng hành động được định nghĩa trong navigation graph
-            navController.navigate(R.id.navigation_checkout);
+            navController.navigate(R.id.navigation_checkout, bundle);
         });
     }
 

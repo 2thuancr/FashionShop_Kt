@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.student22110006.fashionshop.R;
+import com.student22110006.fashionshop.data.model.order.OrderItem;
 import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.ItemCheckoutProductBinding;
 
@@ -23,7 +24,7 @@ import java.util.Set;
 
 public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProductAdapter.CheckoutProductViewHolder> {
 
-    private List<Product> productList = new ArrayList<>();
+    private List<OrderItem> orderItemList = new ArrayList<>();
     private Context context;
     private final Set<Integer> selectedProductIds = new HashSet<>();
 
@@ -47,9 +48,9 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
         this.quantityChangeListener = listener;
     }
 
-    public CheckoutProductAdapter(Context context, List<Product> productList) {
+    public CheckoutProductAdapter(Context context, List<OrderItem> orderItemList) {
         this.context = context;
-        this.productList = productList;
+        this.orderItemList = orderItemList;
     }
 
     @NonNull
@@ -62,30 +63,27 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
 
     @Override
     public void onBindViewHolder(@NonNull CheckoutProductViewHolder holder, int position) {
-        Product product = productList.get(position);
-        holder.bind(product);
+        OrderItem orderItem = orderItemList.get(position);
 
-        // Cập nhật quantity
-        holder.binding.tvQuantity.setText(String.valueOf(product.getQuantity()));
+        holder.binding.tvProductTitle.setText(orderItem.getName());
+        holder.binding.tvQuantity.setText(String.valueOf(orderItem.getAmount()));
+
+        double price = orderItem.getPrice();
+        double discount = orderItem.getDiscount();
+        double originalPrice = price / (1 - discount);
+
+        holder.binding.tvPrice.setText(String.format("$%.2f", price));
+        holder.binding.tvDiscount.setText(String.format("$%.2f", originalPrice));
+
+        Glide.with(context)
+                .load(orderItem.getImageUrl())
+                .into(holder.binding.imgProduct);
     }
 
-    private boolean checkAllSelected() {
-        return selectedProductIds.size() == productList.size() && !productList.isEmpty();
-    }
 
     @Override
     public int getItemCount() {
-        return productList.size();
-    }
-
-    public ArrayList<Product> getSelectedProducts() {
-        ArrayList<Product> selected = new ArrayList<>();
-        for (Product p : productList) {
-            if (selectedProductIds.contains(p.getId())) {
-                selected.add(p);
-            }
-        }
-        return selected;
+        return orderItemList.size();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -93,8 +91,8 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
         selectedProductIds.clear(); // Xoá trước nếu chọn lại
 
         if (isSelected) {
-            for (Product p : productList) {
-                selectedProductIds.add(p.getId());
+            for (OrderItem p : orderItemList) {
+                selectedProductIds.add(p.getProductId());
             }
         }
 
@@ -102,8 +100,8 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateList(List<Product> newList) {
-        this.productList = newList;
+    public void updateList(List<OrderItem> newList) {
+        this.orderItemList = newList;
         // selectedProductIds.clear();
         notifyDataSetChanged();
     }

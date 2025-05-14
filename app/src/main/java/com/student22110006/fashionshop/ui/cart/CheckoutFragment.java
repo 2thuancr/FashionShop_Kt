@@ -20,12 +20,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.lang.reflect.Type;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.adapter.CartProductAdapter;
 import com.student22110006.fashionshop.adapter.CheckoutProductAdapter;
+import com.student22110006.fashionshop.data.model.order.OrderItem;
 import com.student22110006.fashionshop.databinding.FragmentCheckoutBinding;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CheckoutFragment extends Fragment {
 
@@ -61,12 +67,19 @@ public class CheckoutFragment extends Fragment {
         binding.rvCheckoutProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvCheckoutProducts.setAdapter(productAdapter);
 
-        // Quan sát danh sách sản phẩm trong giỏ hàng
-        cartViewModel.getCartItems().observe(getViewLifecycleOwner(), orderItemList -> {
-            if (orderItemList != null) {
-//                productAdapter.updateList(orderItemList);
+        Bundle args = getArguments();
+        if (args != null) {
+            String cartJson = args.getString("cart_selected_items_json");
+            if (cartJson != null) {
+                Type type = new TypeToken<List<OrderItem>>() {
+                }.getType();
+
+                List<OrderItem> orderItemList = new Gson().fromJson(cartJson, type);
+                if (orderItemList != null) {
+                    productAdapter.updateList(orderItemList);
+                }
             }
-        });
+        }
 
         // Quan sát địa chỉ giao hàng (nếu có)
         checkoutViewModel.getDeliveryAddress().observe(getViewLifecycleOwner(), address -> {
@@ -86,13 +99,13 @@ public class CheckoutFragment extends Fragment {
         // Xử lý sự kiện xác nhận đơn hàng
         binding.btnConfirmOrder.setOnClickListener(v -> {
             String address = binding.tvAddress.getText().toString();
-            if (address == null || address.trim().isEmpty()) {
-                Toast.makeText(requireContext(), "Please select a delivery address", Toast.LENGTH_SHORT).show();
+            if (address.trim().isEmpty()) {
+                Toast.makeText(requireContext(), "Vui lòng điên địa chỉ nhận hàng!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             // TODO: Gửi thông tin đặt hàng lên server
-            Toast.makeText(requireContext(), "Order placed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
         });
 
         String savedAddress = getSavedAddress();
