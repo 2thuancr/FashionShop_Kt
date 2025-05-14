@@ -21,8 +21,10 @@ import android.widget.Toast;
 
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.adapter.CartProductAdapter;
+import com.student22110006.fashionshop.data.model.order.OrderItem;
 import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.FragmentCartBinding;
+import com.student22110006.fashionshop.utils.CartManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,24 +46,25 @@ public class CartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
-        cartViewModel.getCartProducts();
-
         setupRecyclerView();
         setupSelectAllCheckbox();
         setupPlaceOrderButton();
 
-        cartViewModel.getCartProducts().observe(getViewLifecycleOwner(), products -> {
+        cartViewModel.getCartItems().observe(getViewLifecycleOwner(), products -> {
             adapter.updateList(products);
             updateTotalPrice();
         });
 
-        adapter.setOnQuantityChangeListener(() -> {
-            updateTotalPrice();
-        });
+        adapter.setOnQuantityChangeListener(this::updateTotalPrice);
+
+//        adapter.setOnDeleteClickListener(product -> {
+//            cartViewModel.removeProduct(product); // Cập nhật ViewModel
+//            updateTotalPrice();
+//        });
     }
 
     private void setupRecyclerView() {
-        adapter = new CartProductAdapter(requireContext(), new ArrayList<>());
+        adapter = new CartProductAdapter(requireContext(), new ArrayList<>(), CartManager.getInstance());
         binding.rvCartProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvCartProducts.setAdapter(adapter);
 
@@ -81,11 +84,10 @@ public class CartFragment extends Fragment {
         });
     }
 
-
     private void setupPlaceOrderButton() {
         binding.btnPlaceOrder.setOnClickListener(v -> {
-            ArrayList<Product> selectedProducts = adapter.getSelectedProducts();
-            if (selectedProducts == null || selectedProducts.isEmpty()) {
+            List<OrderItem> selectedItems = adapter.getSelectedItems();
+            if (selectedItems == null || selectedItems.isEmpty()) {
                 Toast.makeText(requireContext(), "Your cart is empty!", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -97,12 +99,11 @@ public class CartFragment extends Fragment {
         });
     }
 
-
     private void updateTotalPrice() {
-        List<Product> selected = adapter.getSelectedProducts();
+        List<OrderItem> selected = adapter.getSelectedItems();
         double total = 0.0;
-        for (Product p : selected) {
-            total += p.getQuantity() * p.getPrice();
+        for (OrderItem item : selected) {
+            total += item.getAmount() * item.getPrice();
         }
         binding.tvTotalPrice.setText(String.format("$%.2f", total));
     }

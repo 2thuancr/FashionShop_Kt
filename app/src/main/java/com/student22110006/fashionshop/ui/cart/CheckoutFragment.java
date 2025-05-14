@@ -62,9 +62,9 @@ public class CheckoutFragment extends Fragment {
         binding.rvCheckoutProducts.setAdapter(productAdapter);
 
         // Quan sát danh sách sản phẩm trong giỏ hàng
-        cartViewModel.getCartProducts().observe(getViewLifecycleOwner(), products -> {
-            if (products != null) {
-                productAdapter.updateList(products);
+        cartViewModel.getCartItems().observe(getViewLifecycleOwner(), orderItemList -> {
+            if (orderItemList != null) {
+//                productAdapter.updateList(orderItemList);
             }
         });
 
