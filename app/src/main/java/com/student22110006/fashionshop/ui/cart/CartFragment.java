@@ -19,10 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.adapter.CartProductAdapter;
+import com.student22110006.fashionshop.data.model.order.OrderItem;
 import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.FragmentCartBinding;
+import com.student22110006.fashionshop.utils.CartManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,24 +47,20 @@ public class CartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         cartViewModel = new ViewModelProvider(requireActivity()).get(CartViewModel.class);
-        cartViewModel.loadProductData();
-
         setupRecyclerView();
         setupSelectAllCheckbox();
         setupPlaceOrderButton();
 
-        cartViewModel.getCartProducts().observe(getViewLifecycleOwner(), products -> {
+        cartViewModel.getCartItems().observe(getViewLifecycleOwner(), products -> {
             adapter.updateList(products);
             updateTotalPrice();
         });
 
-        adapter.setOnQuantityChangeListener(() -> {
-            updateTotalPrice();
-        });
+        adapter.setOnQuantityChangeListener(this::updateTotalPrice);
     }
 
     private void setupRecyclerView() {
-        adapter = new CartProductAdapter(requireContext(), new ArrayList<>());
+        adapter = new CartProductAdapter(requireContext(), new ArrayList<>(), CartManager.getInstance());
         binding.rvCartProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvCartProducts.setAdapter(adapter);
 
@@ -81,30 +80,34 @@ public class CartFragment extends Fragment {
         });
     }
 
-
     private void setupPlaceOrderButton() {
         binding.btnPlaceOrder.setOnClickListener(v -> {
-            ArrayList<Product> selectedProducts = adapter.getSelectedProducts();
-            if (selectedProducts == null || selectedProducts.isEmpty()) {
-                Toast.makeText(requireContext(), "Your cart is empty!", Toast.LENGTH_SHORT).show();
+            List<OrderItem> selectedItems = adapter.getSelectedItems();
+            if (selectedItems == null || selectedItems.isEmpty()) {
+                Toast.makeText(requireContext(), "Giỏ hàng đang trống!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Lấy NavController từ NavHostFragment
+            // Convert danh sách sang JSON
+            String cartJson = new Gson().toJson(selectedItems);
+
+            // Tạo Bundle để truyền dữ liệu
+            Bundle bundle = new Bundle();
+            bundle.putString("cart_selected_items_json", cartJson);
+
+            // Điều hướng tới CheckoutFragment kèm dữ liệu
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-            // Điều hướng tới CheckoutFragment bằng hành động được định nghĩa trong navigation graph
-            navController.navigate(R.id.navigation_checkout);
+            navController.navigate(R.id.navigation_checkout, bundle);
         });
     }
 
-
     private void updateTotalPrice() {
-        List<Product> selected = adapter.getSelectedProducts();
+        List<OrderItem> selected = adapter.getSelectedItems();
         double total = 0.0;
-        for (Product p : selected) {
-            total += p.getQuantity() * p.getPrice();
+        for (OrderItem item : selected) {
+            total += item.getAmount() * item.getPrice();
         }
-        binding.tvTotalPrice.setText(String.format("$%.2f", total));
+        binding.tvTotalPrice.setText(String.format("%.0f", total));
     }
 
     @Override

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,7 +37,6 @@ public class HomeFragment extends Fragment {
     private final ArrayList<Product> listProducts = new ArrayList<Product>();
     private FragmentHomeBinding binding;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
@@ -54,7 +54,6 @@ public class HomeFragment extends Fragment {
         setupViewPager();
         setupCategories();
         setupFeaturedProducts();
-
 
         return root;
     }
@@ -113,18 +112,17 @@ public class HomeFragment extends Fragment {
 
     private void setupFeaturedProducts() {
         final RecyclerView featuredProductsRecyclerView = binding.featuredProductsRecyclerView;
-        featuredProductsRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        // GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 2, RecyclerView.HORIZONTAL, false);
+        featuredProductsRecyclerView.setLayoutManager(linearLayoutManager);
+
         LoadFeaturedProductData();
-        ListProductAdapter featuredProductsAdapter = new ListProductAdapter(this.getContext(), this.listProducts, this::showProductDetails);
+        ListProductAdapter featuredProductsAdapter = new ListProductAdapter(this.getContext(), this.listProducts, this::showProductDetails, 180);
         featuredProductsRecyclerView.setAdapter(featuredProductsAdapter);
 
         final TextView tvViewAllProducts = binding.tvViewAllProducts;
-        tvViewAllProducts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Xem tất cả sản phẩm", Toast.LENGTH_SHORT).show();
-            }
-        });
+        tvViewAllProducts.setOnClickListener(v -> Toast.makeText(getContext(), "Xem tất cả sản phẩm", Toast.LENGTH_SHORT).show());
     }
 
     private void showProductDetails(Product product) {
@@ -158,8 +156,8 @@ public class HomeFragment extends Fragment {
                 SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("FashionShop", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("isLoggedIn", false); // Đặt lại trạng thái đăng nhập
-                editor.remove("userEmail"); // Xóa email
-                editor.remove("userPassword"); // Xóa mật khẩu
+                editor.remove("email"); // Xóa email
+                editor.remove("password"); // Xóa mật khẩu
                 editor.apply();
 
                 // Chuyển về màn hình đăng nhập
@@ -175,6 +173,4 @@ public class HomeFragment extends Fragment {
 
         popup.show();
     }
-
-
 }

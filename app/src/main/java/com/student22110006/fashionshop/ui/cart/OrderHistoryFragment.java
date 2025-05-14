@@ -49,9 +49,9 @@ public class OrderHistoryFragment extends Fragment {
 
     private void loadSampleData() {
         List<OrderItem> orderItems = new ArrayList<>();
-        orderItems.add(new OrderItem("Tạm Biệt Tôi Của Nhiều Năm Về Trước", 1, "71.000 ₫", "https://product.hstatic.net/200000642007/product/50whs_3atst0153_2_9b6e53b833ee483cb9281843d361a1ed_e2eb29fcebe04276afd08adaf11d4dfd_grande.jpg"));
-        orderItems.add(new OrderItem("Nếu Như Tôi Nói Nhớ, Em Có Tin Không", 2, "148.600 ₫", "https://product.hstatic.net/200000642007/product/50whs_3atst0153_2_9b6e53b833ee483cb9281843d361a1ed_e2eb29fcebe04276afd08adaf11d4dfd_grande.jpg"));
-        orderItems.add(new OrderItem("Combo 3 Bông Tẩy Trang Jomi", 3, "260.231 ₫", "https://product.hstatic.net/200000642007/product/50whs_3atst0153_2_9b6e53b833ee483cb9281843d361a1ed_e2eb29fcebe04276afd08adaf11d4dfd_grande.jpg"));
+        orderItems.add(new OrderItem(1, "Tạm Biệt Tôi Của Nhiều Năm Về Trước", "https://product.hstatic.net/200000642007/product/50whs_3atst0153_2_9b6e53b833ee483cb9281843d361a1ed_e2eb29fcebe04276afd08adaf11d4dfd_grande.jpg", 1, 71000));
+        orderItems.add(new OrderItem(2, "Nếu Như Tôi Nói Nhớ, Em Có Tin Không", "https://product.hstatic.net/200000642007/product/50whs_3atst0153_2_9b6e53b833ee483cb9281843d361a1ed_e2eb29fcebe04276afd08adaf11d4dfd_grande.jpg", 2, 148600));
+        orderItems.add(new OrderItem(3, "Combo 3 Bông Tẩy Trang Jomi", "https://product.hstatic.net/200000642007/product/50whs_3atst0153_2_9b6e53b833ee483cb9281843d361a1ed_e2eb29fcebe04276afd08adaf11d4dfd_grande.jpg", 3, 260231));
 
         adapter = new OrderHistoryAdapter(requireContext(), orderItems);
         binding.recyclerViewOrders.setAdapter(adapter);

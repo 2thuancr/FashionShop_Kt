@@ -89,19 +89,19 @@
             android:layout_marginBottom="12dp"
             android:padding="10dp" />
 
-        <EditText
-            android:id="@+id/etUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nhập tên tài khoản"
-            android:background="@drawable/edittext_background"
-            android:drawableStart="@drawable/ic_usernamee"
-            android:drawablePadding="12dp"
-            android:inputType="text"
-            android:textColor="@color/black"
-            android:textColorHint="@android:color/darker_gray"
-            android:layout_marginBottom="12dp"
-            android:padding="10dp" />
+        <!--        <EditText-->
+        <!--            android:id="@+id/etUsername"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:hint="Nhập tên tài khoản"-->
+        <!--            android:background="@drawable/edittext_background"-->
+        <!--            android:drawableStart="@drawable/ic_usernamee"-->
+        <!--            android:drawablePadding="12dp"-->
+        <!--            android:inputType="text"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:textColorHint="@android:color/darker_gray"-->
+        <!--            android:layout_marginBottom="12dp"-->
+        <!--            android:padding="10dp" />-->
 
         <EditText
             android:id="@+id/etPassword"

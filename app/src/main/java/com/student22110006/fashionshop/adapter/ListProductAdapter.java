@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -22,11 +23,13 @@ import com.bumptech.glide.Glide;
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.ItemProductBinding;
+import com.student22110006.fashionshop.utils.CartManager;
 
 import java.util.List;
 
 public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.ProductViewHolder> {
     private static final String TAG = "ListProductAdapter";
+    private int maxWidthLayout = 0;
     private List<Product> productList;
     private Context context;
     private LayoutInflater inflater;
@@ -37,11 +40,20 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
         void onProductClick(Product product);
     }
 
+    public ListProductAdapter(Context context, List<Product> productList, ListProductAdapter.OnProductClickListener listener, int maxWidthLayout) {
+        this.context = context;
+        this.productList = productList;
+        this.listener = listener;
+        this.inflater = LayoutInflater.from(context);
+        this.maxWidthLayout = maxWidthLayout;
+    }
+
     public ListProductAdapter(Context context, List<Product> productList, ListProductAdapter.OnProductClickListener listener) {
         this.context = context;
         this.productList = productList;
         this.listener = listener;
         this.inflater = LayoutInflater.from(context);
+        this.maxWidthLayout = 0;
     }
 
     @NonNull
@@ -53,6 +65,15 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+
+        if (this.maxWidthLayout > 0) {
+            // Set chiều rộng cho layout của item
+            ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
+            params.width = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, this.maxWidthLayout, holder.itemView.getContext().getResources().getDisplayMetrics());
+            holder.itemView.setLayoutParams(params);
+        }
+
         // Lấy ra item product tại vị trí position
         Product product = productList.get(position);
 
@@ -107,8 +128,12 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
             binding.buttonAddToCart.setOnClickListener(view -> {
                 // Lấy ra item product tại vị trí position
                 Product product = productList.get(getAdapterPosition());
+
+                // Thêm sản phẩm vào giỏ hàng
+                CartManager.getInstance().addProduct(product);
+
                 // Hiển thị thông báo sản phẩm được chọn
-                Toast.makeText(context, product.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, product.getName() + " đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
             });
         }
     }

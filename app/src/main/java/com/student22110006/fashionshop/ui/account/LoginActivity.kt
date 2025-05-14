@@ -43,8 +43,8 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
 
         val sharedPreferences = getSharedPreferences("FashionShop", MODE_PRIVATE)
-        val userEmail = sharedPreferences.getString("userEmail", null)
-        val userPassword = sharedPreferences.getString("userPassword", null)
+        val userEmail = sharedPreferences.getString("email", null)
+        val userPassword = sharedPreferences.getString("password", null)
 
         if (userEmail != null && userPassword != null) {
             // Kiểm tra xem người dùng đã đăng nhập chưa
@@ -54,8 +54,7 @@ class LoginActivity : AppCompatActivity() {
                 // Người dùng đã đăng nhập, tự động chuyển sang màn hình chính
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-            }
-            else {
+            } else {
                 // Người dùng chưa đăng nhập, thực hiện đăng nhập thông qua email và mật khẩu
                 login(userEmail, userPassword)
             }
@@ -151,8 +150,8 @@ class LoginActivity : AppCompatActivity() {
                         val editor = sharedPreferences.edit()
 
                         // Lưu email và password (hãy lưu mật khẩu an toàn nếu cần)
-                        editor.putString("userEmail", userName)
-                        editor.putString("userPassword", password)
+                        editor.putString("email", userName)
+                        editor.putString("password", password)
                         editor.putBoolean("isLoggedIn", true)
                         editor.apply()
 

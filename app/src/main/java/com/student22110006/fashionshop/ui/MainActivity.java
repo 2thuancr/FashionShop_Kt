@@ -12,6 +12,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.student22110006.fashionshop.R;
 import com.student22110006.fashionshop.databinding.ActivityMainBinding;
+import com.student22110006.fashionshop.utils.CartManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CartManager.getInstance().init(getApplicationContext());
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

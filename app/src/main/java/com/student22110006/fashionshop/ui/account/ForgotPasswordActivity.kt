@@ -2,6 +2,7 @@ package com.student22110006.fashionshop.ui.account
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -9,9 +10,19 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.gson.Gson
 import com.student22110006.fashionshop.R
+import com.student22110006.fashionshop.data.model.account.AccountGenerateOtpRequest
+import com.student22110006.fashionshop.data.repository.AccountRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ForgotPasswordActivity : AppCompatActivity() {
+
+    private val accountRepository = AccountRepository()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,12 +44,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 // Hiển thị thông báo nếu chưa nhập email
                 Toast.makeText(this, "Vui lòng nhập email", Toast.LENGTH_SHORT).show()
             } else {
-                // Chuyển sang màn OTP Activity
-                val intent = Intent(this@ForgotPasswordActivity, OtpActivity::class.java)
-                intent.putExtra("email", email) // Truyền email qua Intent
-                // Truyền thông tin Activity hiện tại qua Intent
-                intent.putExtra("activity", "forgotPassword")
-                startActivity(intent) // Mở màn hình OTP
+                generateOtp(email) // Gọi hàm tạo OTP
             }
         }
 
@@ -48,4 +54,49 @@ class ForgotPasswordActivity : AppCompatActivity() {
             insets
         }
     }
+
+    private fun generateOtp(email: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val request = AccountGenerateOtpRequest(email)
+                val response = accountRepository.generateOtp(request)
+
+                withContext(Dispatchers.Main) {
+                    // Serialize kết quả response (nếu cần log)
+                    val jsonResponse = Gson().toJson(response)
+                    Log.d("GenerateOtpResponse", jsonResponse)
+
+                    if (response.isSuccess) {
+                        Toast.makeText(
+                            this@ForgotPasswordActivity,
+                            "OTP đã được gửi đến email",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        // Chuyển sang màn OTP
+                        val intent = Intent(this@ForgotPasswordActivity, OtpActivity::class.java)
+                        intent.putExtra("email", email)
+                        intent.putExtra("activity", "forgotPassword")
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(
+                            this@ForgotPasswordActivity,
+                            "Không thể gửi OTP: ${response.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Log.e("GenerateOtpError", e.message ?: "Unknown error")
+                    Toast.makeText(
+                        this@ForgotPasswordActivity,
+                        "Lỗi: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+
 }

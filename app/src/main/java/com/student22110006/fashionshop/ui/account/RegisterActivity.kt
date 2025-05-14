@@ -55,17 +55,21 @@ class RegisterActivity : AppCompatActivity() {
             val email = findViewById<EditText>(R.id.etEmail).text.toString().trim()
             val phoneNumber = findViewById<EditText>(R.id.etPhoneNumber).text.toString().trim()
             val fullName = findViewById<EditText>(R.id.etFullName).text.toString().trim()
-            val username = findViewById<EditText>(R.id.etUsername).text.toString().trim()
+//            val username = findViewById<EditText>(R.id.etUsername).text.toString().trim()
             val password = findViewById<EditText>(R.id.etPassword).text.toString().trim()
 
             // Kiểm tra các trường dữ liệu
-            if (email.isEmpty() || phoneNumber.isEmpty() || fullName.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            if (email.isEmpty()
+                || phoneNumber.isEmpty()
+                || fullName.isEmpty()
+                || password.isEmpty()
+            ) {
                 Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show()
             } else if (password.length < 6) {
                 Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT)
                     .show()
             } else {
-                register(email, phoneNumber, fullName, username, password)
+                register(email, phoneNumber, fullName, email, password)
             }
         }
     }
@@ -87,7 +91,7 @@ class RegisterActivity : AppCompatActivity() {
                     null, // firebaseId
                     null, // DoB
                     null, // address
-                    username,
+                    email, // username
                     password
                 )
                 val response = accountRepository.register(request)
