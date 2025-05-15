@@ -26,8 +26,10 @@ import com.student22110006.fashionshop.adapter.ImageSliderAdapter;
 import com.student22110006.fashionshop.adapter.ListProductAdapter;
 import com.student22110006.fashionshop.data.model.category.Category;
 import com.student22110006.fashionshop.data.model.product.Product;
+import com.student22110006.fashionshop.data.repository.ProductRepository;
 import com.student22110006.fashionshop.databinding.FragmentHomeBinding;
 import com.student22110006.fashionshop.ui.account.LoginActivity;
+import com.student22110006.fashionshop.ui.search.SearchViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +38,22 @@ public class HomeFragment extends Fragment {
     private final ArrayList<Category> listCategories = new ArrayList<Category>();
     private final ArrayList<Product> listProducts = new ArrayList<Product>();
     private FragmentHomeBinding binding;
+    private SearchViewModel searchViewModel;
+    private ListProductAdapter featuredProductsAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+
+        searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+        // Lắng nghe LiveData sản phẩm từ ViewModel
+        searchViewModel.getProductList().observe(getViewLifecycleOwner(), products -> {
+            if (binding.featuredProductsRecyclerView.getAdapter() == null) {
+                featuredProductsAdapter = new ListProductAdapter(requireContext(), products, this::showProductDetails);
+                binding.featuredProductsRecyclerView.setAdapter(featuredProductsAdapter);
+            } else {
+                featuredProductsAdapter.updateProducts(products);
+            }
+        });
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -118,7 +131,7 @@ public class HomeFragment extends Fragment {
         featuredProductsRecyclerView.setLayoutManager(linearLayoutManager);
 
         LoadFeaturedProductData();
-        ListProductAdapter featuredProductsAdapter = new ListProductAdapter(this.getContext(), this.listProducts, this::showProductDetails, 180);
+        featuredProductsAdapter = new ListProductAdapter(this.getContext(), this.listProducts, this::showProductDetails, 180);
         featuredProductsRecyclerView.setAdapter(featuredProductsAdapter);
 
         final TextView tvViewAllProducts = binding.tvViewAllProducts;

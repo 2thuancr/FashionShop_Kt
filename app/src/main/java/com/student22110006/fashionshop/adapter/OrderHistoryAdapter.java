@@ -11,7 +11,9 @@ import com.bumptech.glide.Glide;
 import com.student22110006.fashionshop.data.model.order.OrderItem;
 import com.student22110006.fashionshop.databinding.ItemRowOrderHistoryBinding;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.OrderViewHolder> {
 
@@ -46,7 +48,10 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         OrderItem item = orderList.get(position);
         holder.binding.tvProductName.setText(item.getName());
         holder.binding.tvQuantity.setText("Số lượng: " + item.getAmount());
-        holder.binding.tvPrice.setText(item.getPrice() + " đ");
+
+        NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+        String formattedPrice = formatter.format(item.getPrice()) + " đ";
+        holder.binding.tvPrice.setText(formattedPrice);
 
         Glide.with(context).load(item.getImageUrl()).into(holder.binding.imgProduct);
 

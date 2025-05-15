@@ -17,9 +17,11 @@ import com.student22110006.fashionshop.data.model.order.OrderItem;
 import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.ItemCheckoutProductBinding;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProductAdapter.CheckoutProductViewHolder> {
@@ -57,9 +59,15 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
         double discount = orderItem.getDiscount();
         double originalPrice = price / (1 - (discount / 100.0));
 
-        holder.binding.tvPrice.setText(String.format("%.0f", price));
-        holder.binding.tvDiscount.setText(String.format("%.0f", originalPrice));
-        holder.binding.tvTotalOrder.setText(String.format("%.0f", price * orderItem.getAmount()));
+        NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+        String formattedPrice = formatter.format(price) + " đ";
+        holder.binding.tvPrice.setText(formattedPrice);
+
+        String formattedDiscount = formatter.format(originalPrice) + " đ";
+        holder.binding.tvDiscount.setText(formattedDiscount);
+
+        String formattedTotalOrder = formatter.format(price * orderItem.getAmount()) + " đ";
+        holder.binding.tvTotalOrder.setText(formattedTotalOrder);
 
         Glide.with(context)
                 .load(orderItem.getImageUrl())

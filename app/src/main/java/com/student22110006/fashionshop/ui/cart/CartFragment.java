@@ -27,8 +27,10 @@ import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.FragmentCartBinding;
 import com.student22110006.fashionshop.utils.CartManager;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class CartFragment extends Fragment {
 
@@ -107,7 +109,10 @@ public class CartFragment extends Fragment {
         for (OrderItem item : selected) {
             total += item.getAmount() * item.getPrice();
         }
-        binding.tvTotalPrice.setText(String.format("%.0f", total));
+
+        NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+        String formattedPrice = formatter.format(total) + " đ";
+        binding.tvTotalPrice.setText(formattedPrice);
     }
 
     @Override

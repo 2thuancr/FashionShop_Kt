@@ -25,7 +25,9 @@ import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.ItemProductBinding;
 import com.student22110006.fashionshop.utils.CartManager;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.ProductViewHolder> {
     private static final String TAG = "ListProductAdapter";
@@ -80,7 +82,11 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
         // Set giá trị cho các thành phần giao diện
         holder.binding.textProductName.setText(product.getName());
         // holder.binding.textProductDescription.setText(product.getDescription());
-        holder.binding.textProductPrice.setText(product.getPrice() + "đ");
+        double price = product.getPrice();
+
+        NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+        String formattedPrice = formatter.format(price) + " đ";
+        holder.binding.textProductPrice.setText(formattedPrice);
 
         Glide.with(holder.itemView.getContext())
                 .load(product.getImageUrl())

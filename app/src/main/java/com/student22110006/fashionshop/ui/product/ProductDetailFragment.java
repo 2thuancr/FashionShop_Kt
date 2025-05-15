@@ -26,6 +26,7 @@ import com.student22110006.fashionshop.adapter.ListProductAdapter;
 import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.data.repository.ProductRepository;
 import com.student22110006.fashionshop.databinding.FragmentProductDetailBinding;
+import com.student22110006.fashionshop.utils.CartManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,8 +156,19 @@ public class ProductDetailFragment extends Fragment {
     }
 
     private void setupListeners() {
-        binding.btnAddToCart.setOnClickListener(v -> Toast.makeText(getContext(), "Add to Cart clicked", Toast.LENGTH_SHORT).show());
-        binding.btnBuyNow.setOnClickListener(v -> Toast.makeText(getContext(), "Buy Now clicked", Toast.LENGTH_SHORT).show());
+        binding.btnAddToCart.setOnClickListener(v -> {
+            CartManager.getInstance().addProduct(product);
+            Toast.makeText(getContext(), "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+        });
+        binding.btnBuyNow.setOnClickListener(v -> {
+            CartManager.getInstance().addProduct(product);
+            Toast.makeText(getContext(), "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+
+            // Điều hướng đến CartFragment
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.navigation_cart);
+
+        });
     }
 
     private void setupSeeMore() {

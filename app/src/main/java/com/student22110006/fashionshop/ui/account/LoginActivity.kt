@@ -143,6 +143,9 @@ class LoginActivity : AppCompatActivity() {
 
                     // Nếu login không thành công (isSuccess = false), hiển thị thông báo
                     if (response.isSuccess) {
+                        // Log thông tin đăng nhập thành công
+                        Log.d("LoginSuccess", "User ${response} has logged in successfully")
+                        
                         // Lưu thông tin user vào SharedPreferences
                         val user = Gson().toJson(response.data)
 
@@ -151,9 +154,11 @@ class LoginActivity : AppCompatActivity() {
                         val editor = sharedPreferences.edit()
 
                         // Lưu email và password (hãy lưu mật khẩu an toàn nếu cần)
-                        editor.putString("customerId", response.data?.customerId?.toString())
+                        editor.putString("customerId", response.data?.customerId)
                         editor.putString("email", userName)
                         editor.putString("password", password)
+                        editor.putString("token", response.data?.token)
+                        editor.putString("user", user)
                         editor.putBoolean("isLoggedIn", true)
                         editor.apply()
 

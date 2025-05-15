@@ -34,7 +34,7 @@
                     android:background="@color/background_color_light"
                     android:textAlignment="textStart"
                     app:navigationIcon="@drawable/ic_reply"
-                    app:title="CHECKOUT"
+                    app:title="Chi tiết sản phẩm"
                     app:titleTextColor="@color/color_primary" />
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -74,7 +74,7 @@
                 android:id="@+id/tv_product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nike Sneakers"
+                android:text="Product name"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/color_primary"
