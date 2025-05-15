@@ -107,8 +107,8 @@ public class CheckoutFragment extends Fragment {
 
             // Lấy customer ID từ SharedPreferences
             SharedPreferences prefs = requireContext().getSharedPreferences("FashionShop", Context.MODE_PRIVATE);
-            int customerId = prefs.getInt("customerId", -1);
-            if (customerId == -1) {
+            String customerId = prefs.getString("customerId", "");
+            if (customerId == "") {
                 Toast.makeText(requireContext(), "Vui lòng đăng nhập để đặt hàng!", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -117,8 +117,8 @@ public class CheckoutFragment extends Fragment {
             order.setDeliveryAddress(address);
             order.setPaymentMethod(checkoutViewModel.getPaymentMethod().getValue());
             order.setItems(checkoutProductAdapter.getOrderItemList());
-            order.setCustomerId(customerId);
-            order.setBusinessTime(new Date());
+            order.setCustomerId(Integer.parseInt(customerId));
+            // order.setBusinessTime(new Date());
             order.setStatus(0); // Trạng thái đơn hàng (0: Đang chờ xử lý)
             order.setTotalPrice(totalPrice);
             order.setTotalDiscount(0); // Giả sử không có giảm giá
