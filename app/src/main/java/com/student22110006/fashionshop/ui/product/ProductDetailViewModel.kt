@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class ProductDetailViewModel(private val repository: ProductRepository) : ViewModel() {
 
     private val _product = MutableLiveData<Product?>()
-    val product: MutableLiveData<Product?> = _product
+    public val product: MutableLiveData<Product?> = _product
 
     private val _relatedProducts = MutableLiveData<List<Product>?>()
     val relatedProducts: MutableLiveData<List<Product>?> = _relatedProducts

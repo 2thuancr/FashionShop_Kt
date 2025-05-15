@@ -23,7 +23,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtProductName"
+            android:id="@+id/tv_product_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tên sản phẩm"
@@ -33,7 +33,7 @@
             android:ellipsize="end" />
 
         <TextView
-            android:id="@+id/txtQuantity"
+            android:id="@+id/tv_quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Số lượng: 1"
@@ -42,7 +42,7 @@
             android:layout_marginTop="4dp" />
 
         <TextView
-            android:id="@+id/txtPrice"
+            android:id="@+id/tv_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="71.000 đ"

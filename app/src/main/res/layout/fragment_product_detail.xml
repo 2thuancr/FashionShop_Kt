@@ -71,7 +71,7 @@
 
             <!-- Product name -->
             <TextView
-                android:id="@+id/txtProductName"
+                android:id="@+id/tv_product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nike Sneakers"
@@ -91,7 +91,7 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@id/txtProductName"
+                app:layout_constraintTop_toBottomOf="@id/tv_product_name"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <RatingBar
@@ -125,7 +125,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
-                    android:id="@+id/txtOldPrice"
+                    android:id="@+id/tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="900.000 đ"
@@ -154,7 +154,7 @@
 
             <!-- Description -->
             <TextView
-                android:id="@+id/txtDescription"
+                android:id="@+id/tv_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Mô tả sản phẩm chi tiết sẽ được hiển thị ở đây."
@@ -173,7 +173,7 @@
                 android:textColor="@color/color_primary"
                 android:textStyle="bold"
                 android:padding="8dp"
-                app:layout_constraintTop_toBottomOf="@id/txtDescription"
+                app:layout_constraintTop_toBottomOf="@id/tv_description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 

@@ -44,9 +44,9 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         OrderItem item = orderList.get(position);
-        holder.binding.txtProductName.setText(item.getName());
-        holder.binding.txtQuantity.setText("Số lượng: " + item.getAmount());
-        holder.binding.txtPrice.setText(item.getPrice() + " đ");
+        holder.binding.tvProductName.setText(item.getName());
+        holder.binding.tvQuantity.setText("Số lượng: " + item.getAmount());
+        holder.binding.tvPrice.setText(item.getPrice() + " đ");
 
         Glide.with(context).load(item.getImageUrl()).into(holder.binding.imgProduct);
 

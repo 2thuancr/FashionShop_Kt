@@ -1,5 +1,6 @@
 package com.student22110006.fashionshop.ui.product;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -36,6 +37,7 @@ public class ProductDetailFragment extends Fragment {
     private Product product;
     private FragmentProductDetailBinding binding;
     private boolean isDescriptionExpanded = false;
+    String[] sizes = {"XS", "S", "M", "L", "XL", "XXL"};
 
     public static ProductDetailFragment newInstance() {
         return new ProductDetailFragment();
@@ -52,6 +54,7 @@ public class ProductDetailFragment extends Fragment {
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -59,7 +62,26 @@ public class ProductDetailFragment extends Fragment {
         var repository = new ProductRepository();
         var factory = new ProductDetailViewModelFactory(repository);
         mViewModel = new ViewModelProvider(this, factory).get(ProductDetailViewModel.class);
-        
+
+        mViewModel.getProduct().observe(getViewLifecycleOwner(), product -> {
+            if (product != null) {
+                this.product = product;
+
+                var discountPrice = product.getPrice() - (product.getPrice() * product.getDiscount() / 100);
+
+                // Binding dữ liệu lên UI
+                binding.tvProductName.setText(product.getName());
+                binding.tvPrice.setText(String.valueOf(product.getPrice()));
+                binding.txtNewPrice.setText(String.valueOf(discountPrice));
+                binding.txtDiscount.setText(String.valueOf(product.getDiscount()) + "% Off");
+                binding.tvDescription.setText(product.getDescription());
+
+                // Gán thêm các thuộc tính khác nếu cần
+                // binding.imgProduct.setImage... (dùng Glide/Picasso nếu là ảnh)
+            }
+        });
+
+
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(v -> {
             NavController navController = NavHostFragment.findNavController(this);
@@ -71,19 +93,6 @@ public class ProductDetailFragment extends Fragment {
             productId = args.getInt("productId");
             mViewModel.loadProduct(productId);
         }
-    }
-
-    private void loadData() {
-        // Call Service lấy thông tin sản phẩm dựa vào productId
-
-        binding.txtProductName.setText("Nike Sneakers");
-        binding.txtNewPrice.setText("1,500");
-        binding.txtOldPrice.setText("2,999");
-        binding.txtDiscount.setText("50% Off");
-        binding.ratingBar.setRating(4.5f);
-        binding.txtDescription.setText("Perhaps the most iconic sneaker of all-time...");
-
-        String[] sizes = {"6 UK", "7 UK", "8 UK", "9 UK", "10 UK"};
 
         setupViewPager();
         setupSizeChips(sizes);
@@ -153,13 +162,13 @@ public class ProductDetailFragment extends Fragment {
         binding.btnSeeMore.setOnClickListener(v -> {
             if (isDescriptionExpanded) {
                 // Collapse
-                binding.txtDescription.setMaxLines(3);
-                binding.txtDescription.setEllipsize(TextUtils.TruncateAt.END);
+                binding.tvDescription.setMaxLines(3);
+                binding.tvDescription.setEllipsize(TextUtils.TruncateAt.END);
                 binding.btnSeeMore.setText("See More");
             } else {
                 // Expand
-                binding.txtDescription.setMaxLines(Integer.MAX_VALUE);
-                binding.txtDescription.setEllipsize(null);
+                binding.tvDescription.setMaxLines(Integer.MAX_VALUE);
+                binding.tvDescription.setEllipsize(null);
                 binding.btnSeeMore.setText("See Less");
             }
             isDescriptionExpanded = !isDescriptionExpanded;
