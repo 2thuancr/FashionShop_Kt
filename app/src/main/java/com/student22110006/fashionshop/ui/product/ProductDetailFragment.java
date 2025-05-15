@@ -77,7 +77,14 @@ public class ProductDetailFragment extends Fragment {
                 binding.tvDescription.setText(product.getDescription());
 
                 // Gán thêm các thuộc tính khác nếu cần
-                // binding.imgProduct.setImage... (dùng Glide/Picasso nếu là ảnh)
+                setupViewPager(product);
+                setupSizeChips(sizes);
+                setupSeeMore();
+
+                List<Product> similarProducts = getSimilarProducts(productId);
+                setupSimilarProducts(similarProducts);
+
+                setupListeners();
             }
         });
 
@@ -93,15 +100,6 @@ public class ProductDetailFragment extends Fragment {
             productId = args.getInt("productId");
             mViewModel.loadProduct(productId);
         }
-
-        setupViewPager();
-        setupSizeChips(sizes);
-        setupSeeMore();
-
-        List<Product> similarProducts = getSimilarProducts(productId);
-        setupSimilarProducts(similarProducts);
-
-        setupListeners();
     }
 
     private List<Product> getSimilarProducts(int productId) {
@@ -115,12 +113,15 @@ public class ProductDetailFragment extends Fragment {
         return similarProducts;
     }
 
-    private void setupViewPager() {
+    private void setupViewPager(Product product) {
         List<String> imageUrls = new ArrayList<>();
-        imageUrls.add("https://product.hstatic.net/1000284478/product/q0a_umv450077_1_3969888417cc41d1a03c9df648ecf376_large.jpg");
-        imageUrls.add("https://product.hstatic.net/1000284478/product/q0a_umv450077_2_291484de3b9040568f8c2ec80168a035_large.jpg");
-        imageUrls.add("https://product.hstatic.net/1000284478/product/q0a_umv450078_1_e9eb85bccc0a462e9e9b11cd32539ce1_large.jpg");
-        imageUrls.add("https://product.hstatic.net/1000284478/product/q0a_umv450078_2_6ca6cee9054b4a5b9ef1dd6860fef351_large.jpg");
+        if (product != null) {
+            imageUrls.add(product.getImageUrl());
+        }
+        imageUrls.add("https://file.hstatic.net/1000284478/file/25_1920x700_a22b5baceb134e96904515390aa25607.jpg");
+        imageUrls.add("https://file.hstatic.net/1000284478/file/25_1920x700_3.jpg");
+        imageUrls.add("https://file.hstatic.net/1000284478/file/desktop_8.jpg");
+        imageUrls.add("https://cdn.shopify.com/s/files/1/0647/0451/2265/files/Size_Chart_Women_cup_sizes_in_cm_europe_uk_us_Notches_Sewing_Patterns_1024x1024.png");
 
         ImageSliderAdapter adapter = new ImageSliderAdapter(imageUrls);
         binding.viewPagerImages.setAdapter(adapter);
