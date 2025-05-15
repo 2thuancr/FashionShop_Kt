@@ -40,9 +40,10 @@ public class CheckoutFragment extends Fragment {
     private FragmentCheckoutBinding binding;
     private CheckoutViewModel checkoutViewModel;
     private double totalPrice = 0;
+    private int orderId = -1; // -1 nghĩa là chưa tạo order
 
     private final String[] addresses = {
-            "70 D1, Phường Hiệp Phú, Tp. Thủ Đức, HCM\nContact: +84-12345AB",
+            "70 D1, Phường Hiệp Phú, Tp. Thủ Đức, HCM - Contact: +84-12345AB",
     };
 
     @Nullable
@@ -105,15 +106,21 @@ public class CheckoutFragment extends Fragment {
                 return;
             }
 
+            if (orderId == -1) {
+                Toast.makeText(requireContext(), "Đơn hàng chưa được tạo, vui lòng thử lại.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             // Lấy customer ID từ SharedPreferences
             SharedPreferences prefs = requireContext().getSharedPreferences("FashionShop", Context.MODE_PRIVATE);
             String customerId = prefs.getString("customerId", "");
-            if (customerId == "") {
+            if (customerId.isEmpty()) {
                 Toast.makeText(requireContext(), "Vui lòng đăng nhập để đặt hàng!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             Order order = new Order();
+            order.setId(orderId);
             order.setDeliveryAddress(address);
             order.setPaymentMethod(checkoutViewModel.getPaymentMethod().getValue());
             order.setItems(checkoutProductAdapter.getOrderItemList());
@@ -136,6 +143,21 @@ public class CheckoutFragment extends Fragment {
             NavController navController = NavHostFragment.findNavController(this);
             navController.popBackStack();
         });
+
+        checkoutViewModel.getOrderResult().observe(getViewLifecycleOwner(), result -> {
+            if (result.isSuccess()) {
+                Toast.makeText(requireContext(), "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
+                // NavHostFragment.findNavController(this).navigate(R.id.action_checkout_to_order_success);
+            } else {
+                Toast.makeText(requireContext(), "Lỗi khi đặt hàng: " + result.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        checkoutViewModel.getBillId().observe(getViewLifecycleOwner(), id -> {
+            orderId = id;
+        });
+
+        createOrderOnEnter();
     }
 
     @Override
@@ -167,6 +189,30 @@ public class CheckoutFragment extends Fragment {
             builder.setNegativeButton("Cancel", null);
             builder.show();
         });
+    }
+
+    private void createOrderOnEnter() {
+        // Tạo Order tạm thời, ví dụ chỉ có customerId và trạng thái chờ xử lý
+        SharedPreferences prefs = requireContext().getSharedPreferences("FashionShop", Context.MODE_PRIVATE);
+        String customerId = prefs.getString("customerId", "");
+        if (customerId.isEmpty()) {
+            Toast.makeText(requireContext(), "Vui lòng đăng nhập để đặt hàng!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String address = binding.tvAddress.getText().toString().trim();
+
+        Order order = new Order();
+        order.setDeliveryAddress(address);
+        order.setPaymentMethod(checkoutViewModel.getPaymentMethod().getValue());
+        order.setItems(checkoutProductAdapter.getOrderItemList());
+        order.setCustomerId(Integer.parseInt(customerId));
+        // order.setBusinessTime(new Date());
+        order.setStatus(0); // Trạng thái đơn hàng (0: Đang chờ xử lý)
+        order.setTotalPrice(totalPrice);
+        order.setTotalDiscount(0); // Giả sử không có giảm giá
+
+        checkoutViewModel.createOrder(order);
     }
 
 }

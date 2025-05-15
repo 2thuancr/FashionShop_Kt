@@ -24,7 +24,7 @@
 
             <!-- Shopping List Header -->
             <TextView
-                android:text="Shopping List"
+                android:text="Giỏ hàng"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/color_primary"
@@ -36,7 +36,7 @@
                 android:id="@+id/checkbox_select_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select All"
+                android:text="Chọn tất cả"
                 android:textColor="@color/color_text_primary"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -66,7 +66,7 @@
             android:id="@+id/btnPlaceOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Place Order"
+            android:text="Đặt hàng"
             android:textAllCaps="false"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/color_primary"
