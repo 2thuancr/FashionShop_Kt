@@ -102,8 +102,12 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
             double discount = product.getDiscount();
             double originalPrice = price / (1 - (discount / 100.0));
 
-            binding.tvPrice.setText(String.format("%.0f", price));
-            binding.tvDiscount.setText(String.format("~%.0f~", originalPrice));
+            NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+            String formattedPrice = formatter.format(price) + " đ";
+            binding.tvPrice.setText(formattedPrice);
+
+            String formattedDiscount = formatter.format(originalPrice) + " đ";
+            binding.tvDiscount.setText(formattedDiscount);
 
             Glide.with(context)
                     .load(product.getImageUrl())

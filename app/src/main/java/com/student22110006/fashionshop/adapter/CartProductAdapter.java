@@ -19,9 +19,11 @@ import com.student22110006.fashionshop.data.model.product.Product;
 import com.student22110006.fashionshop.databinding.ItemCartProductBinding;
 import com.student22110006.fashionshop.utils.CartManager;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.CartViewHolder> {
@@ -184,19 +186,25 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
             this.binding = binding;
         }
 
+        @SuppressLint("SetTextI18n")
         public void bind(OrderItem item) {
             binding.tvProductTitle.setText(item.getName());
+            binding.tvQuantity.setText(String.valueOf(item.getAmount()));
 
             double price = item.getPrice(); // giá sau khi giảm
             double discount = item.getDiscount(); // phần trăm (VD: 20.0 là 20%)
             double originalPrice = price / (1 - (discount / 100.0));
-
-            binding.tvPrice.setText(String.format("%.0f", price));
-            binding.tvDiscount.setText(String.format("%.0f", originalPrice));
-            binding.tvQuantity.setText(String.valueOf(item.getAmount()));
-
             double total = price * item.getAmount();
-            binding.tvTotalOrder.setText(String.format("Tổng: %.2f", total));
+
+            NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+            String formattedPrice = formatter.format(price) + " đ";
+            binding.tvPrice.setText(formattedPrice);
+
+            String formattedDiscount = formatter.format(originalPrice) + " đ";
+            binding.tvDiscount.setText(formattedDiscount);
+            
+            String formattedTotalOrder = formatter.format(total) + " đ";
+            binding.tvTotalOrder.setText("Tổng: " + formattedTotalOrder);
 
             Glide.with(context)
                     .load(item.getImageUrl())

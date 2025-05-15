@@ -1,10 +1,13 @@
 package com.student22110006.fashionshop.data.remote
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+
 
 object ApiClient {
 
@@ -18,6 +21,10 @@ object ApiClient {
         level = HttpLoggingInterceptor.Level.BODY // Log toàn bộ request và response
     }
 
+    var gson: Gson = GsonBuilder()
+        .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS") // hoặc "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" nếu có ký tự Z ở cuối
+        .create()
+
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS) // Thời gian kết nối tối đa
         .readTimeout(30, TimeUnit.SECONDS)    // Thời gian đọc response tối đa
@@ -29,7 +36,7 @@ object ApiClient {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient) // Cung cấp OkHttpClient vào Retrofit
-            .addConverterFactory(GsonConverterFactory.create()) // Chuyển đổi JSON thành đối tượng
+            .addConverterFactory(GsonConverterFactory.create(gson)) // Chuyển đổi JSON thành đối tượng
             .build()
     }
 

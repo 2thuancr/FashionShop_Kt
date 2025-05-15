@@ -15,6 +15,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +31,11 @@ import com.student22110006.fashionshop.data.model.order.Order;
 import com.student22110006.fashionshop.data.model.order.OrderItem;
 import com.student22110006.fashionshop.databinding.FragmentCheckoutBinding;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class CheckoutFragment extends Fragment {
 
@@ -79,7 +82,9 @@ public class CheckoutFragment extends Fragment {
                 }
 
                 totalPrice = orderItemList.stream().mapToDouble(item -> item.getAmount() * item.getPrice()).sum();
-                binding.tvTotalPrice.setText(String.format("%.0f đ", totalPrice));
+                NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+                String formattedPrice = formatter.format(totalPrice) + " đ";
+                binding.tvTotalPrice.setText(formattedPrice);
             }
         }
 
@@ -145,6 +150,7 @@ public class CheckoutFragment extends Fragment {
         });
 
         checkoutViewModel.getOrderResult().observe(getViewLifecycleOwner(), result -> {
+            Log.d("CheckoutFragment", "Order result: " + result);
             if (result.isSuccess()) {
                 Toast.makeText(requireContext(), "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
                 // NavHostFragment.findNavController(this).navigate(R.id.action_checkout_to_order_success);
