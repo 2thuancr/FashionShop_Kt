@@ -108,6 +108,26 @@ public class CartManager {
         saveCartToPrefs();
     }
 
+    public void removeProductById(int productId) {
+        List<OrderItem> currentItems = new ArrayList<>(cartItems.getValue());
+
+        Iterator<OrderItem> iterator = currentItems.iterator();
+        while (iterator.hasNext()) {
+            OrderItem item = iterator.next();
+            if (item.getProductId() == productId) {
+                if (item.getAmount() > 1) {
+                    item.setAmount(item.getAmount() - 1);
+                } else {
+                    iterator.remove();
+                }
+                break;
+            }
+        }
+
+        cartItems.setValue(currentItems);
+        saveCartToPrefs();
+    }
+
     public void clearCart() {
         cartItems.setValue(new ArrayList<>());
         saveCartToPrefs();

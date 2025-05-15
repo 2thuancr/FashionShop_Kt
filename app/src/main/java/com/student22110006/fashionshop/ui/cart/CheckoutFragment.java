@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -30,6 +31,7 @@ import com.student22110006.fashionshop.adapter.CheckoutProductAdapter;
 import com.student22110006.fashionshop.data.model.order.Order;
 import com.student22110006.fashionshop.data.model.order.OrderItem;
 import com.student22110006.fashionshop.databinding.FragmentCheckoutBinding;
+import com.student22110006.fashionshop.utils.CartManager;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -153,7 +155,17 @@ public class CheckoutFragment extends Fragment {
             Log.d("CheckoutFragment", "Order result: " + result);
             if (result.isSuccess()) {
                 Toast.makeText(requireContext(), "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
-                // NavHostFragment.findNavController(this).navigate(R.id.action_checkout_to_order_success);
+
+                var orderedProducts = checkoutProductAdapter.getOrderItemList();
+                for (OrderItem item : orderedProducts) {
+                    Log.d("CheckoutFragment", "Remove out of cart the Ordered product: " + item.getProductId());
+                    // Remove product đã đặt hàng khỏi cart
+                    CartManager.getInstance().removeProductById(item.getProductId());
+                }
+
+                // Go to CartFragment
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                navController.navigate(R.id.navigation_cart);
             } else {
                 Toast.makeText(requireContext(), "Lỗi khi đặt hàng: " + result.getMessage(), Toast.LENGTH_LONG).show();
             }
