@@ -59,6 +59,7 @@ class OtpActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val request = AccountVerifyOtpRequest(otp, email)
+                Log.d("VerifyOtpRequest", Gson().toJson(request))
                 val response = accountRepository.verifyOtp(request)
 
                 withContext(Dispatchers.Main) {

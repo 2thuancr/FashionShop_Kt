@@ -59,6 +59,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val request = AccountGenerateOtpRequest(email)
+                Log.d("GenerateOtpRequest", Gson().toJson(request))
                 val response = accountRepository.generateOtp(request)
 
                 withContext(Dispatchers.Main) {
